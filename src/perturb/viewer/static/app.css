@@ -1,0 +1,60 @@
+/* Custom styles layered on top of Tailwind. */
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a2a31; border-radius: 6px; border: 2px solid #09090b; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a44; }
+
+/* Diff highlight chips inside passage text */
+.mark-removed {
+  background: rgba(244, 63, 94, 0.20);
+  color: #fda4af;
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  font-weight: 500;
+}
+.mark-added {
+  background: rgba(16, 185, 129, 0.20);
+  color: #6ee7b7;
+  padding: 1px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-weight: 500;
+}
+
+/* Pulse for the live dot */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-on { animation: pulse-soft 1.6s ease-in-out infinite; }
+
+/* Pre wrapping for JSON/raw response blocks */
+pre.wrap { white-space: pre-wrap; word-break: break-word; }
+
+/* Subtle row hover */
+.record-row { transition: background-color 80ms ease; }
+.record-row:hover { background-color: rgba(255,255,255,0.025); }
+.record-row.active { background-color: rgba(16, 185, 129, 0.10); border-left-color: #10b981 !important; }
+
+/* Tab button base */
+.tab-btn {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.825rem;
+  color: #a1a1aa;
+  border-bottom: 2px solid transparent;
+  transition: color 80ms ease, border-color 80ms ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: #e4e4e7; }
+.tab-btn.active { color: #6ee7b7; border-bottom-color: #10b981; }
+.tab-btn .count {
+  font-size: 0.7rem;
+  background: #1f1f24;
+  color: #a1a1aa;
+  padding: 0px 6px;
+  border-radius: 999px;
+  margin-left: 6px;
+}

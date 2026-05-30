@@ -1,0 +1,17 @@
+.env
+.env copy.example
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+.idea/
+.vscode/
+data/raw/
+data/runs/
+data/traces/
+data/cache/
+reports/*.md
+reports/*.csv
+*.egg-info/
+build/
+dist/
