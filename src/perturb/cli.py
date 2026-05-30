@@ -202,6 +202,7 @@ def _step_command(step_name: str):
         offset: int = typer.Option(0, "--offset", help="(filter) skip the first M records before taking. Combine with --take for non-overlapping slices."),
         paraphrase: bool = typer.Option(True, "--paraphrase/--no-paraphrase", help="(mentions) run the LLM paraphrase pass."),
         types: Optional[str] = typer.Option(None, "--types", help="(perturb) comma-separated allowed perturbation types."),
+        resume: bool = typer.Option(False, "--resume", help="If output already exists, skip records by core_id already in it and append the rest. Use to recover from a crashed run."),
     ):
         run = open_run(run_id)
         options: dict = {
@@ -226,6 +227,7 @@ def _step_command(step_name: str):
             source=effective_source,
             model=model,
             options=options,
+            resume=resume,
         )
         console.print(f"[green]ok[/green] step={step_name} → {out_path}")
         _print_status_counter(statuses)
@@ -266,6 +268,7 @@ def _run_step_with_progress(
     source: Path | None,
     model: str | None,
     options: dict,
+    resume: bool = False,
 ):
     """Run a step under a live Progress bar. Returns (out_path, statuses)."""
     effective_source = source if source is not None else run.input_path_for(step_name)
@@ -299,6 +302,7 @@ def _run_step_with_progress(
             model=model,
             options=options,
             progress_cb=cb,
+            resume=resume,
         )
 
 
@@ -325,6 +329,7 @@ def pipeline(
     offset: int = typer.Option(0, "--offset", help="(filter, exp mode) skip the first M records before taking."),
     types: Optional[str] = typer.Option(None, "--types"),
     stop_after: Optional[str] = typer.Option(None, "--stop-after", help=f"Stop after this step. One of: {','.join(STEP_ORDER)}."),
+    resume: bool = typer.Option(False, "--resume", help="For each step, if its output already exists, skip records already there and append the rest. Use to recover from a crashed pipeline."),
 ):
     """Run the full pipeline (filter → perturb → validate) on one run id.
 
@@ -342,7 +347,7 @@ def pipeline(
         }
         step_source = source if step_name == "filter" else last_out
         out_path, statuses = _run_step_with_progress(
-            run=run, step_name=step_name, source=step_source, model=model, options=opts
+            run=run, step_name=step_name, source=step_source, model=model, options=opts, resume=resume
         )
         console.print(f"[bold green]✓[/bold green] {step_name} → {out_path}")
         _print_status_counter(statuses)

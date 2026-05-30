@@ -29,6 +29,7 @@ def run_step(
     model: str | None,
     options: dict,
     progress_cb: ProgressCallback | None = None,
+    resume: bool = False,
 ) -> tuple[Path, Counter]:
     """Execute a single step. Returns (output_path, status_counter)."""
     step = _resolve_step(step_name)
@@ -54,10 +55,25 @@ def run_step(
 
     out_path = run.step_path(step_name)
     statuses: Counter = Counter()
-    n = write_jsonl(
-        out_path,
-        _collect_with_status(step.run_stream(src_records, ctx), statuses, step_name, progress_cb),
-    )
+
+    # Resume: prepend existing records to output; skip their core_ids in input.
+    existing_records: list[dict] = []
+    if resume and out_path.exists():
+        existing_records = list(read_jsonl(out_path))
+        existing_cids = {r.get("core_id") for r in existing_records if r.get("core_id")}
+        if existing_cids:
+            src_records = (
+                r for r in src_records if r.get("core_id") not in existing_cids  # type: ignore[union-attr]
+            )
+
+    def merged():
+        for r in existing_records:
+            yield r
+        yield from _collect_with_status(
+            step.run_stream(src_records, ctx), statuses, step_name, progress_cb
+        )
+
+    n = write_jsonl(out_path, merged())
     step.finalize(ctx)
 
     manifest_step = {
@@ -65,6 +81,7 @@ def run_step(
         "output": str(out_path),
         "records_in": _count(source),
         "records_out": n,
+        "resumed_existing": len(existing_records),
         "model": model,
         "options": options,
         "status_counts": dict(statuses),

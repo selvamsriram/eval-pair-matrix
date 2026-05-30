@@ -140,7 +140,20 @@ class AzureOpenAIProvider:
     def _post(self, body: dict) -> dict:
         headers = {"api-key": self.api_key, "Content-Type": "application/json"}
         resp = self._client.post(self.url, json=body, headers=headers)
-        resp.raise_for_status()
+        if resp.status_code >= 400:
+            # Capture the body BEFORE raising — httpx's HTTPStatusError discards it,
+            # which makes debugging Azure's content-filter / quota 400s impossible.
+            try:
+                err_body = resp.json()
+            except Exception:  # noqa: BLE001
+                err_body = {"text": resp.text[:500]}
+            err = (err_body or {}).get("error") or {}
+            code = err.get("code") or str(resp.status_code)
+            msg = err.get("message") or str(err_body)[:400]
+            raise ProviderIncomplete(
+                f"HTTP {resp.status_code} {code}: {msg}",
+                reason=f"http_{resp.status_code}",
+            )
         return resp.json()
 
 
