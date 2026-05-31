@@ -1,6 +1,7 @@
 """Step runner. Wires a Step + provider + trace + run dir together over a JSONL stream."""
 from __future__ import annotations
 
+import time
 from collections import Counter
 from pathlib import Path
 from typing import Callable, Iterable
@@ -8,7 +9,7 @@ from typing import Callable, Iterable
 from . import providers
 from .io import read_jsonl, write_jsonl
 from .run import Run
-from .schemas import CoreRecord
+from .schemas import CoreRecord, StepProvenance
 from .steps import STEPS, Step, StepContext
 from .trace import TraceWriter
 
@@ -66,11 +67,21 @@ def run_step(
                 r for r in src_records if r.get("core_id") not in existing_cids  # type: ignore[union-attr]
             )
 
+    # Build the per-step stamp once. Filter (no provider) gets no stamp.
+    stamp: StepProvenance | None = None
+    if provider is not None:
+        stamp = StepProvenance(
+            provider=provider.name,
+            model=getattr(provider, "model", ""),
+            run_id=run.run_id,
+            completed_at=int(time.time()),
+        )
+
     def merged():
         for r in existing_records:
             yield r
         yield from _collect_with_status(
-            step.run_stream(src_records, ctx), statuses, step_name, progress_cb
+            step.run_stream(src_records, ctx), statuses, step_name, progress_cb, stamp
         )
 
     n = write_jsonl(out_path, merged())
@@ -82,7 +93,8 @@ def run_step(
         "records_in": _count(source),
         "records_out": n,
         "resumed_existing": len(existing_records),
-        "model": model,
+        "provider": provider.name if provider else None,
+        "model_id": getattr(provider, "model", None) if provider else None,
         "options": options,
         "status_counts": dict(statuses),
     }
@@ -95,10 +107,14 @@ def _collect_with_status(
     statuses: Counter,
     step_name: str,
     progress_cb: ProgressCallback | None = None,
+    stamp: StepProvenance | None = None,
 ):
     for rec in stream:
         if isinstance(rec, CoreRecord):
             statuses[rec.pipeline_state.get(step_name, "unset")] += 1
+            # Auto-stamp who/what produced this step's contribution (last-writer-wins).
+            if stamp is not None:
+                rec.generators[step_name] = stamp
             payload = rec.model_dump(mode="json")
         else:
             payload = rec

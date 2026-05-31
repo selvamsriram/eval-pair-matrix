@@ -8,7 +8,6 @@
     "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260530-120201-100q-first/01_filter.jsonl",
     "records_in": 300,
     "records_out": 100,
-    "model": "azure-gpt",
     "options": {
       "n": 50,
       "seed": 17,
@@ -20,14 +19,15 @@
     },
     "status_counts": {
       "ok": 100
-    }
+    },
+    "provider": "azure-gpt",
+    "model_id": "gpt-5.4"
   },
   "step_perturb": {
     "input": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260530-120201-100q-first/01_filter.jsonl",
     "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260530-120201-100q-first/02_perturb.jsonl",
     "records_in": 100,
     "records_out": 100,
-    "model": "azure-gpt",
     "options": {
       "n": 50,
       "seed": 17,
@@ -45,7 +45,9 @@
       "failed:leakage:[6, 8, 10]": 1,
       "failed:llm_content_filter": 1,
       "failed:leakage:[4]": 1
-    }
+    },
+    "provider": "azure-gpt",
+    "model_id": "gpt-5.4"
   },
   "step_validate": {
     "input": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260530-120201-100q-first/02_perturb.jsonl",
@@ -53,7 +55,6 @@
     "records_in": 100,
     "records_out": 100,
     "resumed_existing": 91,
-    "model": "azure-gpt",
     "options": {
       "limit": null,
       "n": 200,
@@ -68,6 +69,8 @@
       "failed:llm_http_400": 1,
       "ok": 3,
       "failed:validation": 5
-    }
+    },
+    "provider": "azure-gpt",
+    "model_id": "gpt-5.4"
   }
 }

@@ -233,14 +233,27 @@ perturb exp build exp-300 --source data/raw/garage_train.jsonl --n 300
 # 2. open the viewer in a second terminal
 perturb viewer    # http://127.0.0.1:7437
 
-# 3. run the first 100-record slice
-RUN=$(perturb runs new --name 100q-first | grep run_id | awk '{print $2}')
+# 3. run a 100-record slice with a chosen perturber
+RUN=$(perturb runs new --name 100q-gemini | grep run_id | awk '{print $2}')
 perturb pipeline --run "$RUN" --source data/exp/exp-300.jsonl \
-  --take 100 --offset 0 --model azure-gpt
+  --take 100 --offset 200 --model gemini
 
 # 4. inspect
 perturb stats "$RUN" --detailed
 perturb inspect "$RUN" --step validate --index 0
+
+# 5. if anything crashes mid-run, resume — skips records already in the output
+perturb pipeline --run "$RUN" --source data/exp/exp-300.jsonl \
+  --take 100 --offset 200 --model gemini --resume
+```
+
+**Non-colliding cross-model slicing** (what we did to produce the committed 300):
+
+```bash
+# slice [0:100]   with GPT-5.4
+# slice [100:200] with Grok 4.3
+# slice [200:300] with Gemini 3.5 Flash
+# each run is independent; records carry generators[step] provenance.
 ```
 
 ---
@@ -304,7 +317,25 @@ reports/                                       (any analysis output you generate
 
 `.gitignore` excludes `data/raw/`, `data/runs/`, `data/traces/`, `data/cache/`,
 and `reports/*.md|csv`. **`data/exp/` is intentionally tracked** so your frozen
-curated set is reproducible across machines.
+curated set is reproducible across machines. Specific completed experimental
+runs are `git add -f`'d when worth preserving (see Production datasets below).
+
+---
+
+## Production datasets (committed)
+
+Three perturber models over disjoint slices of `exp-300`, producing the full
+300-record paired benchmark. Records carry `generators[step]` so they merge
+cleanly into one analysis.
+
+| Slice | Perturber | Run id | Validation pass | Notes |
+|---|---|---|---|---|
+| `[0:100]` | GPT-5.4 (Azure OpenAI Responses) | `20260530-120201-100q-first` | **31/100** | First production run. Backfilled with `generators` field. Includes 1 `http_400` (Azure content_filter on political prompt). |
+| `[100:200]` | Grok 4.3 (Azure AI Foundry) | `20260530-142314-100q-grok` | **57/100** | Cleaner contextual-anchor scrubbing than GPT. |
+| `[200:300]` | Gemini 3.5 Flash HIGH (Vertex Express) | `20260530-162330-100q-gemini` | **92/100** | Best quality across all 5 gates. Thinking=HIGH, safety=OFF, 32K token floor. |
+
+The smoke runs that informed each provider's tuning are also committed for
+audit: `20260530-140815-10q-grok`, `20260530-161345-10q-gemini-high`.
 
 ---
 
@@ -319,7 +350,12 @@ progressively:
 | `perturb` | `atomic_claim_original/perturbed`, `original_value`, `perturbed_value`, `perturbation_type/subtype`, `plausibility`, `deducibility_note`, `sent_passage_ids`, `doc_modifications`, `backstop_modified_passage_ids`, `modified_passage_ids`, `all_grounding_perturbed` |
 | `validate` | `validation` (5 booleans + plausibility + `rejection_reasons`) |
 
-Every step also writes its name into `pipeline_state[step]`.
+Every step also writes its name into `pipeline_state[step]` and (for LLM steps)
+auto-stamps `generators[step_name]` with `StepProvenance(provider, model,
+run_id, completed_at)`. Last-writer-wins on re-runs / cross-model overlap;
+full per-call history lives in `data/traces/<run_id>/<step>.jsonl`. The
+`generators` dict is what lets you mix records from different perturber runs
+in one analysis without joining manifests.
 
 ---
 
@@ -329,13 +365,18 @@ Every step also writes its name into `pipeline_state[step]`.
 Each adapter implements `LLMProvider.complete_json` returning a parsed JSON
 object. Built-in:
 
-| name | code | env vars |
-|---|---|---|
-| `azure-gpt` | [azure_openai.py](src/perturb/providers/azure_openai.py) | `AZURE_GPT_ENDPOINT`, `AZURE_GPT_API_KEY`, `AZURE_GPT_API_VERSION`, `AZURE_GPT_MODEL` |
-| `anthropic` | [anthropic.py](src/perturb/providers/anthropic.py) | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` |
+| name | code | wire shape | env vars |
+|---|---|---|---|
+| `azure-gpt` | [azure_openai.py](src/perturb/providers/azure_openai.py) | Azure OpenAI Responses API; 4xx body captured, max_output_tokens retry once (cap 32K) | `AZURE_GPT_ENDPOINT`, `AZURE_GPT_API_KEY`, `AZURE_GPT_API_VERSION`, `AZURE_GPT_MODEL` |
+| `grok` | [grok.py](src/perturb/providers/grok.py) | Azure AI Foundry chat completions; reasoning_effort=medium, 32K floor, single-shot on length, 600s timeout | `AZURE_GROK_ENDPOINT`, `AZURE_GROK_API_KEY`, `AZURE_GROK_MODEL` |
+| `gemini` | [gemini.py](src/perturb/providers/gemini.py) | google-genai SDK (vertex_express OR vertex full ADC); ThinkingConfig=HIGH, safety_settings=OFF, 32K floor | `GOOGLE_CLOUD_API_KEY` *or* `GEMINI_API_KEY` (Vertex Express) *or* `GOOGLE_CLOUD_PROJECT` (Vertex full); `GEMINI_MODEL` |
+| `kimi` | [kimi.py](src/perturb/providers/kimi.py) | Azure AI Foundry chat completions; reasoning_effort=medium, 32K floor, single-shot | `AZURE_KIMI_ENDPOINT`, `AZURE_KIMI_API_KEY`, `AZURE_KIMI_MODEL` |
+| `anthropic` | [anthropic.py](src/perturb/providers/anthropic.py) | Anthropic Messages API | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` |
 
-The `azure-gpt` adapter handles both bare endpoints and pre-built
-`/openai/responses?...` URLs in `AZURE_GPT_ENDPOINT`.
+All providers share a `ProviderIncomplete(reason=...)` exception class so steps
+emit precise `failed:llm_<reason>` labels (`http_400`, `content_filter`,
+`max_output_tokens`, `unparseable`, `safety`, `sdk_error`, etc.). The `azure-gpt`
+adapter accepts both bare endpoints and pre-built `/openai/responses?...` URLs.
 
 Add a new provider in three lines:
 
@@ -399,10 +440,12 @@ entry, expandable rewritten text) · **Validation** (5 gates + reasons) ·
 - **Validator sees only modified passages.** It can't catch a passage the
   perturber *missed* sending. The deterministic backstop covers literal
   leakage, not paraphrased mentions.
-- **No generator track yet.** Phase 2 of the proposal
-  ([PROPOSAL.md](PROPOSAL.md)) defines closed-book + RAG-original +
-  RAG-perturbed generation modes; not implemented. Per-record
-  `validation.passes` is the natural segmenter for downstream analysis.
+- **No generator / judge tracks yet.** Phase 2 work is planned: two new steps
+  (`generate` and `judge`) extending `STEP_ORDER`, with provider matrix
+  dispatch driven by `--generators` / `--judges` flag lists. See the
+  schemas planned in [PROPOSAL.md](PROPOSAL.md) §9–13. Same trace + viewer
+  infrastructure carries over without changes (`TraceWriter` is step-name
+  agnostic; new step traces auto-appear under per-record "Traces" tab).
 
 ---
 
@@ -418,11 +461,11 @@ perturb exp ls / show <name>
 perturb runs new --name <label>                # mint run id
 perturb runs ls / show <id>
 
-# pipeline
-perturb pipeline --run $RUN --source ... --model azure-gpt [--take N --offset M]
-perturb filter   --run $RUN --source ...
-perturb perturb  --run $RUN --model azure-gpt [--types ...]
-perturb validate --run $RUN --model azure-gpt
+# pipeline (any provider: azure-gpt | grok | gemini | kimi | anthropic)
+perturb pipeline --run $RUN --source ... --model <provider> [--take N --offset M] [--resume]
+perturb filter   --run $RUN --source ... [--take N --offset M]
+perturb perturb  --run $RUN --model <provider> [--types ...] [--resume]
+perturb validate --run $RUN --model <provider> [--resume]
 
 # inspect
 perturb stats    $RUN [--detailed]

@@ -69,6 +69,19 @@ class DocModification(BaseModel):
     skip_reason: str | None = None
 
 
+class StepProvenance(BaseModel):
+    """Who/when produced this step's output for a given record.
+
+    Stamped automatically by the runner. Last-writer-wins on re-runs / cross-model
+    overlap (e.g. perturb with GPT-5, then re-validate the same records with Kimi
+    via --resume) — full history remains in data/traces/<run_id>/<step>.jsonl.
+    """
+    provider: str           # registry key, e.g. "azure-gpt" | "kimi" | "anthropic"
+    model: str              # exact model id, e.g. "gpt-5.4" | "kimi-k2.6"
+    run_id: str
+    completed_at: int       # epoch seconds
+
+
 class Validation(BaseModel):
     type_valid: bool | None = None
     answer_causal: bool | None = None
@@ -142,3 +155,7 @@ class CoreRecord(BaseModel):
 
     # Step provenance: name -> "ok" | "skipped:<reason>" | "failed:<reason>"
     pipeline_state: dict[str, str] = Field(default_factory=dict)
+
+    # Per-step model attribution: step_name -> StepProvenance. Auto-stamped by the
+    # runner for any step that used an LLM. Filter has no entry (deterministic).
+    generators: dict[str, StepProvenance] = Field(default_factory=dict)
