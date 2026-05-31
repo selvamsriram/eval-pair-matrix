@@ -27,7 +27,7 @@ from rich.table import Table
 
 from . import providers
 from .config import PATHS
-from .exp import build_exp, exp_path, list_exp
+from .exp import build_exp, combine_exp, exp_path, list_exp
 from .fetch import fetch_garage
 from .io import read_jsonl
 from .run import STEP_ORDER, list_runs, new_run, open_run
@@ -105,6 +105,43 @@ def exp_ls_cmd():
             _ts(m.get("created_at")),
         )
     console.print(t)
+
+
+@exp_app.command("combine")
+def exp_combine_cmd(
+    name: str = typer.Argument(..., help="Output dataset name, e.g. 'exp-300-perturbed'."),
+    sources: list[Path] = typer.Option(
+        ..., "--from", "-f", help="Source JSONL paths (CoreRecord shape). Repeat for each source."
+    ),
+    order: str = typer.Option(
+        "round-robin", "--order",
+        help="round-robin (interleave across sources) | sequential (concat) | shuffle (seeded random).",
+    ),
+    seed: int = typer.Option(17, "--seed", help="Seed used by --order shuffle."),
+    overwrite: bool = typer.Option(False, "--overwrite", help="Replace existing dataset of the same name."),
+):
+    """Combine multiple CoreRecord JSONLs into one frozen exp dataset.
+
+    With --order round-robin, any contiguous slice of the output draws evenly
+    from each input. Use it to merge perturbation runs across multiple models
+    into one dataset where a 100-record slice carries records from all sources.
+    """
+    out, m = combine_exp(sources=sources, name=name, order=order, seed=seed, overwrite=overwrite)
+    console.print(f"[green]wrote[/green] {out}")
+    console.print(f"order: [bold]{m['order']}[/bold]   total: [bold]{m['total']}[/bold]")
+    t = Table("source", "count")
+    for src, n in zip(m["sources"], m["source_counts"]):
+        t.add_row(src.rsplit("/", 2)[-2] + "/" + src.rsplit("/", 1)[-1], str(n))
+    console.print(t)
+    if m["provider_breakdown_perturb"]:
+        console.print("\n[bold]perturb provider breakdown[/bold]")
+        t = Table("provider", "count")
+        for p, n in m["provider_breakdown_perturb"].items():
+            t.add_row(p, str(n))
+        console.print(t)
+    if m["validation_pass_rate"]["total"]:
+        pr = m["validation_pass_rate"]
+        console.print(f"\nvalidation pass rate: [bold]{pr['passed']}/{pr['total']}[/bold] ({100*pr['passed']/pr['total']:.1f}%)")
 
 
 @exp_app.command("show")

@@ -67,6 +67,22 @@ Why: pipelines later **dip into** this frozen file with `--take/--offset`, so
 multiple runs over time use the same canonical pool with no collisions and no
 re-sampling drift.
 
+#### `perturb exp combine <name> --from PATH --from PATH ... --order round-robin`
+Merge multiple finished-pipeline JSONLs (typically each step's `03_validate.jsonl`)
+into one frozen dataset. With `--order round-robin`, any contiguous slice of
+the output draws evenly from each input — so a Phase 2 `--take 30` from
+`exp-300-perturbed` automatically pulls 10 records perturbed by each model.
+
+```bash
+perturb exp combine exp-300-perturbed \
+  --from data/runs/20260530-120201-100q-first/03_validate.jsonl \
+  --from data/runs/20260530-142314-100q-grok/03_validate.jsonl \
+  --from data/runs/20260530-162330-100q-gemini/03_validate.jsonl \
+  --order round-robin
+```
+
+Other orders: `sequential` (concat) and `shuffle` (seeded random union).
+
 #### `perturb exp ls`
 List built exp datasets.
 
@@ -336,6 +352,12 @@ cleanly into one analysis.
 
 The smoke runs that informed each provider's tuning are also committed for
 audit: `20260530-140815-10q-grok`, `20260530-161345-10q-gemini-high`.
+
+**Combined dataset for Phase 2 inputs:** `data/exp/exp-300-perturbed.jsonl` —
+round-robin interleave of the three runs above. 300 records, perturb-provider
+breakdown 100/100/100, any contiguous slice draws ~evenly from each model
+(verified: 10/10/10 on any 30-slice, 33/34/33 on any 100-slice). Built via
+`perturb exp combine` (above).
 
 ---
 

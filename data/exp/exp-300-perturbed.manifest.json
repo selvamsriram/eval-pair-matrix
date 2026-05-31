@@ -1,0 +1,32 @@
+{
+  "name": "exp-300-perturbed",
+  "created_at": 1780190376,
+  "kind": "combined",
+  "order": "round-robin",
+  "seed": null,
+  "sources": [
+    "data/runs/20260530-120201-100q-first/03_validate.jsonl",
+    "data/runs/20260530-142314-100q-grok/03_validate.jsonl",
+    "data/runs/20260530-162330-100q-gemini/03_validate.jsonl"
+  ],
+  "source_counts": [
+    100,
+    100,
+    100
+  ],
+  "total": 300,
+  "provider_breakdown_perturb": {
+    "azure-gpt": 100,
+    "grok": 100,
+    "gemini": 100
+  },
+  "provider_breakdown_validate": {
+    "azure-gpt": 100,
+    "grok": 100,
+    "gemini": 100
+  },
+  "validation_pass_rate": {
+    "passed": 180,
+    "total": 300
+  }
+}

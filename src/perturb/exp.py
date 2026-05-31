@@ -57,6 +57,97 @@ def list_exp() -> list[dict]:
     return out
 
 
+def combine_exp(
+    *,
+    sources: list[Path],
+    name: str,
+    order: str = "round-robin",
+    seed: int = 17,
+    overwrite: bool = False,
+) -> tuple[Path, dict]:
+    """Combine multiple CoreRecord JSONL files into one frozen exp dataset.
+
+    `order`:
+      - "round-robin" — interleave one record from each source in turn.
+        With equal-sized sources this produces a stratified-by-source ordering
+        where any contiguous slice draws evenly from each source.
+      - "sequential"  — concatenate sources in the order given.
+      - "shuffle"     — random shuffle of the union (seeded).
+
+    Records are written verbatim (full CoreRecord payload), so all upstream
+    fields including `generators`, `validation`, `all_grounding_perturbed`
+    flow through unchanged.
+    """
+    out = exp_path(name)
+    mout = manifest_path(name)
+    if out.exists() and not overwrite:
+        raise FileExistsError(
+            f"{out} already exists. Pass --overwrite to replace."
+        )
+    for s in sources:
+        if not s.exists():
+            raise FileNotFoundError(f"source not found: {s}")
+
+    src_records: list[list[dict]] = [list(read_jsonl(s)) for s in sources]
+
+    if order == "round-robin":
+        max_len = max((len(s) for s in src_records), default=0)
+        combined: list[dict] = []
+        for i in range(max_len):
+            for src in src_records:
+                if i < len(src):
+                    combined.append(src[i])
+    elif order == "sequential":
+        combined = [r for src in src_records for r in src]
+    elif order == "shuffle":
+        import random as _rnd
+        combined = [r for src in src_records for r in src]
+        _rnd.Random(seed).shuffle(combined)
+    else:
+        raise ValueError(f"Unknown order: {order!r}")
+
+    write_jsonl(out, combined)
+
+    manifest = {
+        "name": name,
+        "created_at": int(time.time()),
+        "kind": "combined",
+        "order": order,
+        "seed": seed if order == "shuffle" else None,
+        "sources": [str(s) for s in sources],
+        "source_counts": [len(s) for s in src_records],
+        "total": len(combined),
+        "provider_breakdown_perturb": _provider_breakdown(combined, "perturb"),
+        "provider_breakdown_validate": _provider_breakdown(combined, "validate"),
+        "validation_pass_rate": _validation_pass_rate(combined),
+    }
+    mout.write_bytes(orjson.dumps(manifest, option=orjson.OPT_INDENT_2))
+    return out, manifest
+
+
+def _provider_breakdown(records: list[dict], step: str) -> dict[str, int]:
+    """Count records by provider stamped on a particular step (perturb/validate)."""
+    from collections import Counter
+    c: Counter = Counter()
+    for r in records:
+        prov = ((r.get("generators") or {}).get(step) or {}).get("provider", "unknown")
+        c[prov] += 1
+    return dict(c)
+
+
+def _validation_pass_rate(records: list[dict]) -> dict:
+    """Simple pass/fail count by reading pipeline_state.validate."""
+    passed = total = 0
+    for r in records:
+        st = (r.get("pipeline_state") or {}).get("validate", "")
+        if not st:
+            continue
+        total += 1
+        if st == "ok":
+            passed += 1
+    return {"passed": passed, "total": total}
+
+
 def build_exp(
     *,
     source: Path,
