@@ -79,7 +79,6 @@ PROVIDER_FAMILY: dict[str, str] = {
     "grok": "xai_family",
     "gemini": "google_family",
     "kimi": "moonshot_family",
-    "anthropic": "anthropic_family",
 }
 
 
@@ -221,7 +220,7 @@ class StepProvenance(BaseModel):
     overlap (e.g. perturb with GPT-5, then re-validate the same records with Kimi
     via --resume) — full history remains in data/traces/<run_id>/<step>.jsonl.
     """
-    provider: str           # registry key, e.g. "azure-gpt" | "kimi" | "anthropic"
+    provider: str           # registry key, e.g. "azure-gpt" | "grok" | "gemini" | "kimi"
     model: str              # exact model id, e.g. "gpt-5.4" | "kimi-k2.6"
     run_id: str
     completed_at: int       # epoch seconds

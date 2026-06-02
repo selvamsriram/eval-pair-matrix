@@ -28,7 +28,6 @@ def available() -> list[str]:
 # Eager registration of built-in providers. Failures here are deferred to get() time
 # so `perturb providers` can still list models even when keys are missing.
 from . import azure_openai as _azure  # noqa: E402,F401
-from . import anthropic as _anthropic  # noqa: E402,F401
 from . import kimi as _kimi  # noqa: E402,F401
 from . import grok as _grok  # noqa: E402,F401
 from . import gemini as _gemini  # noqa: E402,F401

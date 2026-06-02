@@ -233,7 +233,6 @@ List registered LLM provider adapters and whether each is configured
 ```bash
 perturb models
 # name        status         model
-# anthropic   missing config Anthropic provider not configured
 # azure-gpt   ready          gpt-5.4
 ```
 
@@ -393,7 +392,6 @@ object. Built-in:
 | `grok` | [grok.py](src/perturb/providers/grok.py) | Azure AI Foundry chat completions; reasoning_effort=medium, 32K floor, single-shot on length, 600s timeout | `AZURE_GROK_ENDPOINT`, `AZURE_GROK_API_KEY`, `AZURE_GROK_MODEL` |
 | `gemini` | [gemini.py](src/perturb/providers/gemini.py) | google-genai SDK (vertex_express OR vertex full ADC); ThinkingConfig=HIGH, safety_settings=OFF, 32K floor | `GOOGLE_CLOUD_API_KEY` *or* `GEMINI_API_KEY` (Vertex Express) *or* `GOOGLE_CLOUD_PROJECT` (Vertex full); `GEMINI_MODEL` |
 | `kimi` | [kimi.py](src/perturb/providers/kimi.py) | Azure AI Foundry chat completions; reasoning_effort=medium, 32K floor, single-shot | `AZURE_KIMI_ENDPOINT`, `AZURE_KIMI_API_KEY`, `AZURE_KIMI_MODEL` |
-| `anthropic` | [anthropic.py](src/perturb/providers/anthropic.py) | Anthropic Messages API | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` |
 
 All providers share a `ProviderIncomplete(reason=...)` exception class so steps
 emit precise `failed:llm_<reason>` labels (`http_400`, `content_filter`,
@@ -483,7 +481,7 @@ perturb exp ls / show <name>
 perturb runs new --name <label>                # mint run id
 perturb runs ls / show <id>
 
-# pipeline (any provider: azure-gpt | grok | gemini | kimi | anthropic)
+# pipeline (any provider: azure-gpt | grok | gemini | kimi)
 perturb pipeline --run $RUN --source ... --model <provider> [--take N --offset M] [--resume]
 perturb filter   --run $RUN --source ... [--take N --offset M]
 perturb perturb  --run $RUN --model <provider> [--types ...] [--resume]
