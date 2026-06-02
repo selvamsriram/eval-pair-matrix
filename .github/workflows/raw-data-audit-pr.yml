@@ -1,0 +1,22 @@
+name: Temporary Raw Data Audit PR
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run raw-data audit
+        run: python .github/scripts/raw_data_audit.py
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-data-audit-report
+          path: audit_report.json
