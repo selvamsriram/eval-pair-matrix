@@ -8,15 +8,20 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       actions: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: audit-data-paper-revision
       - name: Run raw-data audit
         run: python .github/scripts/raw_data_audit.py
-      - name: Upload audit report
-        uses: actions/upload-artifact@v4
-        with:
-          name: raw-data-audit-report
-          path: audit_report.json
+      - name: Commit audit report to branch
+        run: |
+          git config user.name audit-bot
+          git config user.email audit-bot@example.com
+          git add audit_report.json
+          git diff --cached --quiet && exit 0
+          git commit -m "write raw data audit report"
+          git push origin HEAD:audit-data-paper-revision
