@@ -27,7 +27,7 @@ from rich.table import Table
 
 from . import providers
 from .config import PATHS
-from .exp import build_exp, combine_exp, exp_path, list_exp
+from .exp import build_balanced_exp, build_exp, combine_exp, exp_path, list_exp
 from .fetch import fetch_garage
 from .io import read_jsonl
 from .run import STEP_ORDER, list_runs, new_run, open_run
@@ -144,6 +144,68 @@ def exp_combine_cmd(
         console.print(f"\nvalidation pass rate: [bold]{pr['passed']}/{pr['total']}[/bold] ({100*pr['passed']/pr['total']:.1f}%)")
 
 
+@exp_app.command("build-balanced")
+def exp_build_balanced_cmd(
+    name: str = typer.Argument(..., help="Output dataset name, e.g. '3provider_300'."),
+    sources: list[Path] = typer.Option(
+        ..., "--from", "-f",
+        help="Source JSONL paths (CoreRecord shape from finished validate runs). Repeat per provider.",
+    ),
+    fill_from: Optional[Path] = typer.Option(
+        None, "--fill-from",
+        help="Source to use when total chosen < --target. Defaults to the source with the highest validated count.",
+    ),
+    target: int = typer.Option(300, "--target", help="Target total record count."),
+    seed: int = typer.Option(17, "--seed", help="Reproducible tiebreak seed."),
+    overwrite: bool = typer.Option(False, "--overwrite"),
+):
+    """Build a balanced multi-source exp dataset.
+
+    One record per question (core_id). Prefer validated records. Balance
+    primarily by provider (equal-as-possible up to each provider's capacity),
+    secondarily by perturbation_type. Gap-fill from --fill-from if total
+    falls short of --target after the validated pass.
+    """
+    out, m = build_balanced_exp(
+        sources=sources, fill_source=fill_from, name=name,
+        target=target, seed=seed, overwrite=overwrite,
+    )
+    console.print(f"[green]wrote[/green] {out}")
+    console.print(f"actual: [bold]{m['actual_total']}[/bold] / target {m['target_total']}    "
+                  f"(validated_chosen={m['validated_chosen']}, gap_filled={m['gap_filled']})")
+
+    t = Table("provider", "capacity", "target", "actual")
+    for p in sorted(set(list(m["provider_max_capacity"].keys()) + list(m["provider_actuals"].keys()))):
+        t.add_row(
+            p,
+            str(m["provider_max_capacity"].get(p, "-")),
+            str(m["provider_targets"].get(p, "-")),
+            str(m["provider_actuals"].get(p, 0)),
+        )
+    console.print(t)
+
+    console.print(f"\nsingle-validator questions: {m['single_validator_questions']}")
+    console.print(f"multi-validator questions:  {m['multi_validator_questions']}")
+    console.print(f"excluded (no perturbation):  {m['excluded_questions_count']}")
+
+    console.print("\n[bold]type distribution per provider[/bold]")
+    # collect all types
+    all_types = set()
+    for p, d in m["type_distribution_per_provider"].items():
+        all_types.update(d.keys())
+    t = Table("type", *m["type_distribution_per_provider"].keys(), "total")
+    for ty in sorted(all_types):
+        row = [ty]
+        total = 0
+        for p in m["type_distribution_per_provider"]:
+            v = m["type_distribution_per_provider"][p].get(ty, 0)
+            row.append(str(v))
+            total += v
+        row.append(str(total))
+        t.add_row(*row)
+    console.print(t)
+
+
 @exp_app.command("show")
 def exp_show_cmd(name: str = typer.Argument(...)):
     """Print the manifest for a built exp dataset."""
@@ -239,6 +301,9 @@ def _step_command(step_name: str):
         offset: int = typer.Option(0, "--offset", help="(filter) skip the first M records before taking. Combine with --take for non-overlapping slices."),
         paraphrase: bool = typer.Option(True, "--paraphrase/--no-paraphrase", help="(mentions) run the LLM paraphrase pass."),
         types: Optional[str] = typer.Option(None, "--types", help="(perturb) comma-separated allowed perturbation types."),
+        generators: Optional[str] = typer.Option(None, "--generators", help="(generate) comma-separated provider names to run as generators, e.g. 'azure-gpt,gemini,grok'. Each generates one answer per record per mode."),
+        modes: Optional[str] = typer.Option(None, "--modes", help="(generate) comma-separated modes from {rag_perturbed, rag_original, closed_book}. Default: rag_perturbed."),
+        judges: Optional[str] = typer.Option(None, "--judges", help="(judge) comma-separated provider names to use as judges, e.g. 'azure-gpt,gemini,grok'. Each judges every generator output independently."),
         resume: bool = typer.Option(False, "--resume", help="If output already exists, skip records by core_id already in it and append the rest. Use to recover from a crashed run."),
     ):
         run = open_run(run_id)
@@ -251,6 +316,10 @@ def _step_command(step_name: str):
             "offset": offset,
             "paraphrase": paraphrase,
             "types": types,
+            "generators": generators,
+            "modes": modes,
+            "judges": judges,
+            "_runner_model": model,  # generate / judge fall back to this if --generators / --judges absent
         }
 
         # Apply --limit by chopping the source upstream when needed.

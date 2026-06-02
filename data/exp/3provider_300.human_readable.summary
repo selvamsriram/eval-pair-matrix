@@ -1,0 +1,231 @@
+# 3provider_300 — human-readable summary
+
+Frozen, balanced experimental dataset of 300 perturbed records drawn from
+three production perturbation runs. Built once with `perturb exp build-balanced`
+and intended as the canonical input for Phase 2 generator / judge experiments.
+
+Generated: 2026-05-31
+Builder code: src/perturb/exp.py:build_balanced_exp
+CLI command:  perturb exp build-balanced
+Output:
+  data/exp/3provider_300.jsonl                # the 300 CoreRecord rows
+  data/exp/3provider_300.manifest.json        # machine-readable provenance
+  data/exp/3provider_300.human_readable.summary  # this file
+
+================================================================================
+HOW IT WAS BUILT
+================================================================================
+
+Sources (each one a finished `validate` step output over the full 300 records
+of data/exp/exp-300.jsonl, perturbed by one model):
+
+  data/runs/20260530-183135-300q-gpt-full/03_validate.jsonl       (GPT-5.4)
+  data/runs/20260530-183144-300q-grok-full/03_validate.jsonl      (Grok 4.3)
+  data/runs/20260530-183151-300q-gemini-full/03_validate.jsonl    (Gemini 3.5 Flash HIGH)
+
+Validation pass rate per source (going in):
+
+  GPT-5.4:     92 / 300  (31%)
+  Grok 4.3:   155 / 300  (52%)
+  Gemini HIGH:256 / 300  (85%)
+
+The exact command used (reproducible):
+
+  perturb exp build-balanced 3provider_300 \
+    --from data/runs/20260530-183135-300q-gpt-full/03_validate.jsonl \
+    --from data/runs/20260530-183144-300q-grok-full/03_validate.jsonl \
+    --from data/runs/20260530-183151-300q-gemini-full/03_validate.jsonl \
+    --fill-from data/runs/20260530-183151-300q-gemini-full/03_validate.jsonl \
+    --target 300 \
+    --seed 17
+
+================================================================================
+ALGORITHM (4 phases)
+================================================================================
+
+1. Capacity shaping (equal-as-possible)
+   - Initial target per provider: 100 each.
+   - Cap by validated count: if a provider validated < 100, its target becomes
+     its actual count. Slack is redistributed to providers with headroom,
+     greedily by largest remaining headroom.
+
+2. Forced single-validator assignment
+   - For each question where exactly one provider validated, assign to that
+     provider (no choice; preserves scarce providers).
+
+3. Greedy balanced multi-validator assignment
+   - For each remaining question (validated by >=2 providers), pick the
+     provider that maximizes:
+        score = (target - current_count) * 100        ← primary: provider deficit
+              + max(0, type_target_per_provider - current_type_count)  ← tie-break
+              + small reproducible random nudge
+   - Provider must have headroom (count < target) to be eligible.
+
+4. Gap-fill from Gemini
+   - If actual_total < target after phases 1-3, take Gemini's UNCHOSEN
+     perturbations (validated or unvalidated) until target is reached.
+   - These records are marked in their `validation` block; they did not pass
+     all 5 gates but a perturbation exists.
+
+================================================================================
+FINAL COMPOSITION
+================================================================================
+
+Total records: 300 / 300 target
+Validated:     275 (all 5 gates pass)
+Gap-fill:       25 (Gemini perturbations that failed validation)
+Excluded:        0 (no question lacked a perturbation entirely)
+
+Per-provider:
+
+    provider      total   validated   gap-fill (unvalidated)   pass%
+    --------      -----   ---------   ----------------------   -----
+    azure-gpt        83          83                        0   100%
+    grok             92          92                        0   100%
+    gemini          125         100                       25    80%
+    --------      -----   ---------   ----------------------   -----
+    TOTAL           300         275                       25    92%
+
+Phase contribution:
+
+    single-validator questions (forced):  97
+    multi-validator questions  (greedy): 178
+    gap-filled questions       (Gemini):  25
+
+Why GPT shipped 83 (not 92): scoring made multi-validator contests favor
+whichever provider was most behind target; once GPT was within a few records
+of its 92 cap, Grok's larger deficit started winning. GPT slack flowed to
+Gemini gap-fill.
+
+================================================================================
+PERTURBATION TYPE x PROVIDER
+================================================================================
+
+    type                    gpt    grok   gemini   total    %
+    ----                    ---    ----   ------   -----    -
+    entity_substitution      15      34       54     103   34%
+    numerical_shift          17      26       21      64   21%
+    causal_change            30       8        8      46   15%
+    temporal_shift            7      14       11      32   11%
+    relation_inversion        1       2       20      23    8%
+    negation_modality        10       4        1      15    5%
+    location_change           2       2        8      12    4%
+    ranking_flip              1       2        1       4    1%
+    affiliation_change        0       0        1       1   <1%
+    multihop_bridge           0       0        0       0    0%
+
+Notes:
+  - Each model has a clear preference. GPT favors causal_change; Grok favors
+    entity_substitution + numerical_shift; Gemini favors entity_substitution +
+    relation_inversion.
+  - The four tail types (ranking_flip / affiliation_change / multihop_bridge,
+    and negation_modality with mixed support) are small samples — Phase 2
+    analyses on these should report n explicitly.
+  - entity_substitution dominates at 34%. Any cross-type analysis should
+    report results per type to avoid that bias drowning the signal.
+
+================================================================================
+GAP-FILL FAILURE MODES (the 25 unvalidated Gemini records)
+================================================================================
+
+Which validation gates each gap-fill record fails (multiple gates can fail
+per record, so counts overlap):
+
+    no_original_answer_leakage:  20   ← dominant; original value still appears
+                                       in perturbed grounding (often as a
+                                       paraphrased contextual anchor)
+    type_valid:                   9   ← grammar / entity-type issue in rewrite
+    global_context_consistent:    9   ← perturbed passages disagree internally
+    answer_causal:                4   ← span isn't actually answer-causal
+
+These 25 records are an intentional inclusion. They let Phase 2 ask: "does
+the generator still get fooled by a partially-leaky perturbation, or does
+the leakage save it?"
+
+================================================================================
+SCHEMA
+================================================================================
+
+Each row in 3provider_300.jsonl is a full CoreRecord
+(src/perturb/schemas.py:CoreRecord). Key fields downstream code will read:
+
+  core_id                       stable question identity (shared across runs)
+  garage_sample_id              upstream GaRAGe row id
+  question                      the question text
+  answer_generate               human-written reference answer
+  all_grounding_original        original passages
+  all_grounding_perturbed       passages with perturbation applied
+  original_value                the targeted span
+  perturbed_value               its replacement
+  perturbation_type             one of the closed menu (see types table)
+  perturbation_subtype          model's own subtype tag (free-form)
+  atomic_claim_original         one-sentence statement of original claim
+  atomic_claim_perturbed        one-sentence statement of perturbed claim
+  plausibility                  perturber self-rated (high/medium/low)
+  validation                    {type_valid, answer_causal,
+                                  global_context_consistent,
+                                  no_original_answer_leakage,
+                                  original_contradicts_perturbed,
+                                  plausibility, rejection_reasons[]}
+  generators                    {step_name -> StepProvenance}
+                                 - generators.perturb tells you which model
+                                   produced this perturbation (the one we
+                                   used to balance the dataset)
+                                 - generators.validate tells you which model
+                                   audited it
+  pipeline_state                {step_name -> "ok" | "failed:..." | ...}
+
+generator_outputs and judge_verdicts fields are present but empty — those
+populate when Phase 2 runs against this file.
+
+================================================================================
+HOW TO REPRODUCE
+================================================================================
+
+Re-running the build with the same --seed against the same source files
+will produce a byte-identical 3provider_300.jsonl.
+
+Re-building from scratch end-to-end:
+
+  perturb fetch
+  perturb exp build exp-300 --source data/raw/garage_train.jsonl --n 300
+
+  # 3 perturbation runs (each on the full 300):
+  RUN_GPT=$(perturb runs new --name 300q-gpt-full | grep run_id | awk '{print $2}')
+  RUN_GROK=$(perturb runs new --name 300q-grok-full | grep run_id | awk '{print $2}')
+  RUN_GEM=$(perturb runs new --name 300q-gemini-full | grep run_id | awk '{print $2}')
+  perturb pipeline --run "$RUN_GPT"  --source data/exp/exp-300.jsonl --model azure-gpt
+  perturb pipeline --run "$RUN_GROK" --source data/exp/exp-300.jsonl --model grok
+  perturb pipeline --run "$RUN_GEM"  --source data/exp/exp-300.jsonl --model gemini
+
+  perturb exp build-balanced 3provider_300 \
+    --from data/runs/$RUN_GPT/03_validate.jsonl \
+    --from data/runs/$RUN_GROK/03_validate.jsonl \
+    --from data/runs/$RUN_GEM/03_validate.jsonl \
+    --fill-from data/runs/$RUN_GEM/03_validate.jsonl \
+    --target 300 --seed 17
+
+The three production runs are committed under data/runs/ so steps 3-5 can
+be skipped if you just want to rebuild the exp set.
+
+================================================================================
+INTENDED USES
+================================================================================
+
+Primary input for Phase 2:
+
+  - generate step:  perturb generate --source data/exp/3provider_300.jsonl \
+                       --generators azure-gpt,grok,gemini[,...]
+  - judge step (not yet built; coming in Phase 2A):
+                    operates on the generator outputs of the generate step.
+
+Secondary uses:
+
+  - Cross-model perturbation analysis (which provider picks similar targets
+    on the same question? Currently 19% same-target agreement between GPT
+    and Gemini).
+  - Studying the impact of perturbation type on generator behavior
+    (does relation_inversion fool generators more often than
+     entity_substitution? Requires Phase 2 outputs to answer.)
+  - Sanity check on gap-fill: do the 25 unvalidated records actually fool
+    generators? Compare context_follow rate on validated vs gap-fill subsets.

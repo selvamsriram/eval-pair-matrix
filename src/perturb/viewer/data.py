@@ -25,6 +25,10 @@ class RecordSummary:
     last_step_status: str
     validation_passes: bool | None
     perturbation_type: str | None
+    generation_count: int
+    latest_generator: str | None
+    latest_generation_mode: str | None
+    latest_behavior_label: str | None
 
 
 @dataclass(frozen=True)
@@ -52,7 +56,7 @@ def all_runs() -> list[dict]:
     out = []
     for r in list_runs():
         manifest = r.read_manifest()
-        steps_present = [s for s in STEP_ORDER if r.step_path(s).exists()]
+        steps_present = [s for s in STEP_ORDER if _visible_step_path(r, s) is not None]
         out.append(
             {
                 "run_id": r.run_id,
@@ -67,15 +71,44 @@ def all_runs() -> list[dict]:
 # ---------- Records ----------
 
 
+def _tmp_path(path: Path) -> Path:
+    return path.with_suffix(path.suffix + ".tmp")
+
+
+def _visible_step_path(run: Run, step: str) -> Path | None:
+    """Finalized JSONL if present, otherwise the in-progress tmp file.
+
+    Pipeline writes are atomic, so active runs only have `*.jsonl.tmp` until the
+    step completes. The viewer is read-only/audit-only, so it can safely show
+    complete rows already flushed to the tmp file.
+    """
+    path = run.step_path(step)
+    if path.exists():
+        return path
+    tmp = _tmp_path(path)
+    return tmp if tmp.exists() else None
+
+
 def _read_records(path: Path) -> dict[str, dict]:
     """Return core_id → record dict."""
     if not path.exists():
         return {}
     out: dict[str, dict] = {}
-    for raw in read_jsonl(path):
-        cid = raw.get("core_id")
-        if isinstance(cid, str):
-            out[cid] = raw
+    with path.open("rb") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                raw = orjson.loads(line)
+            except orjson.JSONDecodeError:
+                # A live tmp file may end with a partial line while the writer
+                # is between writes. Ignore that tail; the next refresh will
+                # pick it up once complete.
+                break
+            cid = raw.get("core_id")
+            if isinstance(cid, str):
+                out[cid] = raw
     return out
 
 
@@ -84,8 +117,8 @@ def merged_records(run: Run) -> dict[str, dict]:
     step that contains it. Newer step files override older ones."""
     merged: dict[str, dict] = {}
     for step_name in STEP_ORDER:
-        path = run.step_path(step_name)
-        if not path.exists():
+        path = _visible_step_path(run, step_name)
+        if path is None:
             continue
         for cid, rec in _read_records(path).items():
             merged[cid] = rec
@@ -118,6 +151,15 @@ def list_record_summaries(run: Run) -> list[RecordSummary]:
                 )
             ]
             passes = all(g is True for g in gates) if all(g is not None for g in gates) else None
+        generator_outputs = rec.get("generator_outputs") or []
+        latest_generation = generator_outputs[-1] if generator_outputs else {}
+        latest_provider = latest_generation.get("generator_provider")
+        latest_model = latest_generation.get("generator_model")
+        latest_generator = (
+            f"{latest_provider}/{latest_model}"
+            if latest_provider and latest_model
+            else latest_provider or latest_model
+        )
         summaries.append(
             RecordSummary(
                 core_id=cid,
@@ -126,6 +168,10 @@ def list_record_summaries(run: Run) -> list[RecordSummary]:
                 last_step_status=last_status,
                 validation_passes=passes,
                 perturbation_type=rec.get("perturbation_type"),
+                generation_count=len(generator_outputs),
+                latest_generator=latest_generator,
+                latest_generation_mode=latest_generation.get("mode"),
+                latest_behavior_label=latest_generation.get("behavior_label"),
             )
         )
     # Stable order: by core_id so the UI doesn't jump around.

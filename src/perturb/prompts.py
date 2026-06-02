@@ -136,6 +136,173 @@ VALIDATE_SCHEMA = """\
 }
 """
 
+# ---------- Generation (RAG modes) ----------
+
+GENERATE_RAG_SYSTEM = """\
+You answer a question using ONLY the provided grounding passages.
+
+Requirements:
+- Base every factual claim on the passages. Do not introduce facts not in the
+  passages, even if you believe them from your prior knowledge.
+- Cite the passage IDs (as integers) that directly support each factual claim.
+  Use bracket markers in the text like [3] or [3][7].
+- If the passages are insufficient, internally inconsistent, or you can't find
+  the answer, set "is_refusal": true and explain briefly in the answer text.
+- Be concise: a few sentences is usually enough.
+
+Return ONLY a single JSON object. No prose around it, no code fences.
+"""
+
+GENERATE_RAG_SCHEMA = """\
+{
+  "answer": "string  -- the full answer, with inline [N] citation markers",
+  "cited_passage_ids": [int, ...],
+  "is_refusal": bool,
+  "notes": "string or null  -- optional: any uncertainty, conflict, or caveat you noticed"
+}
+"""
+
+GENERATE_RAG_USER = """\
+QUESTION:
+{question}
+
+GROUNDING PASSAGES (id : text):
+{passages}
+
+Answer the question using only the passages above. Cite by passage id.
+"""
+
+
+# ---------- Label evaluation (LLM-driven re-classification of generator output) ----------
+
+LABEL_EVAL_SYSTEM = """\
+You are evaluating how a RAG generator's answer relates to a known controlled
+perturbation that was applied to its grounding documents.
+
+The generator was given documents in which a specific factual claim was altered:
+some "ORIGINAL VALUE" was replaced with a "PERTURBED VALUE". You can see both
+values plus the modified passages the generator actually had access to.
+
+Classify the generator's answer into exactly ONE behavior_label:
+
+- context_follow            : the answer uses the PERTURBED value (sometimes
+                              implicitly, via paraphrase). The generator
+                              accepted the modified documents.
+- memory_override           : the answer uses the ORIGINAL value despite the
+                              perturbed documents. The generator overrode the
+                              retrieved evidence with its prior knowledge.
+- both_claims               : the answer mentions BOTH the original and
+                              perturbed values (often hedging between them).
+- conflict_awareness        : the answer explicitly flags that the documents
+                              may conflict with the model's prior knowledge,
+                              or notes uncertainty about the modified claim,
+                              without committing to one value.
+- refusal_or_insufficient   : the answer declines to answer, says the
+                              evidence is insufficient, or otherwise refuses.
+- unrelated_or_failed       : the answer addresses the question broadly but
+                              does NOT invoke the specific perturbed/original
+                              span at all (the question was broad enough to
+                              answer without touching the perturbation).
+
+Separately, set:
+  entails_original_claim    : true iff the answer asserts the ORIGINAL value
+                              as fact (paraphrase counts).
+  entails_perturbed_claim   : true iff the answer asserts the PERTURBED value
+                              as fact (paraphrase counts).
+
+Use paraphrase-aware judgement, not strict string match. Both flags can be
+false (e.g. broad answer that dodges) or both true (e.g. answer mentions both).
+
+Return a single JSON object only. No prose, no code fences.
+"""
+
+LABEL_EVAL_SCHEMA = """\
+{
+  "behavior_label": "one of: context_follow | memory_override | both_claims | conflict_awareness | refusal_or_insufficient | unrelated_or_failed",
+  "entails_original_claim": bool,
+  "entails_perturbed_claim": bool,
+  "rationale": "one or two sentences",
+  "confidence": "high | medium | low"
+}
+"""
+
+LABEL_EVAL_USER = """\
+QUESTION:
+{question}
+
+THE PERTURBATION (what the documents were edited to say):
+- ORIGINAL VALUE  : {original_value}
+- PERTURBED VALUE : {perturbed_value}
+
+ORIGINAL CLAIM (what unperturbed evidence would support):
+{atomic_claim_original}
+
+PERTURBED CLAIM (what the modified evidence supports):
+{atomic_claim_perturbed}
+
+MODIFIED GROUNDING PASSAGES (these are the perturbed passages the generator
+saw — only the ones that were actually edited are shown):
+{modified_passages}
+
+GENERATOR'S ANSWER:
+{answer}
+
+GENERATOR'S CITED PASSAGE IDS: {cited_passage_ids}
+GENERATOR FLAGGED REFUSAL: {is_refusal}
+
+Classify per the schema. Be paraphrase-aware.
+"""
+
+
+# ---------- Judge (Phase 2B eval-pair matrix) ----------
+
+JUDGE_SYSTEM = """\
+You are evaluating whether an answer is factually supported by the provided
+source passages.
+
+The source passages shown to you are the ground truth. 
+If the answer contains factual error that are not supported by these passages, you must flag the answer as incorrect, otherwise, label the answer as correct.
+
+Your task:
+1. Read and understand the question, answer and the supported passages.
+2. Decide whether the answer is fully supported by the provided passages.
+3. If the answer contains any factual claim contradicted by the
+   source passages (verdict + contains_factual_error) you must report.
+4. If yes, identify the specific wrong claim (one sentence, quote-style).
+5. Identify the source passage ID that most directly supports your
+   judgment (the passage whose content the wrong claim contradicts).
+6. Rate your confidence: high | medium | low.
+
+Evaluate purely based on the question, the answer, and the source passages shown to you.
+
+Return ONLY a single JSON object. No prose around it, no code fences.
+"""
+
+JUDGE_SCHEMA = """\
+{
+  "verdict": "one of: correct | incorrect | unclear",
+  "contains_factual_error": bool,
+  "wrong_claim": "string or null  -- the specific wrong claim if any",
+  "supporting_source_passage_id": "int or null  -- the passage that most directly contradicts the wrong claim",
+  "explanation": "one or two sentences",
+  "confidence": "high | medium | low"
+}
+"""
+
+JUDGE_USER = """\
+QUESTION:
+{question}
+
+ANSWER (to evaluate):
+{answer}
+
+SOURCE PASSAGES (id : text):
+{passages}
+
+Evaluate per the schema.
+"""
+
+
 VALIDATE_USER = """\
 QUESTION:
 {question}

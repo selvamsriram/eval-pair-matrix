@@ -1,0 +1,68 @@
+{
+  "name": "3provider_300",
+  "created_at": 1780211359,
+  "kind": "balanced_multisource",
+  "seed": 17,
+  "sources": [
+    "data/runs/20260530-183135-300q-gpt-full/03_validate.jsonl",
+    "data/runs/20260530-183144-300q-grok-full/03_validate.jsonl",
+    "data/runs/20260530-183151-300q-gemini-full/03_validate.jsonl"
+  ],
+  "fill_source": "data/runs/20260530-183151-300q-gemini-full/03_validate.jsonl",
+  "target_total": 300,
+  "actual_total": 300,
+  "provider_max_capacity": {
+    "azure-gpt": 92,
+    "grok": 155,
+    "gemini": 256
+  },
+  "provider_targets": {
+    "azure-gpt": 92,
+    "grok": 100,
+    "gemini": 108
+  },
+  "provider_actuals": {
+    "azure-gpt": 83,
+    "grok": 92,
+    "gemini": 125
+  },
+  "validated_chosen": 275,
+  "gap_filled": 25,
+  "single_validator_questions": 97,
+  "multi_validator_questions": 178,
+  "type_distribution_per_provider": {
+    "azure-gpt": {
+      "causal_change": 30,
+      "negation_modality": 10,
+      "numerical_shift": 17,
+      "entity_substitution": 15,
+      "relation_inversion": 1,
+      "temporal_shift": 7,
+      "location_change": 2,
+      "ranking_flip": 1
+    },
+    "grok": {
+      "temporal_shift": 14,
+      "causal_change": 8,
+      "location_change": 2,
+      "entity_substitution": 34,
+      "negation_modality": 4,
+      "numerical_shift": 26,
+      "ranking_flip": 2,
+      "relation_inversion": 2
+    },
+    "gemini": {
+      "causal_change": 8,
+      "entity_substitution": 54,
+      "temporal_shift": 11,
+      "numerical_shift": 21,
+      "negation_modality": 1,
+      "location_change": 8,
+      "relation_inversion": 20,
+      "affiliation_change": 1,
+      "ranking_flip": 1
+    }
+  },
+  "excluded_questions_count": 0,
+  "excluded_questions": []
+}

@@ -14,6 +14,9 @@ STEP_ORDER: list[str] = [
     "filter",
     "perturb",
     "validate",
+    "generate",
+    "label_eval",
+    "judge",
 ]
 
 STEP_FILES: dict[str, str] = {name: f"{i + 1:02d}_{name}.jsonl" for i, name in enumerate(STEP_ORDER)}

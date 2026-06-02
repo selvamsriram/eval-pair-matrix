@@ -23,6 +23,7 @@ const TABS = [
   { id: 'diff',          label: 'Diff' },
   { id: 'modifications', label: 'Modifications' },
   { id: 'validation',    label: 'Validation' },
+  { id: 'generation',    label: 'Generation' },
   { id: 'traces',        label: 'Traces' },
 ];
 
@@ -96,7 +97,9 @@ function applyFilter() {
   state.filtered = q
     ? state.records.filter(r =>
         (r.question || '').toLowerCase().includes(q) ||
-        (r.core_id || '').toLowerCase().includes(q))
+        (r.core_id || '').toLowerCase().includes(q) ||
+        (r.latest_behavior_label || '').toLowerCase().includes(q) ||
+        (r.latest_generator || '').toLowerCase().includes(q))
     : state.records.slice();
   renderRecordList();
 }
@@ -125,7 +128,11 @@ function renderRecordList() {
         <span class="ml-auto text-[10px] uppercase tracking-wide text-zinc-500">${escapeHtml(r.last_step || '')}</span>
       </div>
       <div class="mt-1 text-sm text-zinc-200 line-clamp-2">${escapeHtml(r.question || '(no question)')}</div>
-      ${r.perturbation_type ? `<div class="mt-1 text-[10px] font-mono text-emerald-400/80">${escapeHtml(r.perturbation_type)}</div>` : ''}
+      <div class="mt-1 flex flex-wrap items-center gap-1.5">
+        ${r.perturbation_type ? `<span class="text-[10px] font-mono text-emerald-400/80">${escapeHtml(r.perturbation_type)}</span>` : ''}
+        ${r.generation_count ? `<span class="text-[10px] font-mono text-sky-300/90">gen:${r.generation_count}</span>` : ''}
+        ${r.latest_behavior_label ? `<span class="text-[10px] font-mono ${behaviorTextClass(r.latest_behavior_label)}">${escapeHtml(r.latest_behavior_label)}</span>` : ''}
+      </div>
     </div>
   `).join('');
   list.querySelectorAll('[data-cid]').forEach(el => {
@@ -135,8 +142,11 @@ function renderRecordList() {
 
 function renderTabs() {
   const evCount = state.detail?.trace_events?.length || 0;
+  const genCount = state.detail?.record?.generator_outputs?.length || 0;
   $('#tabs').innerHTML = TABS.map(t => {
-    const count = t.id === 'traces' && evCount ? `<span class="count">${evCount}</span>` : '';
+    const count = t.id === 'traces' && evCount ? `<span class="count">${evCount}</span>`
+                : t.id === 'generation' && genCount ? `<span class="count">${genCount}</span>`
+                : '';
     return `<button class="tab-btn ${t.id === state.activeTab ? 'active' : ''}" data-tab="${t.id}">${t.label}${count}</button>`;
   }).join('');
   $$('#tabs .tab-btn').forEach(btn => {
@@ -165,6 +175,7 @@ function renderDetail() {
     case 'diff':          root.innerHTML = renderDiff(r, state.detail.diffs); break;
     case 'modifications': root.innerHTML = renderModifications(r); break;
     case 'validation':    root.innerHTML = renderValidation(r); break;
+    case 'generation':    root.innerHTML = renderGeneration(r); break;
     case 'traces':        root.innerHTML = renderTraces(state.detail.trace_events); wireTraceToggles(); break;
   }
 }
@@ -183,6 +194,7 @@ function renderOverview(r) {
     r.question_popularity && `<span class="tag">pop: ${escapeHtml(r.question_popularity)}</span>`,
     r.question_type && `<span class="tag">type: ${escapeHtml(r.question_type)}</span>`,
   ].filter(Boolean).join('');
+  const latestGen = (r.generator_outputs || []).slice(-1)[0];
   return `
     <div class="space-y-6 max-w-4xl">
       <div>
@@ -198,6 +210,19 @@ function renderOverview(r) {
         <div class="text-[11px] uppercase tracking-wider text-zinc-500 mb-1">human answer</div>
         <div class="text-sm leading-relaxed text-zinc-200 bg-ink-850 border border-ink-700 rounded-md p-3">${escapeHtml(r.answer_generate || '(none)')}</div>
       </div>
+      ${latestGen ? `
+      <div>
+        <div class="text-[11px] uppercase tracking-wider text-zinc-500 mb-1">latest generation</div>
+        <div class="bg-ink-850 border border-ink-700 rounded-md p-3">
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="font-mono text-sky-300">${escapeHtml(latestGen.generator_provider || '')}/${escapeHtml(latestGen.generator_model || '')}</span>
+            <span class="font-mono text-zinc-400">${escapeHtml(latestGen.mode || '')}</span>
+            ${behaviorChip(latestGen.behavior_label)}
+            ${latestGen.is_refusal ? '<span class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">refusal</span>' : ''}
+          </div>
+          <div class="mt-2 text-sm leading-relaxed text-zinc-200">${highlightGeneratedAnswer(latestGen.answer_text || '', r)}</div>
+        </div>
+      </div>` : ''}
       ${r.perturbation_type ? `
       <div class="grid grid-cols-2 gap-4">
         <div>
@@ -227,6 +252,67 @@ function renderOverview(r) {
       <div>
         <div class="text-[11px] uppercase tracking-wider text-zinc-500 mb-2">pipeline state</div>
         <div class="flex flex-wrap gap-1.5">${chips || '<span class="text-zinc-500 text-sm">—</span>'}</div>
+      </div>
+    </div>`;
+}
+
+function renderGeneration(r) {
+  const outputs = r.generator_outputs || [];
+  if (!outputs.length) return `<div class="text-sm text-zinc-500">(no generator outputs yet)</div>`;
+  const summary = summarizeGeneration(outputs);
+  return `
+    <div class="space-y-4 max-w-6xl">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+        ${Object.entries(summary).map(([label, count]) => `
+          <div class="border border-ink-700 bg-ink-850/40 rounded-md px-3 py-2">
+            <div class="text-[10px] uppercase tracking-wider text-zinc-500">${escapeHtml(label.replaceAll('_', ' '))}</div>
+            <div class="mt-1 text-lg font-mono ${behaviorTextClass(label)}">${count}</div>
+          </div>`).join('')}
+      </div>
+      ${outputs.map((o, idx) => renderGenerationOutput(o, idx, r)).join('')}
+    </div>`;
+}
+
+function renderGenerationOutput(o, idx, r) {
+  return `
+    <div class="border border-ink-700 rounded-md bg-ink-850/40 overflow-hidden">
+      <div class="px-3 py-2 border-b border-ink-700 flex flex-wrap items-center gap-2 text-xs">
+        <span class="font-mono text-zinc-500">#${idx + 1}</span>
+        <span class="font-mono text-sky-300">${escapeHtml(o.generator_provider || '')}/${escapeHtml(o.generator_model || '')}</span>
+        <span class="font-mono text-zinc-400">${escapeHtml(o.mode || '')}</span>
+        ${o.sample_id ? `<span class="font-mono text-zinc-500">sample ${escapeHtml(o.sample_id)}</span>` : ''}
+        ${behaviorChip(o.behavior_label)}
+        ${o.is_refusal ? '<span class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">refusal</span>' : ''}
+        <span class="ml-auto font-mono text-zinc-500">${escapeHtml(formatEpoch(o.completed_at))}</span>
+      </div>
+      <div class="p-3 space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+          <div class="border border-ink-700 rounded-md px-2.5 py-2">
+            <div class="text-zinc-500 mb-1">original claim</div>
+            ${boolChip(o.entails_original_claim)}
+          </div>
+          <div class="border border-ink-700 rounded-md px-2.5 py-2">
+            <div class="text-zinc-500 mb-1">perturbed claim</div>
+            ${boolChip(o.entails_perturbed_claim)}
+          </div>
+          <div class="border border-ink-700 rounded-md px-2.5 py-2">
+            <div class="text-zinc-500 mb-1">cited passages</div>
+            <div class="flex flex-wrap gap-1">${citationChips(o.cited_passage_ids)}</div>
+          </div>
+        </div>
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-zinc-500 mb-1">answer</div>
+          <div class="text-sm leading-relaxed text-zinc-100 bg-ink-900 border border-ink-700 rounded-md p-3">${highlightGeneratedAnswer(o.answer_text || '', r)}</div>
+        </div>
+        ${o.notes ? `
+        <div>
+          <div class="text-[11px] uppercase tracking-wider text-zinc-500 mb-1">notes</div>
+          <div class="text-sm text-zinc-300 italic">${escapeHtml(o.notes)}</div>
+        </div>` : ''}
+        <details>
+          <summary class="text-xs text-zinc-500 cursor-pointer hover:text-zinc-300">show raw generator output</summary>
+          <pre class="wrap mt-2 text-xs text-zinc-300 bg-ink-900 border border-ink-700 rounded p-2">${escapeHtml(prettyJson(o))}</pre>
+        </details>
       </div>
     </div>`;
 }
@@ -365,11 +451,80 @@ function wireTraceToggles() { /* no-op for now; <details> handles itself */ }
 
 // ---------- Helpers ----------
 
+function summarizeGeneration(outputs) {
+  const out = {};
+  for (const o of outputs) {
+    const label = o.behavior_label || 'unlabeled';
+    out[label] = (out[label] || 0) + 1;
+  }
+  return out;
+}
+
+function behaviorTextClass(label) {
+  switch (label) {
+    case 'context_follow': return 'text-emerald-300';
+    case 'memory_override': return 'text-rose-300';
+    case 'both_claims': return 'text-amber-300';
+    case 'conflict_awareness': return 'text-sky-300';
+    case 'refusal_or_insufficient': return 'text-zinc-300';
+    case 'unrelated_or_failed': return 'text-fuchsia-300';
+    default: return 'text-zinc-400';
+  }
+}
+
+function behaviorChip(label) {
+  const classes = {
+    context_follow: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    memory_override: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+    both_claims: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+    conflict_awareness: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+    refusal_or_insufficient: 'bg-zinc-500/15 text-zinc-300 border-zinc-500/30',
+    unrelated_or_failed: 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30',
+  };
+  const cls = classes[label] || 'bg-zinc-500/15 text-zinc-300 border-zinc-500/30';
+  return `<span class="px-2 py-0.5 rounded-md border text-xs font-mono ${cls}">${escapeHtml(label || 'unlabeled')}</span>`;
+}
+
+function boolChip(val) {
+  if (val === true) return '<span class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono">yes</span>';
+  if (val === false) return '<span class="px-2 py-0.5 rounded-md bg-zinc-500/15 text-zinc-300 border border-zinc-500/30 font-mono">no</span>';
+  return '<span class="px-2 py-0.5 rounded-md bg-zinc-500/15 text-zinc-400 border border-zinc-500/30 font-mono">unknown</span>';
+}
+
+function citationChips(ids) {
+  if (!ids || !ids.length) return '<span class="text-zinc-500">none</span>';
+  return ids.map(id => `<span class="px-1.5 rounded bg-ink-800 border border-ink-700 text-zinc-300 font-mono">[${escapeHtml(id)}]</span>`).join('');
+}
+
+function formatEpoch(epoch) {
+  if (!epoch) return '';
+  try {
+    return new Date(epoch * 1000).toLocaleString();
+  } catch {
+    return String(epoch);
+  }
+}
+
+function highlightGeneratedAnswer(text, record) {
+  let html = escapeHtml(text || '');
+  const spans = [
+    [record.original_value, 'mark-removed'],
+    [record.perturbed_value, 'mark-added'],
+  ].filter(([needle]) => needle);
+  for (const [needle, cls] of spans) {
+    const escapedNeedle = escapeHtml(needle);
+    html = html.replace(
+      new RegExp(escapeRegex(escapedNeedle), 'gi'),
+      (m) => `<span class="${cls}">${m}</span>`
+    );
+  }
+  return html;
+}
+
 function highlightSpan(text, needle, mark) {
   if (!text) return '';
   if (!needle) return escapeHtml(text);
   const cls = mark === 'added' ? 'mark-added' : 'mark-removed';
-  const re = new RegExp(escapeRegex(needle), 'gi');
   return escapeHtml(text).replace(
     new RegExp(escapeRegex(escapeHtml(needle)), 'gi'),
     (m) => `<span class="${cls}">${m}</span>`

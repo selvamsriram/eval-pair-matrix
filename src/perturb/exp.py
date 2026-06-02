@@ -16,6 +16,7 @@ so any contiguous slice (offset:take) preserves approximate stratum balance.
 """
 from __future__ import annotations
 
+import random
 import time
 from pathlib import Path
 
@@ -120,6 +121,206 @@ def combine_exp(
         "provider_breakdown_perturb": _provider_breakdown(combined, "perturb"),
         "provider_breakdown_validate": _provider_breakdown(combined, "validate"),
         "validation_pass_rate": _validation_pass_rate(combined),
+    }
+    mout.write_bytes(orjson.dumps(manifest, option=orjson.OPT_INDENT_2))
+    return out, manifest
+
+
+def build_balanced_exp(
+    *,
+    sources: list[Path],
+    fill_source: Path | None,
+    name: str,
+    target: int = 300,
+    seed: int = 17,
+    overwrite: bool = False,
+) -> tuple[Path, dict]:
+    """Multi-source balanced builder for the 3provider_300-style exp set.
+
+    - One record per question (core_id).
+    - Prefer validation.passes==True records.
+    - Provider distribution is the primary balance objective (target ≈ N/k per
+      provider, capped at each provider's max validated count and slack
+      redistributed to others).
+    - Perturbation type is a secondary objective: when multiple providers
+      validated the same question, pick the one whose (provider, type) bucket
+      is most under-target.
+    - If chosen_count < target after the validated pass, fill the gap from
+      `fill_source` using its UNCHOSEN questions (validated or unvalidated).
+    """
+    out = exp_path(name)
+    mout = manifest_path(name)
+    if out.exists() and not overwrite:
+        raise FileExistsError(f"{out} already exists. Pass --overwrite to replace.")
+    for s in sources:
+        if not s.exists():
+            raise FileNotFoundError(f"source not found: {s}")
+
+    # ---------- Load all sources ----------
+    # provider_key derived from generators.perturb.provider on each record;
+    # falls back to filename stem if missing.
+    per_provider: dict[str, dict[str, dict]] = {}  # provider -> core_id -> record
+    src_path_of_provider: dict[str, str] = {}
+    for s in sources:
+        for raw in read_jsonl(s):
+            prov = (
+                (raw.get("generators") or {}).get("perturb", {}).get("provider")
+                or s.parent.name
+            )
+            per_provider.setdefault(prov, {})[raw["core_id"]] = raw
+            src_path_of_provider[prov] = str(s)
+
+    providers_in_order = list(per_provider.keys())
+    all_cids = set().union(*[set(d.keys()) for d in per_provider.values()])
+
+    # validated[provider] = set of core_ids that provider validated cleanly
+    validated: dict[str, set[str]] = {}
+    for prov, recs in per_provider.items():
+        validated[prov] = {
+            cid for cid, r in recs.items()
+            if (r.get("validation") or {}).get("type_valid") is True
+            and (r.get("validation") or {}).get("answer_causal") is True
+            and (r.get("validation") or {}).get("global_context_consistent") is True
+            and (r.get("validation") or {}).get("no_original_answer_leakage") is True
+            and (r.get("validation") or {}).get("original_contradicts_perturbed") is True
+        }
+
+    max_count = {p: len(validated[p]) for p in providers_in_order}
+
+    # ---------- Phase 1: capacity shaping (equal-as-possible) ----------
+    n_p = len(providers_in_order)
+    base_target = target // n_p
+    targets = {p: min(base_target, max_count[p]) for p in providers_in_order}
+    slack = target - sum(targets.values())
+    # Redistribute slack proportional to headroom (max_count - current target)
+    while slack > 0:
+        headrooms = {p: max_count[p] - targets[p] for p in providers_in_order}
+        if all(h <= 0 for h in headrooms.values()):
+            break  # everyone capped — we'll fall through to gap fill
+        # Give one to whoever has the most headroom (then re-evaluate)
+        best = max(providers_in_order, key=lambda p: headrooms[p])
+        if headrooms[best] <= 0:
+            break
+        targets[best] += 1
+        slack -= 1
+
+    # ---------- Phase 2: forced single-validator assignments ----------
+    rng = random.Random(seed)
+    chosen: dict[str, dict] = {}  # core_id -> chosen record
+    chosen_provider: dict[str, str] = {}  # core_id -> provider name
+    counts: dict[str, int] = {p: 0 for p in providers_in_order}
+    type_counts: dict[str, dict[str, int]] = {p: {} for p in providers_in_order}
+
+    def _take(cid: str, prov: str) -> None:
+        rec = per_provider[prov][cid]
+        chosen[cid] = rec
+        chosen_provider[cid] = prov
+        counts[prov] += 1
+        t = rec.get("perturbation_type") or "unknown"
+        type_counts[prov][t] = type_counts[prov].get(t, 0) + 1
+
+    # For each question, which providers validated it
+    validators_of: dict[str, list[str]] = {}
+    for cid in all_cids:
+        vs = [p for p in providers_in_order if cid in validated[p]]
+        if vs:
+            validators_of[cid] = vs
+
+    # Single-validator questions: assign now (no choice)
+    for cid, vs in list(validators_of.items()):
+        if len(vs) == 1 and counts[vs[0]] < targets[vs[0]]:
+            _take(cid, vs[0])
+
+    # ---------- Phase 3: greedy balanced multi-validator ----------
+    multi = [cid for cid, vs in validators_of.items() if len(vs) > 1 and cid not in chosen]
+    # Sort: scarcest first (fewest validators), then by stable tiebreak
+    multi.sort(key=lambda c: (len(validators_of[c]), c))
+
+    def _score(prov: str, ptype: str) -> float:
+        provider_deficit = targets[prov] - counts[prov]
+        if provider_deficit <= 0:
+            return float("-inf")  # provider is full
+        type_target = max(1, targets[prov] // 10)
+        type_deficit = max(0, type_target - type_counts[prov].get(ptype, 0))
+        # provider deficit dominates; type acts as tiebreak; tiny random nudge for stable shuffle
+        return provider_deficit * 100.0 + type_deficit + rng.random()
+
+    for cid in multi:
+        candidate_provs = validators_of[cid]
+        best = None
+        best_score = float("-inf")
+        for p in candidate_provs:
+            rec = per_provider[p][cid]
+            ptype = rec.get("perturbation_type") or "unknown"
+            s = _score(p, ptype)
+            if s > best_score:
+                best_score = s
+                best = p
+        if best is not None and counts[best] < targets[best]:
+            _take(cid, best)
+
+    validated_chosen = len(chosen)
+
+    # ---------- Phase 4: gap fill from fill_source ----------
+    gap_filled = 0
+    excluded: list[str] = []
+    if len(chosen) < target and fill_source is not None:
+        fill_records = list(read_jsonl(fill_source))
+        # Identify fill provider name from records (fall back to path stem)
+        fill_prov = None
+        for r in fill_records:
+            fill_prov = (r.get("generators") or {}).get("perturb", {}).get("provider")
+            if fill_prov:
+                break
+        fill_prov = fill_prov or fill_source.parent.name
+
+        fill_by_cid: dict[str, dict] = {}
+        for r in fill_records:
+            cid = r.get("core_id")
+            # Only consider records that actually have a perturbation produced
+            if cid and r.get("all_grounding_perturbed"):
+                fill_by_cid[cid] = r
+
+        for cid, r in fill_by_cid.items():
+            if len(chosen) >= target:
+                break
+            if cid in chosen:
+                continue
+            chosen[cid] = r
+            chosen_provider[cid] = fill_prov
+            counts[fill_prov] = counts.get(fill_prov, 0) + 1
+            t = r.get("perturbation_type") or "unknown"
+            type_counts.setdefault(fill_prov, {})
+            type_counts[fill_prov][t] = type_counts[fill_prov].get(t, 0) + 1
+            gap_filled += 1
+
+    # Questions excluded (nobody had a perturbation)
+    excluded = sorted(all_cids - set(chosen.keys()))
+
+    # ---------- Write output ----------
+    # Preserve a stable, useful order: by core_id (matches the rest of the system)
+    final = [chosen[cid] for cid in sorted(chosen.keys())]
+    write_jsonl(out, final)
+
+    manifest = {
+        "name": name,
+        "created_at": int(time.time()),
+        "kind": "balanced_multisource",
+        "seed": seed,
+        "sources": [str(s) for s in sources],
+        "fill_source": str(fill_source) if fill_source else None,
+        "target_total": target,
+        "actual_total": len(final),
+        "provider_max_capacity": max_count,
+        "provider_targets": targets,
+        "provider_actuals": {p: counts.get(p, 0) for p in set(list(providers_in_order) + list(counts.keys()))},
+        "validated_chosen": validated_chosen,
+        "gap_filled": gap_filled,
+        "single_validator_questions": sum(1 for vs in validators_of.values() if len(vs) == 1),
+        "multi_validator_questions": sum(1 for vs in validators_of.values() if len(vs) > 1),
+        "type_distribution_per_provider": type_counts,
+        "excluded_questions_count": len(excluded),
+        "excluded_questions": excluded[:50],  # cap printout in manifest
     }
     mout.write_bytes(orjson.dumps(manifest, option=orjson.OPT_INDENT_2))
     return out, manifest

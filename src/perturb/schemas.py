@@ -69,6 +69,151 @@ class DocModification(BaseModel):
     skip_reason: str | None = None
 
 
+# ---------- Provider families (used by Phase 2 judge-pair derivation) ----------
+
+# Registry-name → family. Add a line per new provider as you wire it.
+# Used to derive judge-vs-generator `pair_type`: same_exact_model,
+# same_provider_family, or cross_provider_family.
+PROVIDER_FAMILY: dict[str, str] = {
+    "azure-gpt": "openai_family",
+    "grok": "xai_family",
+    "gemini": "google_family",
+    "kimi": "moonshot_family",
+    "anthropic": "anthropic_family",
+}
+
+
+def provider_family(provider_name: str) -> str:
+    return PROVIDER_FAMILY.get(provider_name, "unknown_family")
+
+
+# ---------- Generation (Phase 2) ----------
+
+GenerationMode = Literal["rag_perturbed", "rag_original", "closed_book"]
+
+# Deterministic post-generation classification of how the answer relates to the
+# original vs perturbed claim. Computed inline by the generate step.
+BehaviorLabel = Literal[
+    "context_follow",           # answer uses perturbed value, not original
+    "memory_override",          # answer uses original value, not perturbed
+    "both_claims",              # answer mentions both
+    "conflict_awareness",       # answer flags a contradiction / uncertainty
+    "refusal_or_insufficient",  # model declined / said evidence insufficient
+    "unrelated_or_failed",      # neither value present and not a refusal
+]
+
+
+PairType = Literal["same_exact_model", "same_provider_family", "cross_provider_family"]
+
+
+def derive_pair_type(
+    judge_provider: str,
+    judge_model: str,
+    generator_provider: str,
+    generator_model: str,
+) -> PairType:
+    """Classify a (judge, generator) pair for the eval-pair matrix.
+
+    same_exact_model     : judge and generator are the same model instance.
+    same_provider_family : different exact models from the same provider family
+                           (e.g., gpt-5.4 judging gpt-5.5 — would be openai_family).
+    cross_provider_family: different provider families.
+    """
+    if judge_provider == generator_provider and judge_model == generator_model:
+        return "same_exact_model"
+    if provider_family(judge_provider) == provider_family(generator_provider):
+        return "same_provider_family"
+    return "cross_provider_family"
+
+
+class JudgeVerdict(BaseModel):
+    """One judge model's verdict on one GeneratorOutput.
+
+    The judge sees only (question, answer, ORIGINAL grounding). It does NOT see
+    the perturbation, the perturbed grounding, or the deterministic labels.
+    Gold labels below are derived externally from the generator's LLM-eval
+    output and are NEVER shown to the judge — they're carried on the verdict
+    purely so downstream analysis can compute precision/recall/F1 per pair_type.
+    """
+    # Identity
+    judge_provider: str           # registry key, e.g. "azure-gpt"
+    judge_model: str              # exact id, e.g. "gpt-5.4"
+
+    # Which generator output is being judged
+    generator_provider: str
+    generator_model: str
+    generator_mode: "GenerationMode"
+    generator_sample_id: int = 0
+
+    # Auto-derived pair classification
+    pair_type: PairType
+
+    # The judge's verdict
+    verdict: Literal["correct", "incorrect", "unclear"]
+    contains_factual_error: bool
+    wrong_claim: str | None = None                  # judge's text for the wrong claim
+    supporting_source_passage_id: int | None = None # passage ID the judge points to
+    explanation: str | None = None
+    confidence: Plausibility | None = None
+
+    # Gold labels (NOT shown to judge; populated from generator's llm_eval)
+    gold_has_induced_error: bool                    # True if generator asserted perturbed value
+    gold_perturbation_target: str | None = None     # = original_value (what truth is)
+    gold_perturbation_replacement: str | None = None # = perturbed_value (what the answer should NOT say)
+
+    # Provenance
+    run_id: str
+    completed_at: int
+
+
+class LLMBehaviorEval(BaseModel):
+    """An LLM evaluator's classification of one GeneratorOutput.
+
+    Produced by the `label_eval` step; lives ALONGSIDE the deterministic
+    `behavior_label` on its parent GeneratorOutput so we can compare code-based
+    and LLM-based labels per record.
+    """
+    evaluator_provider: str       # registry key, e.g. "azure-gpt"
+    evaluator_model: str          # exact id, e.g. "gpt-5.4"
+    behavior_label: BehaviorLabel
+    entails_original_claim: bool
+    entails_perturbed_claim: bool
+    rationale: str | None = None
+    confidence: Plausibility | None = None  # reuses high|medium|low
+    run_id: str
+    completed_at: int
+
+
+class GeneratorOutput(BaseModel):
+    """One LLM-generated answer for a specific (model, mode) combination.
+
+    Multiple outputs can exist per CoreRecord (one per generator, optionally
+    multiple samples for closed-book probes).
+    """
+    generator_provider: str   # registry key, e.g. "azure-gpt"
+    generator_model: str      # exact model id, e.g. "gpt-5.4"
+    mode: GenerationMode
+    sample_id: int = 0        # 0 unless multi-sample (closed-book uses 0..N-1)
+    answer_text: str
+    cited_passage_ids: list[int] = Field(default_factory=list)
+    is_refusal: bool = False
+
+    # Deterministic post-gen analysis (computed inline by generate step)
+    entails_original_claim: bool | None = None
+    entails_perturbed_claim: bool | None = None
+    behavior_label: BehaviorLabel | None = None
+    notes: str | None = None  # any free-form notes the model emitted
+
+    # LLM-driven re-evaluation (populated by label_eval step). Carries the
+    # evaluator's own behavior_label / entailments so we can diff against the
+    # deterministic ones above per record.
+    llm_eval: LLMBehaviorEval | None = None
+
+    # When/where this came from
+    run_id: str
+    completed_at: int
+
+
 class StepProvenance(BaseModel):
     """Who/when produced this step's output for a given record.
 
@@ -159,3 +304,12 @@ class CoreRecord(BaseModel):
     # Per-step model attribution: step_name -> StepProvenance. Auto-stamped by the
     # runner for any step that used an LLM. Filter has no entry (deterministic).
     generators: dict[str, StepProvenance] = Field(default_factory=dict)
+
+    # Step 4 (generate): one GeneratorOutput per (model, mode, sample) combination.
+    # Appended across runs — analysis filters by run_id / generator_model / mode.
+    generator_outputs: list[GeneratorOutput] = Field(default_factory=list)
+
+    # Step 6 (judge): one JudgeVerdict per (judge_model, generator_output) pair.
+    # Same append-only pattern: each judge run extends the list rather than
+    # replacing. Filter by (judge_model, generator_model, run_id) for analysis.
+    judge_verdicts: list[JudgeVerdict] = Field(default_factory=list)

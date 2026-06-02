@@ -1,0 +1,33 @@
+{
+  "run_id": "20260531-230842-judge-gpt-on-gemini",
+  "name": "judge-gpt-on-gemini",
+  "created_at": 1780294122,
+  "updated_at": 1780294910,
+  "step_judge": {
+    "input": "data/runs/20260531-005123-gen-gemini-300/05_label_eval.jsonl",
+    "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-230842-judge-gpt-on-gemini/06_judge.jsonl",
+    "records_in": 300,
+    "records_out": 300,
+    "resumed_existing": 0,
+    "provider": null,
+    "model_id": null,
+    "options": {
+      "limit": null,
+      "n": 200,
+      "seed": 17,
+      "prefer_cited": true,
+      "take": null,
+      "offset": 0,
+      "paraphrase": true,
+      "types": null,
+      "generators": null,
+      "modes": null,
+      "judges": "azure-gpt",
+      "_runner_model": null
+    },
+    "status_counts": {
+      "ok": 296,
+      "failed:all_judges_failed": 4
+    }
+  }
+}

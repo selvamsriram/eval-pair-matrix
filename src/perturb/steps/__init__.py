@@ -9,6 +9,9 @@ from __future__ import annotations
 
 from .base import Step, StepContext  # re-exported
 from .filter_step import FilterStep
+from .generate import GenerateStep
+from .judge import JudgeStep
+from .label_eval import LabelEvalStep
 from .perturb_step import PerturbStep
 from .validate_step import ValidateStep
 
@@ -16,6 +19,9 @@ STEPS: dict[str, type[Step]] = {
     "filter": FilterStep,
     "perturb": PerturbStep,
     "validate": ValidateStep,
+    "generate": GenerateStep,
+    "label_eval": LabelEvalStep,
+    "judge": JudgeStep,
 }
 
 

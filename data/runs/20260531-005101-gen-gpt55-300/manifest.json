@@ -1,0 +1,84 @@
+{
+  "run_id": "20260531-005101-gen-gpt55-300",
+  "name": "gen-gpt55-300",
+  "created_at": 1780213861,
+  "updated_at": 1780264637,
+  "step_generate": {
+    "input": "data/exp/3provider_300.jsonl",
+    "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-005101-gen-gpt55-300/04_generate.jsonl",
+    "records_in": 300,
+    "records_out": 300,
+    "resumed_existing": 0,
+    "provider": null,
+    "model_id": null,
+    "options": {
+      "limit": null,
+      "n": 200,
+      "seed": 17,
+      "prefer_cited": true,
+      "take": null,
+      "offset": 0,
+      "paraphrase": true,
+      "types": null,
+      "generators": null,
+      "modes": null,
+      "_runner_model": "azure-gpt"
+    },
+    "status_counts": {
+      "ok": 299,
+      "failed:all_generators_failed": 1
+    }
+  },
+  "step_label_eval": {
+    "input": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-005101-gen-gpt55-300/04_generate.jsonl",
+    "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-005101-gen-gpt55-300/05_label_eval.jsonl",
+    "records_in": 300,
+    "records_out": 300,
+    "resumed_existing": 0,
+    "provider": "azure-gpt",
+    "model_id": "gpt-5.4",
+    "options": {
+      "limit": null,
+      "n": 200,
+      "seed": 17,
+      "prefer_cited": true,
+      "take": null,
+      "offset": 0,
+      "paraphrase": true,
+      "types": null,
+      "generators": null,
+      "modes": null,
+      "_runner_model": "azure-gpt"
+    },
+    "status_counts": {
+      "ok": 299,
+      "failed:all_evals_failed": 1
+    }
+  },
+  "step_judge": {
+    "input": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-005101-gen-gpt55-300/_limit_2_05_label_eval.jsonl",
+    "output": "/Users/sriramselvam/Code/eval-pair-matrix/data/runs/20260531-005101-gen-gpt55-300/06_judge.jsonl",
+    "records_in": 2,
+    "records_out": 2,
+    "resumed_existing": 0,
+    "provider": null,
+    "model_id": null,
+    "options": {
+      "limit": 2,
+      "n": 200,
+      "seed": 17,
+      "prefer_cited": true,
+      "take": null,
+      "offset": 0,
+      "paraphrase": true,
+      "types": null,
+      "generators": null,
+      "modes": null,
+      "judges": "azure-gpt",
+      "_runner_model": null
+    },
+    "status_counts": {
+      "ok": 2
+    }
+  }
+}

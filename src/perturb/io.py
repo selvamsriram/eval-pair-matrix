@@ -29,6 +29,7 @@ def write_jsonl(path: Path, records: Iterable[dict | BaseModel]) -> int:
                 payload = r
             f.write(orjson.dumps(payload))
             f.write(b"\n")
+            f.flush()
             n += 1
     tmp.replace(path)
     return n
