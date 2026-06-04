@@ -1,0 +1,19 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.04, nodesep=0.28, ranksep=0.28, splines=ortho];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=14, penwidth=1.4, color="#334155", fillcolor="#F8FAFC", width=2.2, height=0.55];
+  edge [fontname="Helvetica", fontsize=10, color="#475569", arrowsize=0.75];
+  raw [label="GaRAGe\nquestion + answer + original grounding", fillcolor="#EEF2FF"];
+  sample [label="Filter + stratify\n300 base records", fillcolor="#E0F2FE"];
+  perturb [label="Perturb\none answer-causal atomic claim", fillcolor="#FEF3C7"];
+  validate [label="Validate\n5 LLM gates + leakage scan", fillcolor="#FDE68A"];
+  balance [label="Balanced set\n300 questions: 275 valid + 25 gap-fill", fillcolor="#DCFCE7"];
+  generate [label="Generate answers\n3 models x 300, perturbed grounding only", fillcolor="#DBEAFE"];
+  label [label="Behavior labels\n897/900 outputs, paraphrase-aware", fillcolor="#EDE9FE"];
+  judge [label="Blind judge matrix\n3 judges x 3 generators = 2,683 verdicts", fillcolor="#FCE7F3"];
+  seen [shape=note, fontsize=13, label="Judge sees:\nquestion\ncandidate answer\noriginal passages", fillcolor="#E0F2FE", color="#0369A1"];
+  hidden [shape=note, fontsize=13, label="Hidden from judge:\nperturbed passages\ntarget/replacement\nbehavior labels\ngold induced-error", fillcolor="#FFE4E6", color="#BE123C"];
+  raw -> sample -> perturb -> validate -> balance -> generate -> label -> judge;
+  {rank=same; seen; hidden;}
+  seen -> judge [style=dashed, arrowhead=none];
+  hidden -> judge [style=dashed, xlabel="scoring only"];
+}

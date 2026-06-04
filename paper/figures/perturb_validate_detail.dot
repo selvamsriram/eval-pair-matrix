@@ -1,0 +1,16 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.04, nodesep=0.25, ranksep=0.24, splines=ortho];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=13, penwidth=1.3, color="#334155", fillcolor="#F8FAFC", width=2.1, height=0.5];
+  edge [fontname="Helvetica", fontsize=10, color="#475569", arrowsize=0.7];
+  input [label="Input\nquestion + answer + answer-bearing passages", fillcolor="#EEF2FF"];
+  claim [label="Select one answer-causal value\npresent in answer and grounding", fillcolor="#E0F2FE"];
+  menu [label="Closed perturbation menu\nentity, temporal, numerical, relation, causal, ...", fillcolor="#F0FDFA"];
+  rewrite [label="Rewrite every passage mention\nexplicit, paraphrased, or entailed", fillcolor="#FEF3C7"];
+  backstop [label="Deterministic leakage backstop\nscan all passages for original value", fillcolor="#FFE4E6"];
+  gates [label="Validation gates\n1 type valid\n2 answer-causal\n3 globally consistent\n4 no leakage\n5 original contradicts perturbed", fillcolor="#FDE68A"];
+  ok [label="Validated record\nall five gates pass", fillcolor="#DCFCE7"];
+  gap [label="Gap-fill record\nkept with failure reasons", fillcolor="#FEE2E2"];
+  input -> claim -> menu -> rewrite -> backstop -> gates;
+  gates -> ok [label="pass"];
+  gates -> gap [label="fail any gate"];
+}

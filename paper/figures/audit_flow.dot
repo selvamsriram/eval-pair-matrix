@@ -1,0 +1,12 @@
+
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.08, nodesep=0.35, ranksep=0.5, splines=ortho];
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, penwidth=1.2, color="#334155", fillcolor="#F8FAFC"];
+  edge [fontname="Helvetica", fontsize=8, color="#475569", arrowsize=0.65];
+  data [label="Raw JSONL in data/\n3provider_300\n3 label_eval files\n9 judge files", fillcolor="#EEF2FF"];
+  script [label="raw_data_audit.py\nrecompute counts\nand metrics", fillcolor="#E0F2FE"];
+  checks [label="Assertions\n300 core records\n900 outputs\n897 labels\n2,683 verdicts", fillcolor="#DCFCE7"];
+  figs [label="Figures + tables\nfrom audit_report.json", fillcolor="#FEF3C7"];
+  paper [label="Paper numbers\nno markdown-summary\ninput", fillcolor="#FCE7F3"];
+  data -> script -> checks -> figs -> paper;
+}

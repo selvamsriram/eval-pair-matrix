@@ -1,0 +1,13 @@
+
+digraph G {
+graph [rankdir=LR,bgcolor="white",margin=0.08,nodesep=0.35,ranksep=0.5];
+node [shape=box,style="rounded,filled",fontname="Helvetica",fontsize=10,color="#334155",fillcolor="#F8FAFC"];
+edge [fontname="Helvetica",fontsize=8,color="#475569",arrowsize=0.65];
+all [label="Balanced set\n300 records\n300 unique questions", fillcolor="#DBEAFE"];
+valid [label="Validated\n275 records\nall 5 gates pass", fillcolor="#DCFCE7"];
+gap [label="Gap-fill\n25 records\nflagged failures", fillcolor="#FEE2E2"];
+gpt [label="GPT perturber\n83 records", fillcolor="#E0F2FE"];
+grok [label="Grok perturber\n92 records", fillcolor="#FFEDD5"];
+gem [label="Gemini perturber\n125 records", fillcolor="#DCFCE7"];
+all -> valid; all -> gap; all -> gpt; all -> grok; all -> gem;
+}
