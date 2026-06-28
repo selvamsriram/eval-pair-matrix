@@ -1,0 +1,797 @@
+{
+  "counts": {
+    "answers_dropped_no_pairing": 2,
+    "answers_usable_paired": 894,
+    "core_records": 300,
+    "gap_fill": 25,
+    "pair_types": {
+      "cross_provider_family": 1789,
+      "same_exact_model": 894
+    },
+    "paired_gold_negative": 397,
+    "paired_gold_positive": 497,
+    "perturber_counts": {
+      "GPT": 83,
+      "Gemini": 125,
+      "Grok": 92
+    },
+    "total_verdicts": 2683,
+    "unique_answers": 896,
+    "unique_core_ids": 300,
+    "validated": 275
+  },
+  "files": {
+    "data/exp/3provider_300.jsonl": 300,
+    "data/runs/20260531-005101-gen-gpt55-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-005112-gen-grok-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-005123-gen-gemini-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-175601-judge-gpt-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-175608-judge-grok-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-175617-judge-gemini-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-212107-judge-gpt-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-212120-judge-gemini-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-212359-judge-grok-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-230842-judge-gpt-on-gemini/06_judge.jsonl": 300,
+    "data/runs/20260531-230848-judge-grok-on-gemini/06_judge.jsonl": 300,
+    "data/runs/20260531-230857-judge-gemini-on-gemini/06_judge.jsonl": 300
+  },
+  "matrices": {
+    "full": {
+      "cells": {
+        "GPT_on_GPT": {
+          "f1": 84.81,
+          "fn": 39,
+          "fp": 9,
+          "fpr": 7.258,
+          "gold_pos": 173,
+          "n": 297,
+          "precision": 93.706,
+          "recall": 77.457,
+          "tn": 115,
+          "tp": 134
+        },
+        "GPT_on_Gemini": {
+          "f1": 83.582,
+          "fn": 25,
+          "fp": 30,
+          "fpr": 22.901,
+          "gold_pos": 165,
+          "n": 296,
+          "precision": 82.353,
+          "recall": 84.848,
+          "tn": 101,
+          "tp": 140
+        },
+        "GPT_on_Grok": {
+          "f1": 79.878,
+          "fn": 28,
+          "fp": 38,
+          "fpr": 27.143,
+          "gold_pos": 159,
+          "n": 299,
+          "precision": 77.515,
+          "recall": 82.39,
+          "tn": 102,
+          "tp": 131
+        },
+        "Gemini_on_GPT": {
+          "f1": 87.536,
+          "fn": 24,
+          "fp": 19,
+          "fpr": 15.323,
+          "gold_pos": 175,
+          "n": 299,
+          "precision": 88.824,
+          "recall": 86.286,
+          "tn": 105,
+          "tp": 151
+        },
+        "Gemini_on_Gemini": {
+          "f1": 88.563,
+          "fn": 14,
+          "fp": 25,
+          "fpr": 18.939,
+          "gold_pos": 165,
+          "n": 297,
+          "precision": 85.795,
+          "recall": 91.515,
+          "tn": 107,
+          "tp": 151
+        },
+        "Gemini_on_Grok": {
+          "f1": 81.928,
+          "fn": 23,
+          "fp": 37,
+          "fpr": 26.241,
+          "gold_pos": 159,
+          "n": 300,
+          "precision": 78.613,
+          "recall": 85.535,
+          "tn": 104,
+          "tp": 136
+        },
+        "Grok_on_GPT": {
+          "f1": 83.436,
+          "fn": 39,
+          "fp": 15,
+          "fpr": 12.097,
+          "gold_pos": 175,
+          "n": 299,
+          "precision": 90.066,
+          "recall": 77.714,
+          "tn": 109,
+          "tp": 136
+        },
+        "Grok_on_Gemini": {
+          "f1": 86.585,
+          "fn": 22,
+          "fp": 22,
+          "fpr": 16.667,
+          "gold_pos": 164,
+          "n": 296,
+          "precision": 86.585,
+          "recall": 86.585,
+          "tn": 110,
+          "tp": 142
+        },
+        "Grok_on_Grok": {
+          "f1": 80.503,
+          "fn": 31,
+          "fp": 31,
+          "fpr": 21.986,
+          "gold_pos": 159,
+          "n": 300,
+          "precision": 80.503,
+          "recall": 80.503,
+          "tn": 110,
+          "tp": 128
+        }
+      },
+      "margins": {
+        "col_avg_f1": {
+          "GPT": 85.261,
+          "Gemini": 86.243,
+          "Grok": 80.77
+        },
+        "diag_avg_f1": 84.625,
+        "diag_minus_offdiag_f1": 0.801,
+        "offdiag_avg_f1": 83.824,
+        "row_avg_f1": {
+          "GPT": 82.757,
+          "Gemini": 86.009,
+          "Grok": 83.508
+        }
+      }
+    },
+    "gap_fill": {
+      "cells": {
+        "GPT_on_GPT": {
+          "f1": 78.261,
+          "fn": 4,
+          "fp": 1,
+          "fpr": 8.333,
+          "gold_pos": 13,
+          "n": 25,
+          "precision": 90.0,
+          "recall": 69.231,
+          "tn": 11,
+          "tp": 9
+        },
+        "GPT_on_Gemini": {
+          "f1": 94.118,
+          "fn": 0,
+          "fp": 2,
+          "fpr": 22.222,
+          "gold_pos": 16,
+          "n": 25,
+          "precision": 88.889,
+          "recall": 100.0,
+          "tn": 7,
+          "tp": 16
+        },
+        "GPT_on_Grok": {
+          "f1": 81.481,
+          "fn": 1,
+          "fp": 4,
+          "fpr": 30.769,
+          "gold_pos": 12,
+          "n": 25,
+          "precision": 73.333,
+          "recall": 91.667,
+          "tn": 9,
+          "tp": 11
+        },
+        "Gemini_on_GPT": {
+          "f1": 84.615,
+          "fn": 2,
+          "fp": 2,
+          "fpr": 16.667,
+          "gold_pos": 13,
+          "n": 25,
+          "precision": 84.615,
+          "recall": 84.615,
+          "tn": 10,
+          "tp": 11
+        },
+        "Gemini_on_Gemini": {
+          "f1": 94.118,
+          "fn": 0,
+          "fp": 2,
+          "fpr": 22.222,
+          "gold_pos": 16,
+          "n": 25,
+          "precision": 88.889,
+          "recall": 100.0,
+          "tn": 7,
+          "tp": 16
+        },
+        "Gemini_on_Grok": {
+          "f1": 88.0,
+          "fn": 1,
+          "fp": 2,
+          "fpr": 15.385,
+          "gold_pos": 12,
+          "n": 25,
+          "precision": 84.615,
+          "recall": 91.667,
+          "tn": 11,
+          "tp": 11
+        },
+        "Grok_on_GPT": {
+          "f1": 83.333,
+          "fn": 3,
+          "fp": 1,
+          "fpr": 8.333,
+          "gold_pos": 13,
+          "n": 25,
+          "precision": 90.909,
+          "recall": 76.923,
+          "tn": 11,
+          "tp": 10
+        },
+        "Grok_on_Gemini": {
+          "f1": 93.75,
+          "fn": 1,
+          "fp": 1,
+          "fpr": 11.111,
+          "gold_pos": 16,
+          "n": 25,
+          "precision": 93.75,
+          "recall": 93.75,
+          "tn": 8,
+          "tp": 15
+        },
+        "Grok_on_Grok": {
+          "f1": 88.0,
+          "fn": 1,
+          "fp": 2,
+          "fpr": 15.385,
+          "gold_pos": 12,
+          "n": 25,
+          "precision": 84.615,
+          "recall": 91.667,
+          "tn": 11,
+          "tp": 11
+        }
+      },
+      "margins": {
+        "col_avg_f1": {
+          "GPT": 82.07,
+          "Gemini": 93.995,
+          "Grok": 85.827
+        },
+        "diag_avg_f1": 86.793,
+        "diag_minus_offdiag_f1": -0.757,
+        "offdiag_avg_f1": 87.55,
+        "row_avg_f1": {
+          "GPT": 84.62,
+          "Gemini": 88.911,
+          "Grok": 88.361
+        }
+      }
+    },
+    "validated": {
+      "cells": {
+        "GPT_on_GPT": {
+          "f1": 85.324,
+          "fn": 35,
+          "fp": 8,
+          "fpr": 7.143,
+          "gold_pos": 160,
+          "n": 272,
+          "precision": 93.985,
+          "recall": 78.125,
+          "tn": 104,
+          "tp": 125
+        },
+        "GPT_on_Gemini": {
+          "f1": 82.392,
+          "fn": 25,
+          "fp": 28,
+          "fpr": 22.951,
+          "gold_pos": 149,
+          "n": 271,
+          "precision": 81.579,
+          "recall": 83.221,
+          "tn": 94,
+          "tp": 124
+        },
+        "GPT_on_Grok": {
+          "f1": 79.734,
+          "fn": 27,
+          "fp": 34,
+          "fpr": 26.772,
+          "gold_pos": 147,
+          "n": 274,
+          "precision": 77.922,
+          "recall": 81.633,
+          "tn": 93,
+          "tp": 120
+        },
+        "Gemini_on_GPT": {
+          "f1": 87.774,
+          "fn": 22,
+          "fp": 17,
+          "fpr": 15.179,
+          "gold_pos": 162,
+          "n": 274,
+          "precision": 89.172,
+          "recall": 86.42,
+          "tn": 95,
+          "tp": 140
+        },
+        "Gemini_on_Gemini": {
+          "f1": 87.948,
+          "fn": 14,
+          "fp": 23,
+          "fpr": 18.699,
+          "gold_pos": 149,
+          "n": 272,
+          "precision": 85.443,
+          "recall": 90.604,
+          "tn": 100,
+          "tp": 135
+        },
+        "Gemini_on_Grok": {
+          "f1": 81.433,
+          "fn": 22,
+          "fp": 35,
+          "fpr": 27.344,
+          "gold_pos": 147,
+          "n": 275,
+          "precision": 78.125,
+          "recall": 85.034,
+          "tn": 93,
+          "tp": 125
+        },
+        "Grok_on_GPT": {
+          "f1": 83.444,
+          "fn": 36,
+          "fp": 14,
+          "fpr": 12.5,
+          "gold_pos": 162,
+          "n": 274,
+          "precision": 90.0,
+          "recall": 77.778,
+          "tn": 98,
+          "tp": 126
+        },
+        "Grok_on_Gemini": {
+          "f1": 85.811,
+          "fn": 21,
+          "fp": 21,
+          "fpr": 17.073,
+          "gold_pos": 148,
+          "n": 271,
+          "precision": 85.811,
+          "recall": 85.811,
+          "tn": 102,
+          "tp": 127
+        },
+        "Grok_on_Grok": {
+          "f1": 79.863,
+          "fn": 30,
+          "fp": 29,
+          "fpr": 22.656,
+          "gold_pos": 147,
+          "n": 275,
+          "precision": 80.137,
+          "recall": 79.592,
+          "tn": 99,
+          "tp": 117
+        }
+      },
+      "margins": {
+        "col_avg_f1": {
+          "GPT": 85.514,
+          "Gemini": 85.384,
+          "Grok": 80.343
+        },
+        "diag_avg_f1": 84.378,
+        "diag_minus_offdiag_f1": 0.947,
+        "offdiag_avg_f1": 83.431,
+        "row_avg_f1": {
+          "GPT": 82.483,
+          "Gemini": 85.718,
+          "Grok": 83.039
+        }
+      }
+    }
+  },
+  "meta": {
+    "bootstrap": {
+      "ci": "95% percentile",
+      "clusters": {
+        "full": 300,
+        "gap_fill": 25,
+        "validated": 275
+      },
+      "method": "cluster bootstrap by core_id; each dataset resamples its own cluster population",
+      "replicates": 10000,
+      "seeds": {
+        "full": 20260728,
+        "gap_fill": 20260829,
+        "validated": 20260627
+      }
+    },
+    "description": "Paired, answer-level audit of the judge-by-generator matrix (statistical rescue layer).",
+    "estimand": "On the exact same candidate answer, does the matching judge behave differently from the mean of the two non-matching judges?",
+    "multiple_testing_note": "Per-generator (by_generator_*) deltas are EXPLORATORY and uncorrected for multiple comparisons; treat the global validated delta as the confirmatory estimand.",
+    "paired_delta_definition": "per answer: same_pred - mean(cross_preds); reported as percentage points.",
+    "primary_set": "275 validated records (all five gates pass); gap-fill 25 records reported as diagnostic only.",
+    "provider_models": {
+      "GPT": "gpt-5.4",
+      "Gemini": "gemini-3.5-flash",
+      "Grok": "grok-4.3"
+    },
+    "read_only": true
+  },
+  "paired_effects": {
+    "by_generator_full": {
+      "GPT": {
+        "flag_rate_delta": {
+          "ci_high": -2.357,
+          "ci_low": -8.136,
+          "cross_mean": 53.367,
+          "delta": -5.219,
+          "n": 297,
+          "n_clusters": 300,
+          "same_mean": 48.148
+        },
+        "fpr_delta": {
+          "ci_high": -2.672,
+          "ci_low": -10.715,
+          "cross_mean": 13.71,
+          "delta": -6.452,
+          "n": 124,
+          "n_clusters": 300,
+          "same_mean": 7.258
+        },
+        "recall_delta": {
+          "ci_high": -0.299,
+          "ci_low": -8.382,
+          "cross_mean": 81.792,
+          "delta": -4.335,
+          "n": 173,
+          "n_clusters": 300,
+          "same_mean": 77.457
+        }
+      },
+      "Gemini": {
+        "flag_rate_delta": {
+          "ci_high": 5.017,
+          "ci_low": 0.51,
+          "cross_mean": 56.566,
+          "delta": 2.694,
+          "n": 297,
+          "n_clusters": 300,
+          "same_mean": 59.259
+        },
+        "fpr_delta": {
+          "ci_high": 1.969,
+          "ci_low": -4.132,
+          "cross_mean": 20.076,
+          "delta": -1.136,
+          "n": 132,
+          "n_clusters": 300,
+          "same_mean": 18.939
+        },
+        "recall_delta": {
+          "ci_high": 8.982,
+          "ci_low": 2.866,
+          "cross_mean": 85.758,
+          "delta": 5.758,
+          "n": 165,
+          "n_clusters": 300,
+          "same_mean": 91.515
+        }
+      },
+      "Grok": {
+        "flag_rate_delta": {
+          "ci_high": -1.167,
+          "ci_low": -7.167,
+          "cross_mean": 57.167,
+          "delta": -4.167,
+          "n": 300,
+          "n_clusters": 300,
+          "same_mean": 53.0
+        },
+        "fpr_delta": {
+          "ci_high": -1.034,
+          "ci_low": -9.091,
+          "cross_mean": 26.95,
+          "delta": -4.965,
+          "n": 141,
+          "n_clusters": 300,
+          "same_mean": 21.986
+        },
+        "recall_delta": {
+          "ci_high": 0.68,
+          "ci_low": -7.895,
+          "cross_mean": 83.962,
+          "delta": -3.459,
+          "n": 159,
+          "n_clusters": 300,
+          "same_mean": 80.503
+        }
+      }
+    },
+    "by_generator_validated": {
+      "GPT": {
+        "flag_rate_delta": {
+          "ci_high": -2.022,
+          "ci_low": -8.088,
+          "cross_mean": 53.86,
+          "delta": -4.963,
+          "n": 272,
+          "n_clusters": 275,
+          "same_mean": 48.897
+        },
+        "fpr_delta": {
+          "ci_high": -2.586,
+          "ci_low": -11.382,
+          "cross_mean": 13.839,
+          "delta": -6.696,
+          "n": 112,
+          "n_clusters": 275,
+          "same_mean": 7.143
+        },
+        "recall_delta": {
+          "ci_high": 0.321,
+          "ci_low": -8.0,
+          "cross_mean": 81.875,
+          "delta": -3.75,
+          "n": 160,
+          "n_clusters": 275,
+          "same_mean": 78.125
+        },
+        "unpaired_f1_delta": 4.261,
+        "unpaired_fpr_delta": -17.718,
+        "unpaired_recall_delta": -4.302
+      },
+      "Gemini": {
+        "flag_rate_delta": {
+          "ci_high": 4.982,
+          "ci_low": 0.187,
+          "cross_mean": 55.515,
+          "delta": 2.574,
+          "n": 272,
+          "n_clusters": 275,
+          "same_mean": 58.088
+        },
+        "fpr_delta": {
+          "ci_high": 1.639,
+          "ci_low": -4.741,
+          "cross_mean": 20.325,
+          "delta": -1.626,
+          "n": 123,
+          "n_clusters": 275,
+          "same_mean": 18.699
+        },
+        "recall_delta": {
+          "ci_high": 9.589,
+          "ci_low": 2.866,
+          "cross_mean": 84.564,
+          "delta": 6.04,
+          "n": 149,
+          "n_clusters": 275,
+          "same_mean": 90.604
+        },
+        "unpaired_f1_delta": 3.344,
+        "unpaired_fpr_delta": -2.562,
+        "unpaired_recall_delta": 4.877
+      },
+      "Grok": {
+        "flag_rate_delta": {
+          "ci_high": -1.091,
+          "ci_low": -7.455,
+          "cross_mean": 57.273,
+          "delta": -4.182,
+          "n": 275,
+          "n_clusters": 275,
+          "same_mean": 53.091
+        },
+        "fpr_delta": {
+          "ci_high": -0.413,
+          "ci_low": -9.322,
+          "cross_mean": 27.344,
+          "delta": -4.688,
+          "n": 128,
+          "n_clusters": 275,
+          "same_mean": 22.656
+        },
+        "recall_delta": {
+          "ci_high": 0.714,
+          "ci_low": -8.654,
+          "cross_mean": 83.333,
+          "delta": -3.741,
+          "n": 147,
+          "n_clusters": 275,
+          "same_mean": 79.592
+        },
+        "unpaired_f1_delta": -4.764,
+        "unpaired_fpr_delta": 7.869,
+        "unpaired_recall_delta": -2.203
+      }
+    },
+    "full": {
+      "flag_rate_delta": {
+        "ci_high": -0.73,
+        "ci_low": -3.752,
+        "cross_mean": 55.705,
+        "delta": -2.237,
+        "n": 894,
+        "n_clusters": 300,
+        "same_mean": 53.468
+      },
+      "fpr_delta": {
+        "ci_high": -2.078,
+        "ci_low": -6.308,
+        "cross_mean": 20.529,
+        "delta": -4.156,
+        "n": 397,
+        "n_clusters": 300,
+        "same_mean": 16.373
+      },
+      "recall_delta": {
+        "ci_high": 1.414,
+        "ci_low": -2.762,
+        "cross_mean": 83.803,
+        "delta": -0.704,
+        "n": 497,
+        "n_clusters": 300,
+        "same_mean": 83.099
+      }
+    },
+    "gap_fill": {
+      "flag_rate_delta": {
+        "ci_high": 0.667,
+        "ci_low": -6.667,
+        "cross_mean": 57.333,
+        "delta": -2.667,
+        "n": 75,
+        "n_clusters": 25,
+        "same_mean": 54.667
+      },
+      "fpr_delta": {
+        "ci_high": 0.0,
+        "ci_low": -6.944,
+        "cross_mean": 17.647,
+        "delta": -2.941,
+        "n": 34,
+        "n_clusters": 25,
+        "same_mean": 14.706
+      },
+      "recall_delta": {
+        "ci_high": 2.632,
+        "ci_low": -8.824,
+        "cross_mean": 90.244,
+        "delta": -2.439,
+        "n": 41,
+        "n_clusters": 25,
+        "same_mean": 87.805
+      }
+    },
+    "validated": {
+      "flag_rate_delta": {
+        "ci_high": -0.551,
+        "ci_low": -3.846,
+        "cross_mean": 55.556,
+        "delta": -2.198,
+        "n": 819,
+        "n_clusters": 275,
+        "same_mean": 53.358
+      },
+      "fpr_delta": {
+        "ci_high": -2.0,
+        "ci_low": -6.593,
+        "cross_mean": 20.799,
+        "delta": -4.27,
+        "n": 363,
+        "n_clusters": 275,
+        "same_mean": 16.529
+      },
+      "recall_delta": {
+        "ci_high": 1.693,
+        "ci_low": -2.721,
+        "cross_mean": 83.224,
+        "delta": -0.548,
+        "n": 456,
+        "n_clusters": 275,
+        "same_mean": 82.675
+      }
+    }
+  },
+  "unpaired_reference": {
+    "full": {
+      "GPT": {
+        "f1_cross": 81.73,
+        "f1_delta": 3.08,
+        "f1_own": 84.81,
+        "fpr_cross": 25.022,
+        "fpr_delta": -17.764,
+        "fpr_own": 7.258,
+        "recall_cross": 83.619,
+        "recall_delta": -6.162,
+        "recall_own": 77.457
+      },
+      "Gemini": {
+        "f1_cross": 84.732,
+        "f1_delta": 3.831,
+        "f1_own": 88.563,
+        "fpr_cross": 20.782,
+        "fpr_delta": -1.843,
+        "fpr_own": 18.939,
+        "recall_cross": 85.91,
+        "recall_delta": 5.605,
+        "recall_own": 91.515
+      },
+      "Grok": {
+        "f1_cross": 85.011,
+        "f1_delta": -4.508,
+        "f1_own": 80.503,
+        "fpr_cross": 14.382,
+        "fpr_delta": 7.604,
+        "fpr_own": 21.986,
+        "recall_cross": 82.149,
+        "recall_delta": -1.646,
+        "recall_own": 80.503
+      }
+    },
+    "validated": {
+      "GPT": {
+        "f1_cross": 81.063,
+        "f1_delta": 4.261,
+        "f1_own": 85.324,
+        "fpr_cross": 24.861,
+        "fpr_delta": -17.718,
+        "fpr_own": 7.143,
+        "recall_cross": 82.427,
+        "recall_delta": -4.302,
+        "recall_own": 78.125
+      },
+      "Gemini": {
+        "f1_cross": 84.603,
+        "f1_delta": 3.344,
+        "f1_own": 87.948,
+        "fpr_cross": 21.262,
+        "fpr_delta": -2.562,
+        "fpr_own": 18.699,
+        "recall_cross": 85.727,
+        "recall_delta": 4.877,
+        "recall_own": 90.604
+      },
+      "Grok": {
+        "f1_cross": 84.627,
+        "f1_delta": -4.764,
+        "f1_own": 79.863,
+        "fpr_cross": 14.787,
+        "fpr_delta": 7.869,
+        "fpr_own": 22.656,
+        "recall_cross": 81.794,
+        "recall_delta": -2.203,
+        "recall_own": 79.592
+      }
+    }
+  }
+}

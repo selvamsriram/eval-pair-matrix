@@ -1,0 +1,530 @@
+{
+  "GPT-on-GPT__27ff4e2b94e2": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632876
+  },
+  "GPT-on-GPT__319998cee142": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632667
+  },
+  "GPT-on-GPT__3d065149497b": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631957
+  },
+  "GPT-on-GPT__53db38d6e5b2": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633561
+  },
+  "GPT-on-GPT__6641552b1c67": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632896
+  },
+  "GPT-on-GPT__8724e64073f0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634091
+  },
+  "GPT-on-GPT__88a17c3772d0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631084
+  },
+  "GPT-on-GPT__932510072df5": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634131
+  },
+  "GPT-on-GPT__a2f841b1ee81": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633579
+  },
+  "GPT-on-GPT__b8f90e3f146e": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633597
+  },
+  "GPT-on-GPT__c12aed27433f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631722
+  },
+  "GPT-on-Gemini__319998cee142": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632698
+  },
+  "GPT-on-Gemini__37e6764a9f94": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632724
+  },
+  "GPT-on-Gemini__5cbaef67fb56": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632740
+  },
+  "GPT-on-Gemini__5ecb7ceb595b": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634146
+  },
+  "GPT-on-Gemini__6402101ad3ca": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633619
+  },
+  "GPT-on-Gemini__6fe86c6ec7d2": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633626
+  },
+  "GPT-on-Gemini__922e8800917b": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631981
+  },
+  "GPT-on-Gemini__af76ccda7d28": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632199
+  },
+  "GPT-on-Gemini__c5202a031733": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633935
+  },
+  "GPT-on-Gemini__cf6bb1330483": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782631785
+  },
+  "GPT-on-Gemini__eaca66afc0fb": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632968
+  },
+  "GPT-on-Grok__1e369d26fda1": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632225
+  },
+  "GPT-on-Grok__1ec2f7ab355c": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632001
+  },
+  "GPT-on-Grok__2d4ff32ed736": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634162
+  },
+  "GPT-on-Grok__3c02297aa939": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632019
+  },
+  "GPT-on-Grok__4c6f5c875224": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631338
+  },
+  "GPT-on-Grok__5f5d6029f3df": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634181
+  },
+  "GPT-on-Grok__6c932d16bc19": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632756
+  },
+  "GPT-on-Grok__733a5f8fa752": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633645
+  },
+  "GPT-on-Grok__b2fa69964add": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634210
+  },
+  "GPT-on-Grok__b4320327f5ee": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631395
+  },
+  "GPT-on-Grok__c7714fab186f": {
+    "human_gold_ok": "unclear",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631484
+  },
+  "GPT-on-Grok__d5a381c6b636": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634236
+  },
+  "GPT-on-Grok__e0e62a97b0fb": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631539
+  },
+  "GPT-on-Grok__e24d11bbb145": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634270
+  },
+  "Gemini-on-GPT__1ceae22791f4": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "no",
+    "human_notes": "",
+    "updated_at": 1782634291
+  },
+  "Gemini-on-GPT__319998cee142": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632762
+  },
+  "Gemini-on-GPT__384e99a95d5d": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632248
+  },
+  "Gemini-on-GPT__3d065149497b": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632029
+  },
+  "Gemini-on-GPT__446d28ae7b52": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632771
+  },
+  "Gemini-on-GPT__57680dedc9f2": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632064
+  },
+  "Gemini-on-GPT__6a7f9f435948": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631813
+  },
+  "Gemini-on-GPT__80fa60e7c9e6": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632279
+  },
+  "Gemini-on-GPT__ac6af6870eb5": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632338
+  },
+  "Gemini-on-GPT__b646970bc3f0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632071
+  },
+  "Gemini-on-Gemini__09b2b6d3b9b0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632371
+  },
+  "Gemini-on-Gemini__319998cee142": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632778
+  },
+  "Gemini-on-Gemini__335957875d7f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631578
+  },
+  "Gemini-on-Gemini__384e99a95d5d": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633463
+  },
+  "Gemini-on-Gemini__3f95b0abee0f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631829
+  },
+  "Gemini-on-Gemini__57f7d32da9f7": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633663
+  },
+  "Gemini-on-Gemini__5cbaef67fb56": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632784
+  },
+  "Gemini-on-Gemini__763a784f306f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631613
+  },
+  "Gemini-on-Gemini__922e8800917b": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632080
+  },
+  "Gemini-on-Gemini__932510072df5": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633674
+  },
+  "Gemini-on-Gemini__99dca7c4d4ed": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631859
+  },
+  "Gemini-on-Gemini__a1127a650869": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633477
+  },
+  "Gemini-on-Gemini__ab16a1062f50": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632446
+  },
+  "Gemini-on-Gemini__af41561a9cd3": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632477
+  },
+  "Gemini-on-Gemini__e0e62a97b0fb": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633969
+  },
+  "Gemini-on-Gemini__efd888d7d5b0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631889
+  },
+  "Gemini-on-Grok__1b3cc90c7e28": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632803
+  },
+  "Gemini-on-Grok__335957875d7f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631624
+  },
+  "Gemini-on-Grok__3c02297aa939": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632085
+  },
+  "Gemini-on-Grok__4c6f5c875224": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631347
+  },
+  "Gemini-on-Grok__571ec6b8bd0e": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631668
+  },
+  "Gemini-on-Grok__5bd46fb87695": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633487
+  },
+  "Gemini-on-Grok__5cbaef67fb56": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634008
+  },
+  "Gemini-on-Grok__a4f6986fabd8": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632497
+  },
+  "Gemini-on-Grok__e7c02caa2798": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632529
+  },
+  "Grok-on-GPT__1da0b7cca458": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633689
+  },
+  "Grok-on-GPT__556e0e1b9c1a": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633516
+  },
+  "Grok-on-GPT__763a784f306f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632128
+  },
+  "Grok-on-GPT__aa44d3378fc8": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633396
+  },
+  "Grok-on-GPT__c4cf9ec61125": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631904
+  },
+  "Grok-on-Gemini__2c96b2642148": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633411
+  },
+  "Grok-on-Gemini__37e6764a9f94": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632810
+  },
+  "Grok-on-Gemini__6641552b1c67": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634030
+  },
+  "Grok-on-Gemini__690eb8af315e": {
+    "human_gold_ok": "no",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782632836
+  },
+  "Grok-on-Gemini__e9a3e475d40a": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633421
+  },
+  "Grok-on-Grok__29ae66b3f8ca": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633729
+  },
+  "Grok-on-Grok__4c6f5c875224": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782631381
+  },
+  "Grok-on-Grok__910f54b1b71f": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782634046
+  },
+  "Grok-on-Grok__d74e1abbb242": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633437
+  },
+  "Grok-on-Grok__e051f4c8658a": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633349
+  },
+  "Grok-on-Grok__e9a3e475d40a": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633365
+  },
+  "Grok-on-Grok__f9e0a610a7a0": {
+    "human_gold_ok": "yes",
+    "human_judge_ok": "yes",
+    "human_notes": "",
+    "updated_at": 1782633736
+  }
+}

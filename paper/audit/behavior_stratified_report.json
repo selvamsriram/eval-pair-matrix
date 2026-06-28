@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "description": "Step 6 (judge verdicts) stratified by step 5 (generator behavior label).",
+    "set": "validated records only",
+    "behavior_source": "LLM label-evaluation (llm_eval) ONLY; outputs without llm_eval are reported as UNLABELED",
+    "ci": "cluster bootstrap by answer (core_id, generator)",
+    "bootstrap": {
+      "replicates": 10000,
+      "seed": 20260627
+    },
+    "headline_rule": "recall when >=50% of verdicts are gold-positive, else false-positive rate; recall/FPR computed on the relevant gold subset",
+    "note": "Verdicts are pooled across all 9 judge cells (same- and cross-deployment); same/cross flag rates given per behavior."
+  },
+  "behaviors": {
+    "context_follow": {
+      "n_verdicts": 1212,
+      "n_answers": 405,
+      "gold_pos_pct": 100.0,
+      "flag_pct": 84.6,
+      "tp": 1025,
+      "fp": 0,
+      "fn": 187,
+      "tn": 0,
+      "headline_metric": "recall",
+      "headline": {
+        "point": 84.6,
+        "ci_low": 81.5,
+        "ci_high": 87.6,
+        "note": null
+      },
+      "same_flag_pct": 84.6,
+      "cross_flag_pct": 84.5
+    },
+    "both_claims": {
+      "n_verdicts": 135,
+      "n_answers": 45,
+      "gold_pos_pct": 97.8,
+      "flag_pct": 65.2,
+      "tp": 88,
+      "fp": 0,
+      "fn": 44,
+      "tn": 3,
+      "headline_metric": "recall",
+      "headline": {
+        "point": 66.7,
+        "ci_low": 54.5,
+        "ci_high": 78.8,
+        "note": null
+      },
+      "same_flag_pct": 60.0,
+      "cross_flag_pct": 67.8
+    },
+    "memory_override": {
+      "n_verdicts": 42,
+      "n_answers": 14,
+      "gold_pos_pct": 0.0,
+      "flag_pct": 0.0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 42,
+      "headline_metric": "fpr",
+      "headline": {
+        "point": 0.0,
+        "ci_low": 0.0,
+        "ci_high": 7.1,
+        "note": "rule-of-three upper bound (0 events)"
+      },
+      "same_flag_pct": 0.0,
+      "cross_flag_pct": 0.0
+    },
+    "conflict_awareness": {
+      "n_verdicts": 54,
+      "n_answers": 18,
+      "gold_pos_pct": 5.6,
+      "flag_pct": 90.7,
+      "tp": 3,
+      "fp": 46,
+      "fn": 0,
+      "tn": 5,
+      "headline_metric": "fpr",
+      "headline": {
+        "point": 90.2,
+        "ci_low": 76.5,
+        "ci_high": 100.0,
+        "note": null
+      },
+      "same_flag_pct": 94.4,
+      "cross_flag_pct": 88.9
+    },
+    "refusal_or_insufficient": {
+      "n_verdicts": 400,
+      "n_answers": 134,
+      "gold_pos_pct": 6.0,
+      "flag_pct": 38.2,
+      "tp": 23,
+      "fp": 130,
+      "fn": 1,
+      "tn": 246,
+      "headline_metric": "fpr",
+      "headline": {
+        "point": 34.6,
+        "ci_low": 27.4,
+        "ci_high": 42.2,
+        "note": null
+      },
+      "same_flag_pct": 33.6,
+      "cross_flag_pct": 40.6
+    },
+    "unrelated_or_failed": {
+      "n_verdicts": 606,
+      "n_answers": 202,
+      "gold_pos_pct": 0.0,
+      "flag_pct": 4.1,
+      "tp": 0,
+      "fp": 25,
+      "fn": 0,
+      "tn": 581,
+      "headline_metric": "fpr",
+      "headline": {
+        "point": 4.1,
+        "ci_low": 2.1,
+        "ci_high": 6.3,
+        "note": null
+      },
+      "same_flag_pct": 2.0,
+      "cross_flag_pct": 5.2
+    },
+    "UNLABELED": {
+      "n_verdicts": 9,
+      "n_answers": 3,
+      "gold_pos_pct": 0.0,
+      "flag_pct": 88.9,
+      "tp": 0,
+      "fp": 8,
+      "fn": 0,
+      "tn": 1,
+      "headline_metric": "fpr",
+      "headline": {
+        "point": 88.9,
+        "ci_low": 66.7,
+        "ci_high": 100.0,
+        "note": null
+      },
+      "same_flag_pct": 100.0,
+      "cross_flag_pct": 83.3
+    }
+  },
+  "totals": {
+    "tp": 1139,
+    "fp": 209,
+    "fn": 232,
+    "tn": 878,
+    "n": 2458
+  }
+}

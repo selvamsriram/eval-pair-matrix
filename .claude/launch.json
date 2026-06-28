@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "trace-viewer",
+      "runtimeExecutable": "/Users/sriramselvam/Code/eval-pair-matrix/.venv/bin/perturb",
+      "runtimeArgs": ["viewer", "--host", "127.0.0.1", "--port", "7437"],
+      "port": 7437
+    },
+    {
+      "name": "cell-review",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["paper/audit/cell_review_app.py", "--port", "8766"],
+      "port": 8766
+    }
+  ]
+}

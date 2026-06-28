@@ -1,0 +1,102 @@
+{
+  "n_reviewed": 88,
+  "n_total": 153,
+  "coverage": {
+    "context_follow/TP": {
+      "reviewed": 8,
+      "sampled": 12
+    },
+    "context_follow/FN": {
+      "reviewed": 9,
+      "sampled": 12
+    },
+    "both_claims/TP": {
+      "reviewed": 0,
+      "sampled": 12
+    },
+    "both_claims/FN": {
+      "reviewed": 0,
+      "sampled": 12
+    },
+    "both_claims/TN": {
+      "reviewed": 0,
+      "sampled": 3
+    },
+    "memory_override/TN": {
+      "reviewed": 10,
+      "sampled": 12
+    },
+    "conflict_awareness/TP": {
+      "reviewed": 3,
+      "sampled": 3
+    },
+    "conflict_awareness/FP": {
+      "reviewed": 7,
+      "sampled": 12
+    },
+    "conflict_awareness/TN": {
+      "reviewed": 0,
+      "sampled": 5
+    },
+    "refusal_or_insufficient/TP": {
+      "reviewed": 12,
+      "sampled": 12
+    },
+    "refusal_or_insufficient/FP": {
+      "reviewed": 8,
+      "sampled": 12
+    },
+    "refusal_or_insufficient/FN": {
+      "reviewed": 0,
+      "sampled": 1
+    },
+    "refusal_or_insufficient/TN": {
+      "reviewed": 10,
+      "sampled": 12
+    },
+    "unrelated_or_failed/FP": {
+      "reviewed": 10,
+      "sampled": 12
+    },
+    "unrelated_or_failed/TN": {
+      "reviewed": 11,
+      "sampled": 12
+    },
+    "UNLABELED/FP": {
+      "reviewed": 0,
+      "sampled": 8
+    },
+    "UNLABELED/TN": {
+      "reviewed": 0,
+      "sampled": 1
+    }
+  },
+  "cell_tally": {
+    "FP": {
+      "gold mislabel (answer DID adopt -> really TP)": 2,
+      "judge caught a real / alternate error": 22,
+      "unclear": 1
+    },
+    "TP": {
+      "genuine TP": 21,
+      "right verdict, wrong reason": 1,
+      "gold mislabel (answer did not adopt)": 1
+    },
+    "TN": {
+      "genuine TN": 31
+    },
+    "FN": {
+      "genuine miss": 6,
+      "gold too aggressive (answer did not adopt)": 3
+    }
+  },
+  "fp_false_alarm_bound": "0/25; 95% upper bound ~12% (rule of three)",
+  "tn_missed_error_bound": "0/31; 95% upper bound ~10% (rule of three)",
+  "gold_issue_rate": "7/88",
+  "gold_issue_locations": {
+    "refusal_or_insufficient/FP": 2,
+    "context_follow/FN": 3,
+    "conflict_awareness/FP": 1,
+    "refusal_or_insufficient/TP": 1
+  }
+}

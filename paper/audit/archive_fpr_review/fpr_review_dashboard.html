@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>judgement · portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        },
+        colors: {
+          ink: { 950: '#09090b', 900: '#0c0c0e', 850: '#101013', 800: '#16161a', 700: '#1f1f24', 600: '#2a2a31', 500: '#3a3a44' }
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #2a2a31; border-radius: 6px; border: 2px solid #09090b; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a44; }
+
+  .mark-removed { background: rgba(244,63,94,.20); color:#fda4af; padding:1px 5px; border-radius:4px; border:1px solid rgba(244,63,94,.35); font-weight:500; }
+  .mark-added   { background: rgba(16,185,129,.20); color:#6ee7b7; padding:1px 5px; border-radius:4px; border:1px solid rgba(16,185,129,.35); font-weight:500; }
+
+  @keyframes pulse-soft { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .live-on { animation: pulse-soft 1.6s ease-in-out infinite; }
+
+  pre.wrap { white-space: pre-wrap; word-break: break-word; }
+
+  .record-row { transition: background-color 80ms ease; }
+  .record-row:hover { background-color: rgba(255,255,255,.025); }
+  .record-row.active { background-color: rgba(16,185,129,.10); border-left-color:#10b981 !important; }
+
+  table.sum { width:100%; border-collapse:collapse; font-size:13px; margin-top:10px; }
+  table.sum th, table.sum td { border:1px solid #1f1f24; padding:7px 9px; text-align:left; }
+  table.sum th { color:#a1a1aa; background:#16161a; font-weight:600; }
+  table.sum td.num { text-align:right; font-variant-numeric:tabular-nums; }
+</style>
+</head>
+<body class="bg-ink-950 text-zinc-100 font-sans antialiased h-screen overflow-hidden">
+
+<div id="offline" class="hidden px-4 py-2 text-xs bg-amber-500/10 text-amber-300 border-b border-amber-500/30"></div>
+
+<!-- Top bar -->
+<header class="h-12 flex items-center px-4 border-b border-ink-700 bg-ink-900/80 backdrop-blur-sm">
+  <button id="btnToggleList" title="Toggle list (\\)" class="mr-3 bg-ink-800 border border-ink-700 rounded-md px-2 py-1 text-zinc-300 hover:border-emerald-500 text-xs">☰</button>
+  <div class="flex items-center gap-2 font-semibold tracking-tight">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+    judgement <span class="text-zinc-500">·</span> <span class="text-zinc-400 font-normal">portal</span>
+  </div>
+  <span class="ml-3 text-[10px] font-mono text-zinc-500 border border-ink-700 rounded px-1.5 py-0.5">targeted author audit</span>
+  <div class="ml-auto flex items-center gap-4 text-xs text-zinc-400">
+    <div class="flex items-center gap-2">
+      <div class="w-40 h-1.5 bg-ink-800 rounded-full overflow-hidden border border-ink-700"><i id="barfill" class="block h-full bg-emerald-500 transition-all"></i></div>
+      <span id="pcount" class="font-mono tabular-nums text-zinc-300">0 / 0</span>
+    </div>
+    <span class="flex items-center gap-1.5">
+      <span id="savedot" class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span id="savetext">saved</span>
+    </span>
+    <button id="btnGuide" class="bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-zinc-300 hover:border-emerald-500">Guide</button>
+    <button id="btnSummary" class="bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-zinc-300 hover:border-emerald-500">Summary</button>
+    <button id="btnExport" class="bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-zinc-300 hover:border-emerald-500">Export</button>
+  </div>
+</header>
+
+<main class="flex h-[calc(100vh-3rem)]">
+  <!-- Left: case list -->
+  <aside id="listpane" class="w-64 border-r border-ink-700 flex flex-col bg-ink-900/40 shrink-0">
+    <div class="p-3 border-b border-ink-700 space-y-2">
+      <input id="search" type="text" placeholder="search question / case id / notes…"
+             class="w-full bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1.5 text-sm focus:outline-none focus:border-emerald-500 placeholder:text-zinc-500" />
+      <div id="subsetChips" class="flex flex-wrap gap-1.5"></div>
+      <div id="statusChips" class="flex flex-wrap gap-1.5"></div>
+      <div id="flagChips" class="flex flex-wrap gap-1.5"></div>
+    </div>
+    <div id="list" class="flex-1 overflow-y-auto"></div>
+  </aside>
+
+  <!-- Center: evidence (scrolls) -->
+  <section class="flex-1 flex flex-col min-w-0">
+    <div id="casebar" class="h-11 flex items-center px-4 border-b border-ink-700 bg-ink-900/50 gap-2 text-sm text-zinc-500 shrink-0">select a case on the left</div>
+    <div id="detail" class="flex-1 overflow-y-auto p-6"></div>
+  </section>
+
+  <!-- Right: judgment pane (fixed) -->
+  <aside id="judgepane" class="w-[360px] shrink-0 border-l border-ink-700 flex flex-col bg-ink-900/40">
+    <div id="jhead" class="px-4 h-11 flex items-center gap-2 border-b border-ink-700 shrink-0 text-sm text-zinc-400">Your judgment</div>
+    <div id="jbody" class="flex-1 overflow-y-auto p-4"><div class="text-zinc-500 text-sm">select a case to begin</div></div>
+    <div id="jnav" class="shrink-0 border-t border-ink-700 p-3 flex gap-2">
+      <button id="navPrev" class="flex-1 bg-ink-800 border border-ink-700 rounded-md py-2 text-sm text-zinc-300 hover:border-emerald-500">← Prev</button>
+      <button id="navNext" class="flex-1 bg-ink-800 border border-ink-700 rounded-md py-2 text-sm text-zinc-300 hover:border-emerald-500">Next →</button>
+      <button id="navMark" class="flex-1 bg-emerald-600 hover:bg-emerald-500 border border-emerald-500 rounded-md py-2 text-sm font-medium text-white">Reviewed ✓ next</button>
+    </div>
+  </aside>
+</main>
+
+<div id="modalRoot"></div>
+
+<script>
+const FIELDS = [
+  {key:"human_target_present", label:"1 · Target present?", help:"Does the answer assert the PERTURBED claim?", opts:["yes","no","both","unclear"]},
+  {key:"human_judge_detected_target", label:"2 · Judge detected target?", help:"Did the judge identify the PLANTED error specifically?", opts:["yes","no","n/a"]},
+  {key:"human_alternate_valid_error", label:"3 · Alternate valid error?", help:"Did the judge catch a DIFFERENT real error vs the original passages?", opts:["yes","no","unclear","n/a"]},
+  {key:"human_artifact", label:"4 · Meta-claim artifact?", help:"Judge flagged a statement ABOUT the passages (refusal / perturbation artifact), not a substantive error?", opts:["yes","no","n/a"]},
+  {key:"human_false_alarm", label:"5 · False alarm?", help:"Was the judge actually WRONG to flag? (decide after 2–4)", opts:["yes","no","unclear","n/a"]},
+  {key:"human_localization_correct", label:"6 · Localization correct?", help:"Did the judge cite the right source passage?", opts:["yes","no","n/a"]},
+];
+const SUBSETS = [
+  {k:"all",label:"All"},{k:"same_fp",label:"Same FP"},{k:"cross_fp",label:"Cross FP"},
+  {k:"paper_example",label:"Paper"},{k:"false_negative",label:"False Neg"},
+  {k:"sanity_tp",label:"TP"},{k:"sanity_tn",label:"TN"},
+];
+const STATUSES=[{k:"all",label:"All"},{k:"pending",label:"Pending"},{k:"done",label:"Done"}];
+const FLAGS=[{k:"all",label:"All"},{k:"refusal",label:"Refusal/conf"},{k:"artifact",label:"Auto:artifact"},{k:"substantive",label:"Auto:substantive"}];
+const REFCONF=new Set(["refusal_or_insufficient","conflict_awareness"]);
+
+const CARD="border border-ink-700 bg-ink-850/40 rounded-md p-4 mb-4";
+const SECH="text-[11px] uppercase tracking-wide text-zinc-500 mb-2.5 font-medium";
+
+let CASES=[], PROGRESS={}, SEL=null, FILT={subset:"all",status:"all",flag:"all",q:""}, OFFLINE=false;
+
+const $=s=>document.querySelector(s);
+function el(t,c,txt){const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;}
+
+async function api(path, opts){
+  try{ const r=await fetch(path,opts); if(!r.ok) throw new Error(r.status); return await r.json(); }
+  catch(e){ OFFLINE=true; return null; }
+}
+
+function isDone(id){ const p=PROGRESS[id]||{}; return !!p.human_false_alarm; }
+function isPartial(id){ const p=PROGRESS[id]||{}; return Object.keys(p).some(k=>k.startsWith("human_")&&p[k]) && !isDone(id); }
+
+async function load(){
+  const data = await api("/api/queue");
+  if(data){ CASES=data.cases; PROGRESS=data.progress||{}; }
+  else {
+    showOffline('Server not detected — run <code>python paper/audit/fpr_review_app.py</code> for autosave to disk. Using browser storage.');
+    try{ PROGRESS=JSON.parse(localStorage.getItem("fpr_progress")||"{}"); }catch(e){PROGRESS={};}
+    if(!CASES.length){ $("#detail").innerHTML='<div class="text-zinc-500 text-sm">Could not load queue. Start the server.</div>'; return; }
+  }
+  renderChips(); renderList();
+  if(CASES.length){ select(CASES[0].case_id); }
+  updateProgress();
+}
+function showOffline(html){ const b=$("#offline"); b.innerHTML=html; b.classList.remove("hidden"); }
+
+function counts(){
+  const c={all:CASES.length}; SUBSETS.forEach(s=>{if(s.k!=="all")c[s.k]=0;});
+  CASES.forEach(x=>{ if(c[x.subset]!=null)c[x.subset]++; });
+  return c;
+}
+
+function chip(label, n, active, on){
+  const c=el("div","px-2.5 py-1 rounded-full text-[11.5px] border cursor-pointer transition flex items-center gap-1.5 "+
+    (active?"bg-emerald-500/10 text-emerald-200 border-emerald-500/40":"bg-ink-800 text-zinc-400 border-ink-700 hover:border-ink-600"));
+  c.append(el("span",null,label));
+  if(n!=null) c.append(el("span","font-mono text-zinc-500",String(n)));
+  c.onclick=on; return c;
+}
+function renderChips(){
+  const cnt=counts();
+  const sc=$("#subsetChips"); sc.innerHTML="";
+  SUBSETS.forEach(s=>sc.append(chip(s.label, s.k==="all"?cnt.all:(cnt[s.k]||0), FILT.subset===s.k, ()=>{FILT.subset=s.k;renderChips();renderList();})));
+  const st=$("#statusChips"); st.innerHTML="";
+  STATUSES.forEach(s=>st.append(chip(s.label, null, FILT.status===s.k, ()=>{FILT.status=s.k;renderChips();renderList();})));
+  const fl=$("#flagChips"); fl.innerHTML="";
+  FLAGS.forEach(s=>fl.append(chip(s.label, s.k==="all"?null:CASES.filter(x=>flagMatch(x,s.k)).length, FILT.flag===s.k, ()=>{FILT.flag=s.k;renderChips();renderList();})));
+}
+function flagMatch(x,flag){
+  if(flag==="all") return true;
+  if(flag==="refusal") return REFCONF.has(x.behavior_label);
+  if(flag==="artifact") return x.auto_artifact==="likely_artifact";
+  if(flag==="substantive") return x.auto_artifact==="substantive_claim";
+  return true;
+}
+
+function filtered(){
+  const q=FILT.q.toLowerCase();
+  return CASES.filter(x=>{
+    if(FILT.subset!=="all" && x.subset!==FILT.subset) return false;
+    if(FILT.status==="pending" && isDone(x.case_id)) return false;
+    if(FILT.status==="done" && !isDone(x.case_id)) return false;
+    if(!flagMatch(x, FILT.flag)) return false;
+    if(q){
+      const notes=(PROGRESS[x.case_id]||{}).human_notes||"";
+      if(!((x.case_id+" "+(x.question||"")+" "+notes).toLowerCase().includes(q))) return false;
+    }
+    return true;
+  });
+}
+
+function dotClass(id){ return isDone(id)?"bg-emerald-400":(isPartial(id)?"bg-amber-400":"bg-zinc-600"); }
+function shortCat(c){return {apparent_fp:"apparent FP",false_negative:"false neg",true_positive:"TP",true_negative:"TN"}[c]||c;}
+function catChip(cat){
+  const m={apparent_fp:"bg-amber-500/15 text-amber-300 border-amber-500/30",
+           false_negative:"bg-rose-500/15 text-rose-300 border-rose-500/30",
+           true_positive:"bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+           true_negative:"bg-sky-500/15 text-sky-300 border-sky-500/30"};
+  return m[cat]||"bg-ink-800 text-zinc-400 border-ink-700";
+}
+function depChip(same){ return same?"bg-indigo-500/15 text-indigo-300 border-indigo-500/30":"bg-teal-500/15 text-teal-300 border-teal-500/30"; }
+function badge(text, cls){ return el("span","px-2 py-0.5 rounded-md text-[10px] font-mono border "+cls, text); }
+
+function renderList(){
+  const list=$("#list"); const keep=list.scrollTop; list.innerHTML="";
+  const items=filtered();
+  if(!items.length){ list.append(el("div","p-8 text-center text-sm text-zinc-500","No cases match.")); return; }
+  items.forEach(x=>{
+    const it=el("div","record-row "+(SEL===x.case_id?"active ":"")+"px-3 py-2.5 border-b border-ink-700/60 border-l-2 border-l-transparent cursor-pointer");
+    it.dataset.case=x.case_id;
+    const top=el("div","flex items-center gap-2");
+    top.append(el("span","statusdot inline-block w-1.5 h-1.5 rounded-full flex-none "+dotClass(x.case_id)));
+    top.append(el("span","font-mono text-[11px] text-zinc-400 truncate flex-1",x.case_id));
+    top.append(badge(shortCat(x.category), catChip(x.category)));
+    const q=el("div","text-[13px] text-zinc-200 my-1 line-clamp-2",x.question||"(no question)");
+    const bd=el("div","flex flex-wrap gap-1.5 items-center");
+    bd.append(badge(x.same_deployment?"same":"cross", depChip(x.same_deployment)));
+    bd.append(el("span","text-[10px] font-mono text-sky-300/90",x.generator+"→"+x.judge));
+    if(x.paper_example) bd.append(badge("★","bg-amber-500/15 text-amber-300 border-amber-500/30"));
+    it.append(top,q,bd);
+    it.onclick=()=>select(x.case_id);
+    list.append(it);
+  });
+  list.scrollTop=keep;
+}
+
+function caseById(id){return CASES.find(x=>x.case_id===id);}
+
+function select(id){
+  SEL=id; renderList();
+  const x=caseById(id); if(!x)return;
+
+  // ---- evidence case bar ----
+  const bar=$("#casebar"); bar.className="h-11 flex items-center px-4 border-b border-ink-700 bg-ink-900/50 gap-2 text-sm shrink-0"; bar.innerHTML="";
+  bar.append(el("span","font-mono text-[12px] text-zinc-400 truncate",x.case_id));
+  bar.append(el("span","text-zinc-600","·"));
+  bar.append(el("span","font-semibold text-sky-300",x.generator));
+  bar.append(el("span","text-zinc-500 text-xs","→"));
+  bar.append(el("span","font-semibold text-sky-300",x.judge));
+  bar.append(badge(x.same_deployment?"same":"cross", depChip(x.same_deployment)));
+  bar.append(badge(shortCat(x.category), catChip(x.category)));
+  bar.append(badge(x.is_validated?"validated":"gap-fill","bg-ink-800 text-zinc-400 border-ink-700"));
+  if(x.paper_example) bar.append(badge("★ paper","bg-amber-500/15 text-amber-300 border-amber-500/30"));
+
+  // ---- evidence detail ----
+  const d=$("#detail"); d.innerHTML=""; d.scrollTop=0;
+
+  d.append(card("Question",[el("div","text-[15px] font-medium text-zinc-100",x.question||"")]));
+
+  const chg=[];
+  const ch=el("div","flex items-center gap-2.5 flex-wrap text-sm");
+  ch.append(el("span","text-zinc-500","Planted target:"));
+  ch.append(el("span","mark-removed font-mono",String(x.original_value)));
+  ch.append(el("span","text-zinc-600","→"));
+  ch.append(el("span","mark-added font-mono",String(x.perturbed_value)));
+  ch.append(badge(x.perturbation_type||"","bg-ink-800 text-zinc-400 border-ink-700"));
+  chg.push(ch);
+  const cc=el("div","grid grid-cols-2 gap-2.5 mt-3");
+  const co=el("div","border border-ink-700 bg-ink-900 rounded-md p-2.5 text-[12.5px] text-zinc-300");
+  co.append(el("div","text-[10px] uppercase tracking-wide text-zinc-500 mb-1","original atomic claim"), document.createTextNode(x.atomic_claim_original||""));
+  const cp=el("div","border border-ink-700 bg-ink-900 rounded-md p-2.5 text-[12.5px] text-zinc-300");
+  cp.append(el("div","text-[10px] uppercase tracking-wide text-zinc-500 mb-1","perturbed atomic claim"), document.createTextNode(x.atomic_claim_perturbed||""));
+  cc.append(co,cp); chg.push(cc);
+  (x.modified_detail||[]).forEach(md=>{
+    const row=el("div","mt-2.5 text-[12.5px] flex flex-wrap items-center gap-2");
+    row.append(badge("passage "+md.passage_id,"bg-ink-800 text-zinc-400 border-ink-700"));
+    if(md.original_span) row.append(el("span","mark-removed font-mono",md.original_span));
+    row.append(el("span","text-zinc-600","→"));
+    if(md.perturbed_span) row.append(el("span","mark-added font-mono",md.perturbed_span));
+    chg.push(row);
+  });
+  d.append(card("Planted change (target)",chg));
+
+  d.append(card("Generator answer",[el("div","wrap bg-ink-900 border border-ink-700 rounded-md p-3 text-[13.5px] text-zinc-200",x.generator_answer||"(empty)")]));
+
+  const v=[];
+  const flag=el("div","flex items-center gap-2 font-medium");
+  flag.append(el("span","inline-block w-2.5 h-2.5 rounded-full "+(x.contains_factual_error?"bg-rose-400":"bg-emerald-400")));
+  flag.append(document.createTextNode(x.contains_factual_error?"Judge flagged an error":"Judge said no error"));
+  flag.append(el("span","text-xs text-zinc-500","· gold "+(x.gold_has_induced_error?"positive":"negative")));
+  v.push(flag);
+  if(x.wrong_claim){ const w=el("div","mt-3"); w.append(el("div","text-[10px] uppercase tracking-wide text-zinc-500 mb-1","wrong claim"), el("div","text-[13px] text-zinc-200",x.wrong_claim)); v.push(w); }
+  if(x.judge_explanation){ const e=el("div","mt-3"); e.append(el("div","text-[10px] uppercase tracking-wide text-zinc-500 mb-1","explanation"), el("div","border-l-2 border-ink-600 pl-3 text-[13px] text-zinc-300 wrap",x.judge_explanation)); v.push(e); }
+  const cite=el("div","mt-3 flex items-center gap-2 text-sm");
+  cite.append(el("span","text-zinc-500","Cited passage:"));
+  cite.append(badge("#"+(x.supporting_source_passage_id==null?"none":x.supporting_source_passage_id),"bg-ink-800 text-zinc-300 border-ink-700"));
+  v.push(cite);
+  if(x.supporting_source_passage_text) v.push(el("div","border-l-2 border-ink-600 pl-3 text-[12.5px] text-zinc-400 wrap mt-1",x.supporting_source_passage_text));
+  const hints=el("div","flex flex-wrap gap-2 mt-3");
+  hints.append(hint("auto target match", x.auto_target_match));
+  hints.append(hint("auto localization", x.auto_localization_match));
+  hints.append(hint("entails original", x.entails_original_claim));
+  hints.append(hint("entails perturbed", x.entails_perturbed_claim));
+  v.push(hints);
+  d.append(card("Judge verdict",v));
+
+  const det=el("details","mt-1");
+  det.append(el("summary","text-xs text-emerald-300/90 cursor-pointer hover:text-emerald-200","Show all "+(x.all_original_passages||[]).length+" original passages (reference)"));
+  const modset=new Set((x.modified_passage_ids||[]).map(String));
+  (x.all_original_passages||[]).forEach(p=>{
+    const isCited=String(p.passage_id)===String(x.supporting_source_passage_id);
+    const isMod=modset.has(String(p.passage_id));
+    const pb=el("div","border bg-ink-900 rounded-md p-2.5 mt-2 text-[12.5px] text-zinc-300 wrap "+(isCited?"border-emerald-500/40 ring-1 ring-emerald-500/30":"border-ink-700"));
+    const pid=el("div","flex gap-3 mb-1 font-mono text-[11px] text-zinc-500");
+    pid.append(el("span",null,"passage #"+p.passage_id));
+    if(isMod)pid.append(el("span","text-amber-400","● modified"));
+    if(isCited)pid.append(el("span","text-emerald-400","● cited"));
+    pb.append(pid, document.createTextNode(p.text||""));
+    det.append(pb);
+  });
+  d.append(card("Source passages (original = reference)",[det]));
+
+  // ---- judgment pane ----
+  renderJudgePane(x);
+}
+
+function hint(label,val){
+  let cls="bg-ink-800 text-zinc-500 border-ink-700", txt="?";
+  if(val===true){cls="bg-emerald-500/15 text-emerald-300 border-emerald-500/30";txt="yes";}
+  else if(val===false){cls="bg-rose-500/15 text-rose-300 border-rose-500/30";txt="no";}
+  return badge(label+": "+txt, cls);
+}
+function card(title,children){
+  const s=el("div",CARD); s.append(el("div",SECH,title)); children.forEach(c=>s.append(c)); return s;
+}
+function segClasses(v){
+  return {
+    "yes":"bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
+    "no":"bg-rose-500/15 text-rose-300 border-rose-500/40",
+    "both":"bg-indigo-500/15 text-indigo-300 border-indigo-500/40",
+    "unclear":"bg-amber-500/15 text-amber-300 border-amber-500/40",
+    "n/a":"bg-ink-700 text-zinc-200 border-ink-600",
+  }[v] || "bg-ink-700 text-zinc-200 border-ink-600";
+}
+function segBtnClass(on,o){
+  return "segbtn px-2.5 py-1 text-[12px] rounded-md border cursor-pointer transition "+
+    (on?segClasses(o):"bg-ink-800 border-ink-700 text-zinc-400 hover:border-emerald-500 hover:text-zinc-200");
+}
+
+function renderJudgePane(x){
+  // header
+  const jh=$("#jhead"); jh.innerHTML="";
+  jh.append(el("span","text-zinc-200 font-medium","Your judgment"));
+  jh.append(el("span","font-mono text-[11px] text-zinc-500 truncate","· "+x.case_id));
+  jh.append(el("span","statusdot ml-auto inline-block w-2 h-2 rounded-full "+dotClass(x.case_id)));
+
+  const body=$("#jbody"); body.innerHTML="";
+
+  // compact context recap (so most decisions need no scrolling of evidence)
+  const recap=el("div","border border-ink-700 bg-ink-850/40 rounded-md p-3 mb-3 space-y-2");
+  const line1=el("div","flex items-center gap-2 flex-wrap");
+  line1.append(badge(x.same_deployment?"same":"cross", depChip(x.same_deployment)));
+  line1.append(badge(shortCat(x.category), catChip(x.category)));
+  line1.append(el("span","text-[11px] font-mono text-sky-300/90",x.generator+"→"+x.judge));
+  recap.append(line1);
+  const line2=el("div","flex items-center gap-2 flex-wrap text-[12px]");
+  line2.append(el("span","text-zinc-500","target:"));
+  line2.append(el("span","mark-removed font-mono",String(x.original_value)));
+  line2.append(el("span","text-zinc-600","→"));
+  line2.append(el("span","mark-added font-mono",String(x.perturbed_value)));
+  recap.append(line2);
+  const line3=el("div","flex items-center gap-2 flex-wrap text-[12px]");
+  line3.append(el("span","inline-block w-2 h-2 rounded-full "+(x.contains_factual_error?"bg-rose-400":"bg-emerald-400")));
+  line3.append(el("span","text-zinc-300",x.contains_factual_error?"judge flagged":"judge: no error"));
+  line3.append(el("span","text-zinc-600","·"));
+  line3.append(el("span","text-zinc-400","gold "+(x.gold_has_induced_error?"+":"−")));
+  recap.append(line3);
+  const line4=el("div","flex flex-wrap gap-1.5");
+  line4.append(hint("auto target", x.auto_target_match));
+  line4.append(hint("auto loc", x.auto_localization_match));
+  recap.append(line4);
+  if(x.auto_artifact){
+    const al=el("div","flex items-center gap-2 flex-wrap text-[12px]");
+    al.append(el("span","text-zinc-500","auto-triage:"));
+    al.append(badge(x.auto_artifact==="likely_artifact"?"likely artifact":"substantive claim",
+      x.auto_artifact==="likely_artifact"?"bg-amber-500/15 text-amber-300 border-amber-500/30":"bg-sky-500/15 text-sky-300 border-sky-500/30"));
+    recap.append(al);
+  }
+  body.append(recap);
+
+  if(x.auto_artifact==="likely_artifact"){
+    const apply=el("button","w-full mb-3 bg-amber-600/80 hover:bg-amber-500 border border-amber-500 rounded-md py-2 text-sm font-medium text-white","✓ Apply artifact suggestion  ·  a");
+    apply.title="target=no, judge_detected=n/a, alternate=no, artifact=yes, false_alarm=no";
+    apply.onclick=()=>applyArtifact(x.case_id);
+    body.append(apply);
+  }
+
+  // fields (stacked, compact)
+  const p=PROGRESS[x.case_id]||{};
+  FIELDS.forEach((f,fi)=>{
+    const blk=el("div",(fi?"border-t border-ink-700 pt-3 mt-3":""));
+    blk.append(el("div","text-[12.5px] font-medium text-zinc-200",f.label));
+    blk.append(el("div","text-[11px] text-zinc-500 mt-0.5 mb-1.5",f.help));
+    const seg=el("div","segwrap flex flex-wrap gap-1.5"); seg.dataset.field=f.key;
+    f.opts.forEach(o=>{
+      const on=p[f.key]===o;
+      const b=el("button",segBtnClass(on,o),o); b.dataset.val=o;
+      b.onclick=()=>setField(x.case_id,f.key, on?"":o);
+      seg.append(b);
+    });
+    blk.append(seg); body.append(blk);
+  });
+
+  // notes
+  const nblk=el("div","border-t border-ink-700 pt-3 mt-3");
+  nblk.append(el("div","text-[12.5px] font-medium text-zinc-200","6 · Notes"));
+  nblk.append(el("div","text-[11px] text-zinc-500 mt-0.5 mb-1.5","both claims / refusal / partial / cited wrong passage …"));
+  const ta=el("textarea","w-full min-h-[64px] bg-ink-800 border border-ink-700 rounded-md px-3 py-2 text-[13px] text-zinc-100 focus:outline-none focus:border-emerald-500 resize-y");
+  ta.value=p.human_notes||""; ta.placeholder="optional"; ta.dataset.notes="1";
+  let t; ta.oninput=()=>{clearTimeout(t); t=setTimeout(()=>setField(x.case_id,"human_notes",ta.value,true),500);};
+  nblk.append(ta); body.append(nblk);
+
+  const g=el("div","text-[12px] text-amber-400 min-h-[16px] mt-3"); g.id="guidance"; body.append(g);
+  updateGuidance(x.case_id, g);
+}
+
+// In-place refresh of a single field's buttons (no re-render -> no scroll jump)
+function refreshField(key){
+  const seg=document.querySelector('#jbody .segwrap[data-field="'+key+'"]'); if(!seg)return;
+  const cur=(PROGRESS[SEL]||{})[key];
+  seg.querySelectorAll(".segbtn").forEach(b=>{ b.className=segBtnClass(b.dataset.val===cur, b.dataset.val); });
+}
+function refreshStatusDots(id){
+  const cls=dotClass(id);
+  document.querySelectorAll('#jhead .statusdot').forEach(d=>d.className="statusdot ml-auto inline-block w-2 h-2 rounded-full "+cls);
+  const row=document.querySelector('#list [data-case="'+CSS.escape(id)+'"] .statusdot');
+  if(row) row.className="statusdot inline-block w-1.5 h-1.5 rounded-full flex-none "+cls;
+}
+
+function updateGuidance(id,g){
+  const x=caseById(id), p=PROGRESS[id]||{}; if(!g)g=$("#guidance"); if(!g)return; g.textContent="";
+  if(p.human_target_present==="yes" && x.category==="apparent_fp")
+    g.textContent="Note: target appears present though gold says target-negative — flag in notes; this is likely not a false alarm.";
+  else if(p.human_target_present==="no" && p.human_alternate_valid_error==="yes" && p.human_false_alarm==="yes")
+    g.textContent="Inconsistent: an alternate valid error means it is NOT a false alarm.";
+  else if(p.human_judge_detected_target==="yes" && p.human_false_alarm==="yes")
+    g.textContent="Inconsistent: target detected means it is NOT a false alarm.";
+}
+
+async function persist(id){
+  saveStatus("saving");
+  if(OFFLINE){ localStorage.setItem("fpr_progress",JSON.stringify(PROGRESS)); saveStatus("saved"); return; }
+  const res=await api("/api/save",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({case_id:id, labels:PROGRESS[id]})});
+  if(res){ saveStatus("saved"); if(res.progress)PROGRESS=res.progress; }
+  else { saveStatus("err"); localStorage.setItem("fpr_progress",JSON.stringify(PROGRESS)); }
+}
+
+async function setField(id,key,val,isNotes){
+  if(!PROGRESS[id])PROGRESS[id]={};
+  PROGRESS[id][key]=val;
+  if(!isNotes) refreshField(key);          // in place: evidence + form scroll preserved
+  updateGuidance(id);
+  refreshStatusDots(id);
+  if(FILT.status!=="all"){ renderList(); }  // only re-list when a filter could drop the row
+  updateProgress();
+  await persist(id);
+}
+
+// One-click accept of the meta-claim-artifact suggestion. Never overwrites
+// existing judgements without explicit confirmation.
+async function applyArtifact(id){
+  const cur=PROGRESS[id]||{};
+  const has=Object.keys(cur).some(k=>k.startsWith("human_")&&cur[k]);
+  if(has && !confirm("This case already has judgements. Overwrite with the artifact suggestion?")) return;
+  PROGRESS[id]=Object.assign({}, cur, {
+    human_target_present:"no", human_judge_detected_target:"n/a",
+    human_alternate_valid_error:"no", human_artifact:"yes",
+    human_false_alarm:"no", human_localization_correct:"n/a",
+    human_notes: cur.human_notes || "[auto] meta-claim artifact",
+  });
+  const x=caseById(id); if(x) renderJudgePane(x);
+  refreshStatusDots(id); renderList(); updateProgress();
+  await persist(id);
+}
+
+function saveStatus(s){
+  const dot=$("#savedot"), txt=$("#savetext");
+  dot.className="inline-block w-2 h-2 rounded-full "+(s==="saving"?"bg-amber-400 live-on":(s==="err"?"bg-rose-400":"bg-emerald-400"));
+  txt.textContent = s==="saving"?"saving…":(s==="err"?"saved locally (offline)":"saved");
+}
+function updateProgress(){
+  const done=CASES.filter(x=>isDone(x.case_id)).length;
+  $("#pcount").textContent=done+" / "+CASES.length;
+  $("#barfill").style.width=(CASES.length? (100*done/CASES.length):0)+"%";
+}
+
+function step(dir){
+  const items=filtered(); const i=items.findIndex(x=>x.case_id===SEL);
+  const ni=Math.min(items.length-1,Math.max(0,i+dir));
+  if(items[ni]) select(items[ni].case_id);
+}
+function markReviewedNext(){
+  const x=caseById(SEL); if(!x)return;
+  if(!(PROGRESS[SEL]||{}).human_false_alarm){ setField(SEL,"human_false_alarm", x.contains_factual_error?"":"n/a"); }
+  step(1);
+}
+$("#navPrev").onclick=()=>step(-1);
+$("#navNext").onclick=()=>step(1);
+$("#navMark").onclick=markReviewedNext;
+
+document.addEventListener("keydown",e=>{
+  const tag=(e.target.tagName||"").toLowerCase();
+  if(tag==="textarea"||tag==="input")return;
+  if(e.key==="j"||e.key==="ArrowDown"){e.preventDefault();step(1);}
+  if(e.key==="k"||e.key==="ArrowUp"){e.preventDefault();step(-1);}
+  if(e.key==="\\"){e.preventDefault();toggleList();}
+  if(e.key==="a"){ const x=caseById(SEL); if(x&&x.auto_artifact==="likely_artifact"){ e.preventDefault(); applyArtifact(SEL).then(()=>step(1)); } }
+});
+
+function toggleList(){ $("#listpane").classList.toggle("hidden"); }
+$("#btnToggleList").onclick=toggleList;
+
+/* modals */
+function modal(title, contentNode){
+  const root=$("#modalRoot"); root.innerHTML="";
+  const m=el("div","fixed inset-0 bg-black/60 flex items-center justify-center z-50");
+  const box=el("div","bg-ink-900 border border-ink-700 rounded-lg max-w-3xl w-[92%] max-h-[86vh] overflow-auto p-6 relative");
+  const close=el("button","absolute top-4 right-4 bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-xs text-zinc-300 hover:border-emerald-500","Close");
+  close.onclick=()=>root.innerHTML="";
+  box.append(close, el("h2","text-lg font-semibold mb-1",title), contentNode); m.append(box);
+  m.onclick=e=>{if(e.target===m)root.innerHTML="";};
+  root.append(m);
+}
+async function showSummary(){
+  const s = OFFLINE? computeSummaryLocal() : ((await api("/api/summary"))||computeSummaryLocal());
+  const node=el("div");
+  const tbl=el("table","sum");
+  tbl.innerHTML="<tr><th>Audit subset</th><th>n</th><th>reviewed</th><th>target error</th><th>alternate valid</th><th>false alarm</th><th>unclear</th></tr>";
+  s.rows.forEach(r=>{ const tr=el("tr");
+    tr.innerHTML=`<td>${r.label}</td><td class="num">${r.n}</td><td class="num">${r.reviewed}</td><td class="num">${r.target}</td><td class="num">${r.alternate}</td><td class="num">${r.false_alarm}</td><td class="num">${r.unclear}</td>`;
+    tbl.append(tr); });
+  node.append(tbl);
+  const vb=el("div","mt-4 p-3 rounded-md border border-ink-700 bg-ink-850/40 text-[13px] text-zinc-300");
+  vb.append(el("b",null,"Tentative interpretation: "), document.createTextNode(s.verdict)); node.append(vb);
+  node.append(el("div","text-[12px] text-zinc-500 mt-2","Counts update live as you label. Final summary written to fpr_review_summary.md and paper/tables/fpr_audit_summary.tex."));
+  modal("Audit summary (live)", node);
+}
+function computeSummaryLocal(){
+  const groups=[
+    {label:"Same-deployment target-negative flagged", f:x=>x.category==="apparent_fp"&&x.same_deployment},
+    {label:"Cross-deployment target-negative flagged", f:x=>x.category==="apparent_fp"&&!x.same_deployment},
+    {label:"False negatives", f:x=>x.category==="false_negative"},
+    {label:"Sanity TP", f:x=>x.category==="true_positive"},
+    {label:"Sanity TN", f:x=>x.category==="true_negative"},
+  ];
+  const rows=groups.map(g=>{
+    const cs=CASES.filter(g.f); let reviewed=0,target=0,alt=0,fa=0,unclear=0;
+    cs.forEach(x=>{const p=PROGRESS[x.case_id]||{}; if(!isDone(x.case_id))return; reviewed++;
+      if(p.human_judge_detected_target==="yes")target++;
+      else if(p.human_alternate_valid_error==="yes")alt++;
+      else if(p.human_false_alarm==="yes")fa++; else unclear++;});
+    return {label:g.label,n:cs.length,reviewed,target,alternate:alt,false_alarm:fa,unclear};
+  });
+  return {rows, verdict:"Review more cases to determine Case A / B / C."};
+}
+async function showGuide(){
+  let txt="";
+  if(!OFFLINE){ try{ txt=await (await fetch("/api/guide")).text(); }catch(e){} }
+  const pre=el("pre","wrap text-[13px] text-zinc-300 leading-relaxed"); pre.textContent=txt||"Open paper/audit/fpr_review_guide.md for full instructions.";
+  modal("Reviewer guide", pre);
+}
+async function doExport(){
+  if(OFFLINE){
+    const blob=new Blob([JSON.stringify(PROGRESS,null,2)],{type:"application/json"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="fpr_review_progress.json"; a.click(); return;
+  }
+  const r=await api("/api/export",{method:"POST"});
+  const node=el("div","text-[13px] text-zinc-300"); node.textContent = r? ("Wrote: "+r.written.join(", ")) : "Export failed.";
+  modal("Export complete", node);
+}
+
+$("#search").oninput=e=>{FILT.q=e.target.value;renderList();};
+$("#btnSummary").onclick=showSummary;
+$("#btnGuide").onclick=showGuide;
+$("#btnExport").onclick=doExport;
+
+load();
+</script>
+</body>
+</html>

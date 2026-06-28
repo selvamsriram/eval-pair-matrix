@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>cell review · portal</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('cell_theme')||'fluent';}catch(e){document.documentElement.dataset.theme='fluent';}</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  const V=(n)=>`rgb(var(--c-${n}) / <alpha-value>)`;
+  const scale=(name,keys)=>Object.fromEntries(keys.map(k=>[k,V(name+'-'+k)]));
+  tailwind.config = { darkMode:'class', theme:{ extend:{
+    fontFamily:{ sans:['Segoe UI Variable','Segoe UI','system-ui','-apple-system','BlinkMacSystemFont','Helvetica Neue','Arial','sans-serif'],
+      mono:['JetBrains Mono','ui-monospace','SFMono-Regular','Menlo','monospace'] },
+    colors:{
+      ink:scale('ink',[950,900,850,800,700,600,500]),
+      zinc:scale('zinc',[100,200,300,400,500,600]),
+      emerald:scale('emerald',[200,300,400,500,600]),
+      sky:scale('sky',[300,500]), amber:scale('amber',[300,400,500,600]),
+      rose:scale('rose',[300,400,500]), teal:scale('teal',[300,500]), indigo:scale('indigo',[300,500]),
+    } } } }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ---- Slate (default): higher-contrast dark, easier to read ---- */
+  :root, [data-theme="slate"]{
+    --c-ink-950:15 23 42; --c-ink-900:19 28 47; --c-ink-850:25 35 56; --c-ink-800:30 41 59; --c-ink-700:51 65 85; --c-ink-600:71 85 105; --c-ink-500:100 116 139;
+    --c-zinc-100:248 250 252; --c-zinc-200:241 245 249; --c-zinc-300:223 230 240; --c-zinc-400:193 204 219; --c-zinc-500:166 178 197; --c-zinc-600:130 144 163;
+    --c-emerald-200:167 243 208; --c-emerald-300:110 231 183; --c-emerald-400:52 211 153; --c-emerald-500:16 185 129; --c-emerald-600:5 150 105;
+    --c-sky-300:125 211 252; --c-sky-500:14 165 233; --c-amber-300:252 211 77; --c-amber-400:251 191 36; --c-amber-500:245 158 11; --c-amber-600:217 119 6;
+    --c-rose-300:253 164 175; --c-rose-400:251 113 133; --c-rose-500:244 63 94; --c-teal-300:94 234 212; --c-teal-500:20 184 166; --c-indigo-300:165 180 252; --c-indigo-500:99 102 241;
+    --mr-bg:rgba(244,63,94,.20); --mr-fg:#fda4af; --mr-bd:rgba(244,63,94,.35); --ma-bg:rgba(16,185,129,.20); --ma-fg:#6ee7b7; --ma-bd:rgba(16,185,129,.35);
+    --sb-thumb:#334155; --sb-thumb-h:#475569; --row-hover:rgba(255,255,255,.03);
+  }
+  /* ---- Midnight: original near-black ---- */
+  [data-theme="midnight"]{
+    --c-ink-950:9 9 11; --c-ink-900:12 12 14; --c-ink-850:16 16 19; --c-ink-800:22 22 26; --c-ink-700:31 31 36; --c-ink-600:42 42 49; --c-ink-500:58 58 68;
+    --c-zinc-100:245 245 247; --c-zinc-200:230 230 234; --c-zinc-300:214 214 220; --c-zinc-400:180 180 190; --c-zinc-500:146 146 156; --c-zinc-600:112 112 122;
+    --c-emerald-200:167 243 208; --c-emerald-300:110 231 183; --c-emerald-400:52 211 153; --c-emerald-500:16 185 129; --c-emerald-600:5 150 105;
+    --c-sky-300:125 211 252; --c-sky-500:14 165 233; --c-amber-300:252 211 77; --c-amber-400:251 191 36; --c-amber-500:245 158 11; --c-amber-600:217 119 6;
+    --c-rose-300:253 164 175; --c-rose-400:251 113 133; --c-rose-500:244 63 94; --c-teal-300:94 234 212; --c-teal-500:20 184 166; --c-indigo-300:165 180 252; --c-indigo-500:99 102 241;
+    --mr-bg:rgba(244,63,94,.20); --mr-fg:#fda4af; --mr-bd:rgba(244,63,94,.35); --ma-bg:rgba(16,185,129,.20); --ma-fg:#6ee7b7; --ma-bd:rgba(16,185,129,.35);
+    --sb-thumb:#2a2a31; --sb-thumb-h:#3a3a44; --row-hover:rgba(255,255,255,.025);
+  }
+  /* ---- Paper: light, dark text ---- */
+  [data-theme="paper"]{
+    --c-ink-950:241 245 249; --c-ink-900:255 255 255; --c-ink-850:255 255 255; --c-ink-800:241 245 249; --c-ink-700:203 213 225; --c-ink-600:148 163 184; --c-ink-500:100 116 139;
+    --c-zinc-100:15 23 42; --c-zinc-200:23 33 54; --c-zinc-300:38 50 71; --c-zinc-400:51 65 85; --c-zinc-500:71 85 105; --c-zinc-600:100 116 139;
+    --c-emerald-200:4 120 87; --c-emerald-300:5 150 105; --c-emerald-400:5 150 105; --c-emerald-500:16 185 129; --c-emerald-600:4 120 87;
+    --c-sky-300:2 132 199; --c-sky-500:14 165 233; --c-amber-300:146 64 14; --c-amber-400:217 119 6; --c-amber-500:217 119 6; --c-amber-600:180 83 9;
+    --c-rose-300:190 18 60; --c-rose-400:225 29 72; --c-rose-500:244 63 94; --c-teal-300:15 118 110; --c-teal-500:20 184 166; --c-indigo-300:67 56 202; --c-indigo-500:99 102 241;
+    --mr-bg:rgba(244,63,94,.12); --mr-fg:#be123c; --mr-bd:rgba(244,63,94,.40); --ma-bg:rgba(16,185,129,.14); --ma-fg:#047857; --ma-bd:rgba(16,185,129,.40);
+    --sb-thumb:#cbd5e1; --sb-thumb-h:#94a3b8; --row-hover:rgba(2,6,23,.04);
+  }
+  /* ---- Fluent: Microsoft Copilot navy ---- */
+  [data-theme="fluent"]{
+    --c-ink-950:20 26 40; --c-ink-900:14 16 28; --c-ink-850:19 25 41; --c-ink-800:26 33 51; --c-ink-700:44 50 69; --c-ink-600:51 58 77; --c-ink-500:84 92 112;
+    --c-zinc-100:229 235 251; --c-zinc-200:207 214 232; --c-zinc-300:173 180 198; --c-zinc-400:142 150 170; --c-zinc-500:115 123 144; --c-zinc-600:84 92 112;
+    --c-emerald-200:214 222 240; --c-emerald-300:174 185 214; --c-emerald-400:134 147 181; --c-emerald-500:91 103 136; --c-emerald-600:74 83 112;
+    --c-sky-300:156 196 224; --c-sky-500:91 143 181; --c-amber-300:232 201 138; --c-amber-400:217 179 106; --c-amber-500:199 154 74; --c-amber-600:176 131 42;
+    --c-rose-300:232 163 176; --c-rose-400:217 128 144; --c-rose-500:199 91 110; --c-teal-300:134 194 187; --c-teal-500:74 144 136; --c-indigo-300:168 176 216; --c-indigo-500:102 112 168;
+    --mr-bg:rgba(199,91,110,.18); --mr-fg:#e8a3b0; --mr-bd:rgba(199,91,110,.38); --ma-bg:rgba(74,144,136,.18); --ma-fg:#86c2bb; --ma-bd:rgba(74,144,136,.38);
+    --sb-thumb:#2c3245; --sb-thumb-h:#39415a; --row-hover:rgba(255,255,255,.03);
+  }
+  ::-webkit-scrollbar{width:10px;height:10px} ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--sb-thumb);border-radius:6px;border:2px solid rgb(var(--c-ink-950))} ::-webkit-scrollbar-thumb:hover{background:var(--sb-thumb-h)}
+  .mark-removed{background:var(--mr-bg);color:var(--mr-fg);padding:1px 5px;border-radius:4px;border:1px solid var(--mr-bd);font-weight:500}
+  .mark-added{background:var(--ma-bg);color:var(--ma-fg);padding:1px 5px;border-radius:4px;border:1px solid var(--ma-bd);font-weight:500}
+  @keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:.35}} .live-on{animation:pulse-soft 1.6s ease-in-out infinite}
+  pre.wrap{white-space:pre-wrap;word-break:break-word}
+  .record-row{transition:background-color 80ms ease} .record-row:hover{background-color:var(--row-hover)}
+  .record-row.active{background-color:rgb(var(--c-emerald-500)/.12);border-left-color:rgb(var(--c-emerald-500)) !important}
+  table.sum{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+  table.sum th,table.sum td{border:1px solid rgb(var(--c-ink-700));padding:5px 7px;text-align:left} table.sum th{color:rgb(var(--c-zinc-500));background:rgb(var(--c-ink-800))}
+</style>
+</head>
+<body class="bg-ink-950 text-zinc-100 font-sans antialiased h-screen overflow-hidden">
+
+<div id="offline" class="hidden px-4 py-2 text-xs bg-amber-500/10 text-amber-300 border-b border-amber-500/30"></div>
+
+<header class="h-12 flex items-center px-4 border-b border-ink-700 bg-ink-900/80 backdrop-blur-sm">
+  <button id="btnToggleList" class="mr-3 bg-ink-800 border border-ink-700 rounded-md px-2 py-1 text-zinc-300 hover:border-emerald-500 text-xs">☰</button>
+  <div class="flex items-center gap-2 font-semibold tracking-tight">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+    cell review <span class="text-zinc-500">·</span> <span class="text-zinc-400 font-normal">portal</span>
+  </div>
+  <span class="ml-3 text-[11px] font-mono text-zinc-500 border border-ink-700 rounded px-1.5 py-0.5">behavior × TP/FP/FN/TN</span>
+  <div class="ml-auto flex items-center gap-4 text-xs text-zinc-400">
+    <div class="flex items-center gap-2">
+      <div class="w-40 h-1.5 bg-ink-800 rounded-full overflow-hidden border border-ink-700"><i id="barfill" class="block h-full bg-emerald-500 transition-all"></i></div>
+      <span id="pcount" class="font-mono tabular-nums text-zinc-300">0 / 0</span>
+    </div>
+    <span class="flex items-center gap-1.5"><span id="savedot" class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span><span id="savetext">saved</span></span>
+    <select id="themeSel" class="bg-ink-800 border border-ink-700 rounded-md px-2 py-1 text-zinc-300 text-xs focus:outline-none focus:border-emerald-500" title="Color theme">
+      <option value="fluent">Fluent</option>
+      <option value="slate">Slate</option>
+      <option value="midnight">Midnight</option>
+      <option value="paper">Paper</option>
+    </select>
+    <button id="btnSummary" class="bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-zinc-300 hover:border-emerald-500">Summary</button>
+    <button id="btnExport" class="bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-zinc-300 hover:border-emerald-500">Export</button>
+  </div>
+</header>
+
+<main class="flex h-[calc(100vh-3rem)]">
+  <aside id="listpane" class="w-64 border-r border-ink-700 flex flex-col bg-ink-900/40 shrink-0">
+    <div class="p-3 border-b border-ink-700 space-y-2">
+      <input id="search" type="text" placeholder="search…" class="w-full bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1.5 text-sm focus:outline-none focus:border-emerald-500 placeholder:text-zinc-500" />
+      <div class="text-[11px] uppercase tracking-wide text-zinc-500">behavior</div>
+      <div id="behaviorChips" class="flex flex-wrap gap-1.5"></div>
+      <div class="text-[11px] uppercase tracking-wide text-zinc-500">cell</div>
+      <div id="cellChips" class="flex flex-wrap gap-1.5"></div>
+      <div id="statusChips" class="flex flex-wrap gap-1.5"></div>
+    </div>
+    <div id="list" class="flex-1 overflow-y-auto"></div>
+  </aside>
+
+  <section class="flex-1 flex flex-col min-w-0">
+    <div id="casebar" class="h-11 flex items-center px-4 border-b border-ink-700 bg-ink-900/50 gap-2 text-sm text-zinc-500 shrink-0">select a case</div>
+    <div id="detail" class="flex-1 overflow-y-auto p-6"></div>
+  </section>
+
+  <aside id="judgepane" class="w-[360px] shrink-0 border-l border-ink-700 flex flex-col bg-ink-900/40">
+    <div id="jhead" class="px-4 h-11 flex items-center gap-2 border-b border-ink-700 shrink-0 text-sm text-zinc-400">Your judgement</div>
+    <div id="jbody" class="flex-1 overflow-y-auto p-4"><div class="text-zinc-500 text-sm">select a case to begin</div></div>
+  </aside>
+</main>
+
+<div id="modalRoot"></div>
+
+<script>
+const BEHAVIORS=["context_follow","both_claims","memory_override","conflict_awareness","refusal_or_insufficient","unrelated_or_failed","UNLABELED"];
+const CELLS=["TP","FP","FN","TN"];
+const STATUSES=[{k:"all",label:"All"},{k:"pending",label:"Pending"},{k:"done",label:"Done"}];
+const CARD="border border-ink-700 bg-ink-850/40 rounded-xl p-4 mb-4 shadow-[0_2px_10px_rgba(0,0,0,0.25)]";
+const SECH="text-[12.5px] uppercase tracking-wide text-zinc-500 mb-2.5 font-medium";
+
+let CASES=[], PROGRESS={}, SEL=null, FILT={behavior:"all",cell:"all",status:"all",q:""}, OFFLINE=false;
+const $=s=>document.querySelector(s);
+function el(t,c,txt){const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;}
+async function api(p,o){try{const r=await fetch(p,o);if(!r.ok)throw 0;return await r.json();}catch(e){OFFLINE=true;return null;}}
+function isDone(id){const p=PROGRESS[id]||{};return !!p.human_gold_ok && !!p.human_judge_ok;}
+function isPartial(id){const p=PROGRESS[id]||{};return (p.human_gold_ok||p.human_judge_ok||p.human_notes)&&!isDone(id);}
+
+async function load(){
+  const d=await api("/api/queue");
+  if(d){CASES=d.cases;PROGRESS=d.progress||{};}
+  else{showOffline('Server not detected — run <code>python paper/audit/cell_review_app.py</code>.');try{PROGRESS=JSON.parse(localStorage.getItem("cell_progress")||"{}");}catch(e){PROGRESS={};}
+    if(!CASES.length){$("#detail").innerHTML='<div class="text-zinc-500 text-sm">Start the server.</div>';return;}}
+  renderChips();renderList();if(CASES.length)select(CASES[0].case_id);updateProgress();
+}
+function showOffline(h){const b=$("#offline");b.innerHTML=h;b.classList.remove("hidden");}
+
+function chip(label,n,active,on){
+  const c=el("div","px-2.5 py-1 rounded-full text-[12.5px] border cursor-pointer transition flex items-center gap-1.5 "+
+    (active?"bg-emerald-500/10 text-emerald-200 border-emerald-500/40":"bg-ink-800 text-zinc-400 border-ink-700 hover:border-ink-600"));
+  c.append(el("span",null,label)); if(n!=null)c.append(el("span","font-mono text-zinc-500",String(n))); c.onclick=on; return c;
+}
+const behShort={context_follow:"ctx-follow",both_claims:"both",memory_override:"mem-override",conflict_awareness:"conflict",refusal_or_insufficient:"refusal",unrelated_or_failed:"unrelated",UNLABELED:"unlabeled"};
+function renderChips(){
+  const bc=$("#behaviorChips");bc.innerHTML="";
+  bc.append(chip("All",CASES.length,FILT.behavior==="all",()=>{FILT.behavior="all";renderChips();renderList();}));
+  BEHAVIORS.forEach(b=>{const n=CASES.filter(x=>x.behavior===b).length; if(!n)return;
+    bc.append(chip(behShort[b]||b,n,FILT.behavior===b,()=>{FILT.behavior=b;renderChips();renderList();}));});
+  const cc=$("#cellChips");cc.innerHTML="";
+  cc.append(chip("All",null,FILT.cell==="all",()=>{FILT.cell="all";renderChips();renderList();}));
+  CELLS.forEach(c=>{const n=CASES.filter(x=>x.cell===c).length; if(!n)return;
+    cc.append(chip(c,n,FILT.cell===c,()=>{FILT.cell=c;renderChips();renderList();}));});
+  const sc=$("#statusChips");sc.innerHTML="";
+  STATUSES.forEach(s=>sc.append(chip(s.label,null,FILT.status===s.k,()=>{FILT.status=s.k;renderChips();renderList();})));
+}
+function filtered(){
+  const q=FILT.q.toLowerCase();
+  return CASES.filter(x=>{
+    if(FILT.behavior!=="all"&&x.behavior!==FILT.behavior)return false;
+    if(FILT.cell!=="all"&&x.cell!==FILT.cell)return false;
+    if(FILT.status==="pending"&&isDone(x.case_id))return false;
+    if(FILT.status==="done"&&!isDone(x.case_id))return false;
+    if(q){const notes=(PROGRESS[x.case_id]||{}).human_notes||"";if(!((x.case_id+" "+(x.question||"")+" "+notes).toLowerCase().includes(q)))return false;}
+    return true;
+  });
+}
+function dotClass(id){return isDone(id)?"bg-emerald-400":(isPartial(id)?"bg-amber-400":"bg-zinc-600");}
+function cellChip(c){return {TP:"bg-emerald-500/15 text-emerald-300 border-emerald-500/30",FP:"bg-amber-500/15 text-amber-300 border-amber-500/30",FN:"bg-rose-500/15 text-rose-300 border-rose-500/30",TN:"bg-sky-500/15 text-sky-300 border-sky-500/30"}[c]||"bg-ink-800 text-zinc-400 border-ink-700";}
+function depChip(s){return s?"bg-indigo-500/15 text-indigo-300 border-indigo-500/30":"bg-teal-500/15 text-teal-300 border-teal-500/30";}
+function badge(t,c){return el("span","px-2 py-0.5 rounded-md text-[11px] font-mono border "+c,t);}
+function escRe(s){return String(s||"").replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+function valuePresent(text,val){return !!(val&&String(text||"").toLowerCase().includes(String(val).toLowerCase()));}
+function highlightAnswer(text,orig,pert){
+  text=String(text||"");const parts=[];
+  if(pert)parts.push(String(pert));if(orig)parts.push(String(orig));
+  parts.sort((a,b)=>b.length-a.length);
+  const alts=parts.map(escRe).filter(Boolean);
+  const frag=document.createDocumentFragment();
+  if(!alts.length){frag.appendChild(document.createTextNode(text));return frag;}
+  const re=new RegExp("("+alts.join("|")+")","gi");let last=0,m;
+  while((m=re.exec(text))){
+    if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+    const low=m[0].toLowerCase();
+    const cls=(pert&&low===String(pert).toLowerCase())?"mark-added":"mark-removed";
+    frag.appendChild(el("span",cls+" font-medium",m[0]));
+    last=m.index+m[0].length;if(re.lastIndex===m.index)re.lastIndex++;
+  }
+  if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+  return frag;
+}
+function presBadge(label,present,kind){
+  if(!present)return badge("✗ "+label,"bg-ink-800 text-zinc-400 border-ink-700");
+  return badge("✓ "+label,kind==="pert"?"bg-emerald-500/15 text-emerald-300 border-emerald-500/40":"bg-rose-500/15 text-rose-300 border-rose-500/40");
+}
+
+function renderList(){
+  const list=$("#list");const keep=list.scrollTop;list.innerHTML="";
+  const items=filtered();
+  if(!items.length){list.append(el("div","p-8 text-center text-sm text-zinc-500","No cases."));return;}
+  items.forEach(x=>{
+    const it=el("div","record-row "+(SEL===x.case_id?"active ":"")+"px-3 py-2.5 border-b border-ink-700/60 border-l-2 border-l-transparent cursor-pointer");it.dataset.case=x.case_id;
+    const top=el("div","flex items-center gap-2");
+    top.append(el("span","statusdot inline-block w-1.5 h-1.5 rounded-full flex-none "+dotClass(x.case_id)));
+    top.append(badge(x.cell,cellChip(x.cell)));
+    top.append(el("span","text-[11px] font-mono text-zinc-500 truncate flex-1",behShort[x.behavior]||x.behavior));
+    const q=el("div","text-[14px] text-zinc-200 my-1 line-clamp-2",x.question||"(no question)");
+    const bd=el("div","flex flex-wrap gap-1.5 items-center");
+    bd.append(el("span","text-[11px] font-mono text-sky-300/90",x.generator+"→"+x.judge));
+    bd.append(badge(x.same_deployment?"same":"cross",depChip(x.same_deployment)));
+    it.append(top,q,bd);it.onclick=()=>select(x.case_id);list.append(it);
+  });
+  list.scrollTop=keep;
+}
+function caseById(id){return CASES.find(x=>x.case_id===id);}
+function hint(label,val){let cls="bg-ink-800 text-zinc-500 border-ink-700",txt="?";if(val===true){cls="bg-emerald-500/15 text-emerald-300 border-emerald-500/30";txt="yes";}else if(val===false){cls="bg-rose-500/15 text-rose-300 border-rose-500/30";txt="no";}return badge(label+": "+txt,cls);}
+function card(title,kids){const s=el("div",CARD);s.append(el("div",SECH,title));kids.forEach(k=>s.append(k));return s;}
+
+function select(id){
+  clearTimeout(autoT);
+  SEL=id;renderList();const x=caseById(id);if(!x)return;
+  const bar=$("#casebar");bar.className="h-11 flex items-center px-4 border-b border-ink-700 bg-ink-900/50 gap-2 text-sm shrink-0";bar.innerHTML="";
+  bar.append(badge(x.cell,cellChip(x.cell)));
+  bar.append(el("span","font-mono text-[12.5px] text-zinc-400",behShort[x.behavior]||x.behavior));
+  bar.append(el("span","text-zinc-600","·"));
+  bar.append(el("span","font-semibold text-sky-300",x.generator));bar.append(el("span","text-zinc-500 text-xs","→"));bar.append(el("span","font-semibold text-sky-300",x.judge));
+  bar.append(badge(x.same_deployment?"same":"cross",depChip(x.same_deployment)));
+  bar.append(el("span","font-mono text-[12.5px] text-zinc-500 ml-auto truncate",x.case_id));
+
+  const d=$("#detail");d.innerHTML="";d.scrollTop=0;
+  const qcard=el("div","border border-ink-700 bg-ink-850/40 rounded-md px-3 py-2 mb-3");
+  qcard.append(el("span","text-[11px] uppercase tracking-wide text-zinc-500 mr-2","Q"));
+  qcard.append(el("span","text-[14.5px] font-medium text-zinc-100",x.question||""));
+  d.append(qcard);
+  // planted change
+  const chg=[];const ch=el("div","flex items-center gap-2.5 flex-wrap text-sm");
+  ch.append(el("span","text-zinc-500","Planted target:"));ch.append(el("span","mark-removed font-mono",String(x.original_value)));ch.append(el("span","text-zinc-600","→"));ch.append(el("span","mark-added font-mono",String(x.perturbed_value)));ch.append(badge(x.perturbation_type||"","bg-ink-800 text-zinc-400 border-ink-700"));chg.push(ch);
+  const cc=el("div","grid grid-cols-2 gap-2.5 mt-3");
+  const co=el("div","border border-ink-700 bg-ink-900 rounded-md p-2.5 text-[13.5px] text-zinc-300");co.append(el("div","text-[11px] uppercase tracking-wide text-zinc-500 mb-1","original atomic claim"),document.createTextNode(x.atomic_claim_original||""));
+  const cp=el("div","border border-ink-700 bg-ink-900 rounded-md p-2.5 text-[13.5px] text-zinc-300");cp.append(el("div","text-[11px] uppercase tracking-wide text-zinc-500 mb-1","perturbed atomic claim"),document.createTextNode(x.atomic_claim_perturbed||""));
+  cc.append(co,cp);chg.push(cc);
+  if((x.modified_detail||[]).length){
+    const det=el("details","mt-2.5");
+    det.append(el("summary","text-xs text-emerald-300/90 cursor-pointer hover:text-emerald-200","Show "+x.modified_detail.length+" modified passage span(s)"));
+    (x.modified_detail||[]).forEach(md=>{const row=el("div","mt-2 text-[13.5px] flex flex-wrap items-center gap-2");row.append(badge("passage "+md.passage_id,"bg-ink-800 text-zinc-400 border-ink-700"));if(md.original_span)row.append(el("span","mark-removed font-mono",md.original_span));row.append(el("span","text-zinc-600","→"));if(md.perturbed_span)row.append(el("span","mark-added font-mono",md.perturbed_span));det.append(row);});
+    chg.push(det);
+  }
+  d.append(card("Planted change (target)",chg));
+  const pertP=valuePresent(x.generator_answer,x.perturbed_value),origP=valuePresent(x.generator_answer,x.original_value);
+  const pres=el("div","flex flex-wrap gap-2 mb-2 items-center text-[13px]");
+  pres.append(el("span","text-zinc-500","in answer:"));
+  pres.append(presBadge("false “"+x.perturbed_value+"”",pertP,"pert"));
+  pres.append(presBadge("true “"+x.original_value+"”",origP,"orig"));
+  const ansDiv=el("div","wrap bg-ink-900 border border-ink-700 rounded-md p-3 text-[14.5px] text-zinc-100 leading-relaxed");
+  ansDiv.appendChild(highlightAnswer(x.generator_answer||"(empty)",x.original_value,x.perturbed_value));
+  d.append(card("Generator answer",[pres,ansDiv]));
+  // verdict
+  const v=[];const flag=el("div","flex items-center gap-2 font-medium");
+  flag.append(el("span","inline-block w-2.5 h-2.5 rounded-full "+(x.contains_factual_error?"bg-rose-400":"bg-emerald-400")));
+  flag.append(document.createTextNode(x.contains_factual_error?"Judge flagged an error":"Judge said no error"));
+  flag.append(el("span","text-xs text-zinc-500","· gold "+(x.gold_has_induced_error?"positive":"negative")));v.push(flag);
+  if(x.wrong_claim){const w=el("div","mt-3");w.append(el("div","text-[11px] uppercase tracking-wide text-zinc-500 mb-1","wrong claim"),el("div","text-[14px] text-zinc-200",x.wrong_claim));v.push(w);}
+  if(x.judge_explanation){const e=el("div","mt-3");e.append(el("div","text-[11px] uppercase tracking-wide text-zinc-500 mb-1","explanation"),el("div","border-l-2 border-ink-600 pl-3 text-[14px] text-zinc-300 wrap",x.judge_explanation));v.push(e);}
+  const cite=el("div","mt-3 flex items-center gap-2 text-sm");cite.append(el("span","text-zinc-500","Cited passage:"));cite.append(badge("#"+(x.supporting_source_passage_id==null?"none":x.supporting_source_passage_id),"bg-ink-800 text-zinc-300 border-ink-700"));v.push(cite);
+  if(x.supporting_source_passage_text)v.push(el("div","border-l-2 border-ink-600 pl-3 text-[13.5px] text-zinc-400 wrap mt-1",x.supporting_source_passage_text));
+  const hints=el("div","flex flex-wrap gap-2 mt-3");hints.append(hint("auto target",x.auto_target_match));hints.append(hint("auto loc",x.auto_localization_match));hints.append(hint("entails orig",x.entails_original_claim));hints.append(hint("entails perturbed",x.entails_perturbed_claim));v.push(hints);
+  d.append(card("Judge verdict",v));
+  // passages
+  const det=el("details","mt-1");det.append(el("summary","text-xs text-emerald-300/90 cursor-pointer hover:text-emerald-200","Show all "+(x.all_original_passages||[]).length+" original passages (reference)"));
+  const modset=new Set((x.modified_passage_ids||[]).map(String));
+  (x.all_original_passages||[]).forEach(p=>{const isC=String(p.passage_id)===String(x.supporting_source_passage_id);const isM=modset.has(String(p.passage_id));
+    const pb=el("div","border bg-ink-900 rounded-md p-2.5 mt-2 text-[13.5px] text-zinc-300 wrap "+(isC?"border-emerald-500/40 ring-1 ring-emerald-500/30":"border-ink-700"));
+    const pid=el("div","flex gap-3 mb-1 font-mono text-[12.5px] text-zinc-500");pid.append(el("span",null,"passage #"+p.passage_id));if(isM)pid.append(el("span","text-amber-400","● modified"));if(isC)pid.append(el("span","text-emerald-400","● cited"));pb.append(pid,document.createTextNode(p.text||""));det.append(pb);});
+  d.append(card("Source passages (original = reference)",[det]));
+  renderJudgePane(x);
+}
+
+function segClasses(v){return {yes:"bg-emerald-500/15 text-emerald-300 border-emerald-500/40",no:"bg-rose-500/15 text-rose-300 border-rose-500/40",unclear:"bg-amber-500/15 text-amber-300 border-amber-500/40"}[v]||"bg-ink-700 text-zinc-200 border-ink-600";}
+function segBtn(on,o){return "segbtn px-3 py-1.5 text-[13.5px] rounded-md border cursor-pointer transition "+(on?segClasses(o):"bg-ink-800 border-ink-700 text-zinc-400 hover:border-emerald-500 hover:text-zinc-200");}
+
+function goldHelp(cell){return (cell==="TP"||cell==="FN")?"Gold says the answer ADOPTED the false value as its answer. Right? (just mentioning it ≠ adopting)":"Gold says the answer did NOT adopt the false value. Right? (mentioning it while refusing or flagging a conflict still counts as not-adopted)";}
+function judgeHelp(cell){return (cell==="TP"||cell==="FP")?"Was the judge right to flag — is there a real error vs the source?":"Was the judge right to stay silent? (no = it missed a real error)";}
+function derive(cell,g,j){
+  if(!g||!j)return "";
+  if(cell==="TP"){ if(g==="yes"&&j==="yes")return "→ genuine true positive"; if(g==="no")return "→ answer didn't assert false value: gold mislabel"; if(j==="no")return "→ judge flagged for the wrong reason"; return "→ needs a note"; }
+  if(cell==="FP"){ if(g==="no")return "→ answer DID assert the false value: gold mislabel (really a TP)"; if(g==="yes"&&j==="no")return "→ genuine false alarm"; if(g==="yes"&&j==="yes")return "→ judge caught a real/alternate error the target-gold missed"; return "→ needs a note"; }
+  if(cell==="FN"){ if(g==="no")return "→ answer didn't really assert the false value: gold too aggressive"; if(g==="yes"&&j==="no")return "→ genuine miss"; if(g==="yes"&&j==="yes")return "⚠ inconsistent: gold+ but judge correct to stay silent"; return "→ needs a note"; }
+  if(cell==="TN"){ if(g==="yes"&&j==="yes")return "→ genuine true negative"; if(j==="no")return "→ judge missed a real error (should have flagged)"; if(g==="no")return "→ answer asserts the false value: gold mislabel"; return "→ needs a note"; }
+  return "";
+}
+
+function renderJudgePane(x){
+  const jh=$("#jhead");jh.innerHTML="";jh.append(el("span","text-zinc-200 font-medium","Your judgement"));jh.append(badge(x.cell,cellChip(x.cell)));jh.append(el("span","statusdot ml-auto inline-block w-2 h-2 rounded-full "+dotClass(x.case_id)));
+  const body=$("#jbody");body.innerHTML="";
+  const p=PROGRESS[x.case_id]||{};
+  const recap=el("div","border border-ink-700 bg-ink-850/40 rounded-md p-3 mb-3 space-y-2");
+  const l1=el("div","flex items-center gap-2 flex-wrap");l1.append(badge(x.cell,cellChip(x.cell)));l1.append(el("span","text-[12.5px] text-zinc-400",behShort[x.behavior]||x.behavior));l1.append(el("span","text-[12.5px] font-mono text-sky-300/90",x.generator+"→"+x.judge));recap.append(l1);
+  const l2=el("div","flex items-center gap-2 flex-wrap text-[13px]");l2.append(el("span","text-zinc-500","target:"));l2.append(el("span","mark-removed font-mono",String(x.original_value)));l2.append(el("span","text-zinc-600","→"));l2.append(el("span","mark-added font-mono",String(x.perturbed_value)));recap.append(l2);
+  const lp=el("div","flex items-center gap-2 flex-wrap text-[13px]");lp.append(el("span","text-zinc-500","in answer:"));lp.append(presBadge("false value",valuePresent(x.generator_answer,x.perturbed_value),"pert"));lp.append(presBadge("true value",valuePresent(x.generator_answer,x.original_value),"orig"));recap.append(lp);
+  const l3=el("div","flex items-center gap-2 flex-wrap text-[13px]");l3.append(el("span","inline-block w-2 h-2 rounded-full "+(x.contains_factual_error?"bg-rose-400":"bg-emerald-400")));l3.append(el("span","text-zinc-300",x.contains_factual_error?"judge flagged":"judge: no error"));l3.append(el("span","text-zinc-600","·"));l3.append(el("span","text-zinc-400","gold "+(x.gold_has_induced_error?"+":"−")));recap.append(l3);
+  if(x.auto_artifact){const l4=el("div","flex items-center gap-2 text-[13px]");l4.append(el("span","text-zinc-500","auto:"));l4.append(badge(x.auto_artifact==="likely_artifact"?"likely artifact":"substantive",x.auto_artifact==="likely_artifact"?"bg-amber-500/15 text-amber-300 border-amber-500/30":"bg-sky-500/15 text-sky-300 border-sky-500/30"));recap.append(l4);}
+  body.append(recap);
+
+  const fields=[
+    {key:"human_gold_ok",label:"1 · Gold correct?",help:goldHelp(x.cell)},
+    {key:"human_judge_ok",label:"2 · Judge correct?",help:judgeHelp(x.cell)},
+  ];
+  fields.forEach((f,i)=>{
+    const blk=el("div",(i?"border-t border-ink-700 pt-3 mt-3":""));
+    blk.append(el("div","text-[13.5px] font-medium text-zinc-200",f.label));
+    blk.append(el("div","text-[12.5px] text-zinc-500 mt-0.5 mb-1.5",f.help));
+    const seg=el("div","segwrap flex flex-wrap gap-1.5");seg.dataset.field=f.key;
+    ["yes","no","unclear"].forEach(o=>{const on=p[f.key]===o;const b=el("button",segBtn(on,o),o);b.dataset.val=o;b.onclick=()=>setField(x.case_id,f.key,on?"":o);seg.append(b);});
+    blk.append(seg);body.append(blk);
+  });
+  const der=el("div","text-[13px] mt-3 min-h-[16px] font-medium");der.id="derive";body.append(der);
+  updateDerive(x.case_id);
+
+  const nblk=el("div","border-t border-ink-700 pt-3 mt-3");
+  nblk.append(el("div","text-[13.5px] font-medium text-zinc-200","Notes"));
+  const ta=el("textarea","w-full min-h-[60px] mt-1.5 bg-ink-800 border border-ink-700 rounded-md px-3 py-2 text-[14px] text-zinc-100 focus:outline-none focus:border-emerald-500 resize-y");ta.value=p.human_notes||"";ta.placeholder="optional";
+  let t;ta.oninput=()=>{clearTimeout(t);t=setTimeout(()=>setField(x.case_id,"human_notes",ta.value,true),500);};nblk.append(ta);body.append(nblk);
+
+  const nav=el("div","flex gap-2 mt-4");
+  const prev=el("button","flex-1 bg-ink-800 border border-ink-700 rounded-md py-2 text-sm text-zinc-300 hover:border-emerald-500","← Prev");prev.onclick=()=>step(-1);
+  const next=el("button","flex-1 bg-ink-800 border border-ink-700 rounded-md py-2 text-sm text-zinc-300 hover:border-emerald-500","Next →");next.onclick=()=>step(1);
+  nav.append(prev,next);body.append(nav);
+}
+
+function refreshField(key){const seg=document.querySelector('#jbody .segwrap[data-field="'+key+'"]');if(!seg)return;const cur=(PROGRESS[SEL]||{})[key];seg.querySelectorAll(".segbtn").forEach(b=>{b.className=segBtn(b.dataset.val===cur,b.dataset.val);});}
+function refreshStatusDots(id){const cls=dotClass(id);document.querySelectorAll('#jhead .statusdot').forEach(d=>d.className="statusdot ml-auto inline-block w-2 h-2 rounded-full "+cls);const row=document.querySelector('#list [data-case="'+CSS.escape(id)+'"] .statusdot');if(row)row.className="statusdot inline-block w-1.5 h-1.5 rounded-full flex-none "+cls;}
+function updateDerive(id){const x=caseById(id),p=PROGRESS[id]||{},g=$("#derive");if(!g)return;const txt=derive(x.cell,p.human_gold_ok,p.human_judge_ok);g.textContent=txt;g.className="text-[13px] mt-3 min-h-[16px] font-medium "+(txt.startsWith("⚠")?"text-amber-400":"text-emerald-300/90");}
+
+async function persist(id){saveStatus("saving");if(OFFLINE){localStorage.setItem("cell_progress",JSON.stringify(PROGRESS));saveStatus("saved");return;}
+  const res=await api("/api/save",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({case_id:id,labels:PROGRESS[id]})});
+  if(res){saveStatus("saved");if(res.progress)PROGRESS=res.progress;}else{saveStatus("err");localStorage.setItem("cell_progress",JSON.stringify(PROGRESS));}}
+let autoT=null;
+async function setField(id,key,val,isNotes){
+  const before=isDone(id);
+  if(!PROGRESS[id])PROGRESS[id]={};PROGRESS[id][key]=val;
+  if(!isNotes)refreshField(key);updateDerive(id);refreshStatusDots(id);
+  if(FILT.status!=="all")renderList();updateProgress();await persist(id);
+  // auto-advance once both calls are answered (skip if user moved to notes)
+  if(!isNotes && !before && isDone(id)){
+    clearTimeout(autoT);
+    autoT=setTimeout(()=>{const ae=document.activeElement;if(ae&&ae.tagName==="TEXTAREA")return;if(SEL===id)step(1);},450);
+  }
+}
+function saveStatus(s){const dot=$("#savedot"),txt=$("#savetext");dot.className="inline-block w-2 h-2 rounded-full "+(s==="saving"?"bg-amber-400 live-on":(s==="err"?"bg-rose-400":"bg-emerald-400"));txt.textContent=s==="saving"?"saving…":(s==="err"?"saved locally":"saved");}
+function updateProgress(){const done=CASES.filter(x=>isDone(x.case_id)).length;$("#pcount").textContent=done+" / "+CASES.length;$("#barfill").style.width=(CASES.length?100*done/CASES.length:0)+"%";}
+function step(dir){const items=filtered();const i=items.findIndex(x=>x.case_id===SEL);const ni=Math.min(items.length-1,Math.max(0,i+dir));if(items[ni])select(items[ni].case_id);}
+document.addEventListener("keydown",e=>{const tag=(e.target.tagName||"").toLowerCase();if(tag==="textarea"||tag==="input")return;
+  if(e.key==="j"||e.key==="ArrowDown"){e.preventDefault();step(1);}if(e.key==="k"||e.key==="ArrowUp"){e.preventDefault();step(-1);}if(e.key==="\\"){e.preventDefault();toggleList();}});
+function toggleList(){$("#listpane").classList.toggle("hidden");}$("#btnToggleList").onclick=toggleList;
+
+function modal(title,node){const root=$("#modalRoot");root.innerHTML="";const m=el("div","fixed inset-0 bg-black/60 flex items-center justify-center z-50");const box=el("div","bg-ink-900 border border-ink-700 rounded-lg max-w-4xl w-[92%] max-h-[86vh] overflow-auto p-6 relative");const close=el("button","absolute top-4 right-4 bg-ink-800 border border-ink-700 rounded-md px-2.5 py-1 text-xs text-zinc-300 hover:border-emerald-500","Close");close.onclick=()=>root.innerHTML="";box.append(close,el("h2","text-lg font-semibold mb-1",title),node);m.append(box);m.onclick=e=>{if(e.target===m)root.innerHTML="";};root.append(m);}
+async function showSummary(){
+  const s=(!OFFLINE&&await api("/api/summary"))||{rows:[]};
+  const node=el("div");const tbl=el("table","sum");
+  tbl.innerHTML="<tr><th>behavior</th><th>cell</th><th>samp/pop</th><th>rev</th><th>gold y/n/?</th><th>judge y/n/?</th><th>valid</th></tr>";
+  s.rows.forEach(r=>{const tr=el("tr");tr.innerHTML=`<td>${r.behavior}</td><td>${r.cell}</td><td>${r.sampled}/${r.population}</td><td>${r.reviewed}</td><td>${r.gold_yes}/${r.gold_no}/${r.gold_unclear}</td><td>${r.judge_yes}/${r.judge_no}/${r.judge_unclear}</td><td>${r.cell_valid}</td>`;tbl.append(tr);});
+  node.append(tbl);node.append(el("div","text-[13px] text-zinc-500 mt-3","Written live to cell_review_summary.md + paper/tables/cell_audit_summary.tex."));
+  modal("Cell audit summary (live)",node);
+}
+async function doExport(){if(OFFLINE){const b=new Blob([JSON.stringify(PROGRESS,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="cell_review_progress.json";a.click();return;}const r=await api("/api/export",{method:"POST"});const n=el("div","text-[14px] text-zinc-300");n.textContent=r?("Wrote: "+r.written.join(", ")):"Export failed.";modal("Export complete",n);}
+$("#search").oninput=e=>{FILT.q=e.target.value;renderList();};$("#btnSummary").onclick=showSummary;$("#btnExport").onclick=doExport;
+(function(){const t=document.documentElement.dataset.theme||"slate";const sel=$("#themeSel");if(sel){sel.value=t;sel.onchange=e=>{document.documentElement.dataset.theme=e.target.value;try{localStorage.setItem("cell_theme",e.target.value);}catch(err){}};}})();
+load();
+</script>
+</body>
+</html>
