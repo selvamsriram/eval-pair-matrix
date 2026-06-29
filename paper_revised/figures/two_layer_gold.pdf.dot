@@ -1,0 +1,13 @@
+
+digraph G {
+  rankdir=LR; bgcolor="white"; pad=0.04; nodesep=0.45;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=14, color="#4C566A", margin="0.1,0.06"];
+  edge [fontname="Helvetica", fontsize=11, color="#4C566A", arrowsize=0.75];
+  ans [label="Generator answer", fillcolor="#E8F0FA"];
+  meta [label="Perturbation target\n+ replacement", fillcolor="#FCE6C7"];
+  orig [label="Original passages", fillcolor="#DDF1D5"];
+  label [label="Layer 1: GPT-5.4\nlabel-evaluator\nbehavior + target gold", fillcolor="#F8F0D0"];
+  judge [label="Layer 2: GPT/Grok/Gemini\nblind judges\nany source-error flag", fillcolor="#E7F5F5"];
+  score [label="Scoring reveals\ntarget-gold vs any-error\nmisalignment", fillcolor="#EFEFEF"];
+  ans -> label; meta -> label; ans -> judge; orig -> judge; label -> score [label="target gold"]; judge -> score [label="judge flag"];
+}

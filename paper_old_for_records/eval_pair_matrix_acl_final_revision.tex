@@ -1,5 +1,29 @@
 \documentclass[11pt]{article}
-\usepackage[preprint]{acl}
+
+% =====================================================================
+% Build mode
+% ---------------------------------------------------------------------
+% This single source produces two versions:
+%   * preprint (arXiv): named authors, no line numbers       [default]
+%   * review (ACL submission): anonymous, line numbers
+%
+% Default build is the preprint. To build the anonymous review version,
+% EITHER uncomment "\submissiontrue" below, OR define \submissionmode on
+% the command line without editing this file (see the Makefile), e.g.:
+%   latexmk -pdf -usepretex='\def\submissionmode{}' \
+%           -jobname=eval_pair_matrix_acl_final_revision_review \
+%           eval_pair_matrix_acl_final_revision.tex
+% =====================================================================
+\newif\ifsubmission
+\ifdefined\submissionmode\submissiontrue\fi
+% \submissiontrue   % <-- uncomment to force the anonymous review build
+% =====================================================================
+
+\ifsubmission
+  \usepackage[review]{acl}
+\else
+  \usepackage[preprint]{acl}
+\fi
 
 \usepackage{times}
 \usepackage{latexsym}
@@ -33,11 +57,15 @@
 
 \title{Who Judges the Judge in RAG?\\ Controlled Pairing Effects in LLM Evaluation of Induced Factual Errors}
 
-\author{Sriram Selvam\\
-  \texttt{selvamsriram@gmail.com}
-  \And
-  Anneswa Ghosh\\
-  \texttt{anneswaghosh@gmail.com}}
+\ifsubmission
+  \author{Anonymous ACL submission}
+\else
+  \author{Sriram Selvam\\
+    \texttt{selvamsriram@gmail.com}
+    \And
+    Anneswa Ghosh\\
+    \texttt{anneswaghosh@gmail.com}}
+\fi
 
 \newcommand{\method}{Eval-Pair Matrix\xspace}
 \newcommand{\pp}{\ensuremath{\mathrm{pp}}\xspace}

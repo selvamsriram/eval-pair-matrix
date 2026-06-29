@@ -1,0 +1,13 @@
+
+digraph G {
+  rankdir=LR; bgcolor="white"; pad=0.04; nodesep=0.45; ranksep=0.6;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=14, color="#4C566A", margin="0.12,0.08"];
+  edge [fontname="Helvetica", fontsize=11, color="#4C566A", arrowsize=0.75];
+  raw [label="Raw JSONL\n300 cores, 897 labels,\n2,683 judge verdicts", fillcolor="#E8F0FA"];
+  paired [label="Paired analysis\nanswer-level same-vs-cross\ncluster bootstrap", fillcolor="#DDF1D5"];
+  behavior [label="Behavior analysis\njudge outcomes by\ngenerator behavior", fillcolor="#FCE6C7"];
+  queue [label="Review queue\nbehavior x cell sample", fillcolor="#F5EAF3"];
+  app [label="Review application\nsingle-adjudicator\nhuman evaluation", fillcolor="#E7F5F5"];
+  dossier [label="Summary generator\nfindings + tables +\nper-case log", fillcolor="#EFEFEF"];
+  raw -> paired; raw -> behavior; raw -> queue; queue -> app -> dossier; paired -> dossier; behavior -> dossier;
+}

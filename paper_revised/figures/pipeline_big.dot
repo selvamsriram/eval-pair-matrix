@@ -1,0 +1,18 @@
+
+digraph G {
+  rankdir=LR; bgcolor="white"; pad=0.05; nodesep=0.45; ranksep=0.7;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=16, color="#40536A", penwidth=1.4, margin="0.11,0.07"];
+  edge [fontname="Helvetica", fontsize=12, color="#4C566A", arrowsize=0.8, penwidth=1.5];
+  base [label="GaRAGe\nquestion + original\ngrounding", fillcolor="#E8F0FA"];
+  filter [label="Filter + freeze\n300 core records", fillcolor="#E8F0FA"];
+  perturb [label="LLM perturbers\nrewrite answer-causal\nsource claim", fillcolor="#FCE6C7"];
+  validate [label="Five-gate\nvalidation", fillcolor="#DDF1D5"];
+  gen [label="3 generators\nanswer from perturbed\ngrounding", fillcolor="#F5EAF3"];
+  label [label="Label-evaluator\nbehavior + target gold", fillcolor="#F8F0D0"];
+  judge [label="3 blind judges\ncheck original\ngrounding", fillcolor="#E7F5F5"];
+  matrix [label="3x3 matrix +\npaired bootstrap +\nhuman evaluation", fillcolor="#EFEFEF"];
+  base -> filter -> perturb -> validate -> gen -> label;
+  gen -> judge;
+  label -> matrix [label="target gold"];
+  judge -> matrix [label="verdicts"];
+}
