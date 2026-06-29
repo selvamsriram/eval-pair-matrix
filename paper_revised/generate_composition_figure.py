@@ -157,6 +157,50 @@ def main():
     fig.savefig(OUT / "dataset_composition_by_type.png", dpi=240, bbox_inches="tight", pad_inches=0.035)
     plt.close(fig)
 
+    fig, ax = plt.subplots(figsize=(3.35, 2.35))
+    ax.barh(y, validated, color=COLORS["validated"], label="validated")
+    ax.barh(y, diagnostic, left=validated, color=COLORS["diagnostic"], label="diagnostic")
+    ax.set_yticks(y, type_order)
+    ax.invert_yaxis()
+    ax.set_xlabel("records")
+    ax.set_title("(a) Type mix")
+    ax.set_xlim(0, max(totals) + 16)
+    ax.grid(axis="x", color=COLORS["grid"], linewidth=0.6, alpha=0.7)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.legend(frameon=False, ncol=2, loc="lower right", handlelength=1.1, columnspacing=0.8)
+    for yi, total, valid, fail in zip(y, totals, validated, diagnostic):
+        ax.text(total + 1.5, yi, f"{int(valid)}/{int(fail)}", va="center", color=COLORS["text"], fontsize=7)
+    fig.savefig(OUT / "type_mix_by_validation.pdf", bbox_inches="tight", pad_inches=0.035)
+    fig.savefig(OUT / "type_mix_by_validation.png", dpi=240, bbox_inches="tight", pad_inches=0.035)
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(3.35, 2.2))
+    im = ax.imshow(matrix, cmap="YlOrBr", aspect="auto")
+    ax.set_title("(b) Perturber by type")
+    ax.set_xticks(np.arange(len(type_order)), type_order, rotation=38, ha="right")
+    ax.set_yticks(
+        np.arange(len(provider_order)),
+        [f"{p} (n={provider_counts[p]})" for p in provider_order],
+    )
+    ax.tick_params(axis="both", length=0)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_xticks(np.arange(-0.5, len(type_order), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(provider_order), 1), minor=True)
+    ax.grid(which="minor", color="white", linewidth=1.0)
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            value = int(matrix[i, j])
+            if value == 0:
+                continue
+            color = "white" if value > max_value * 0.58 else COLORS["text"]
+            ax.text(j, i, str(value), ha="center", va="center", fontsize=7, color=color)
+    cbar = fig.colorbar(im, ax=ax, fraction=0.045, pad=0.02)
+    cbar.set_label("records")
+    fig.savefig(OUT / "perturber_type_matrix.pdf", bbox_inches="tight", pad_inches=0.035)
+    fig.savefig(OUT / "perturber_type_matrix.png", dpi=240, bbox_inches="tight", pad_inches=0.035)
+    plt.close(fig)
+
 
 if __name__ == "__main__":
     main()

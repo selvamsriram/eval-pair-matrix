@@ -6,11 +6,11 @@ LLM-as-a-judge evaluation is now common for retrieval-augmented generation (RAG)
 
 Retrieval-augmented generation (RAG) systems combine a language model's parametric knowledge with external passages supplied at inference time \citep{lewis2020rag}. This makes them attractive for knowledge-intensive applications, but it also creates a difficult evaluation problem: an answer may be fluent, cited, and still contradict the reference passages. In practice, many RAG evaluations now use another LLM as the judge because LLM judges are cheap, fast, and can emit structured rationales \citep{liu2023geval,zheng2023judging,kim2023prometheus}. When the generator and judge are from the same model family, evaluation may become circular.
 
-Existing LLM-as-a-judge work documents position, verbosity, length, style, familiarity, and self-preference effects \citep{dubois2024length,shi2024position,liu2024narcissistic,wataoka2024selfpreference,ye2024justice,spiliopoulou2025playfavorites}. But open-ended preference settings make self-preference hard to isolate: a judge may prefer its own model's output because it is better, clearer, more familiar, or simply more stylistically aligned. We study the question in a controlled factual setting. If we can induce a known source-relative contradiction hidden from the judge, then the judge is not choosing a favorite answer; it is detecting whether a candidate answer contradicts the original evidence.
+Existing LLM-as-a-judge work documents position, verbosity, length, style, familiarity, and self-preference effects \citep{dubois2024length,shi2024position,liu2024narcissistic,wataoka2024selfpreference,ye2024justice,spiliopoulou2025playfavorites}. This literature also shows that self-preference is an identification problem: a judge may favor its own model's output because it is better, clearer, more familiar, or more stylistically aligned, rather than because the judge is lenient toward its own deployment. We ask how this problem changes in source-grounded RAG. If we induce a known source-relative contradiction hidden from the judge, then the judge is not choosing a favorite answer; it is checking whether a candidate answer contradicts the original evidence.
 
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.98\linewidth]{figures/pipeline_big.pdf}
+  \includegraphics[width=0.96\linewidth]{figures/pipeline_big.pdf}
   \caption{The \method pipeline. Perturbations are generated and validated before answer generation. Judges see only the original question, candidate answer, and original grounding; they do not see the perturbation, behavior label, or induced-error adoption label. The final analysis combines the crossed matrix, answer-paired bootstrap, behavior stratification, and a targeted human evaluation.}
   \label{fig:pipeline}
 \end{figure*}
@@ -39,22 +39,37 @@ RAG combines parametric generation with retrieved non-parametric evidence \citep
 LLM judges are widely used to evaluate generated text and instruction-following outputs, including G-Eval, MT-Bench, Chatbot Arena, and Prometheus \citep{liu2023geval,zheng2023judging,kim2023prometheus}. Recent contextual judge benchmarks show that evaluating responses against context remains difficult. ContextualJudgeBench evaluates contextual judges with 2,000 response pairs and explicitly includes RAG-QA faithfulness and refusal behavior \citep{xu2025contextualjudgebench}. RAGferee trains RAG-centric contextual reward models for groundedness and appropriate refusals \citep{coman2025ragferee}. These studies motivate our behavior analysis: apparent false positives concentrate in refusals and conflict-aware outputs, not in ordinary committed answers.
 
 \paragraph{Self-preference and controlled judge meta-evaluation.}
-Prior work documents model-judge biases, including length, position, style, familiarity, and self-preference effects \citep{dubois2024length,shi2024position,liu2024narcissistic,wataoka2024selfpreference,ye2024justice}. A central difficulty is identification: a judge may favor its own model's output because of true quality, stylistic familiarity, or family-specific conventions rather than self-leniency. Recent work therefore argues for bias estimates that control for response quality or independent judgments \citep{spiliopoulou2025playfavorites,chen2025surface}. In fact-centric RAG, \citet{chen2025factrag} find no significant self-preference effect, suggesting that factual grounding may reduce the style-driven effects seen in open-ended preference tasks. Our work tests the same concern in a stricter source-grounded setting: we induce hidden contradictions in retrieved passages, generate natural answers from the perturbed grounding, and compare matching versus non-matching judges on the exact same candidate answer. This answer-paired design separates same-deployment judging effects from generator quality, refusal rates, and answer difficulty. REFLECT also uses controlled localized interventions for judge meta-evaluation, but studies evidence-based research-agent traces rather than RAG answer generation \citep{wang2026reflect}.
+Prior work documents model-judge biases, including length, position, style, familiarity, and self-preference effects \citep{dubois2024length,shi2024position,liu2024narcissistic,wataoka2024selfpreference,ye2024justice}. A central difficulty is identification: a judge may favor its own model's output because of true quality, stylistic familiarity, or family-specific conventions rather than self-leniency. Recent work therefore argues for bias estimates that control for response quality or independent judgments \citep{spiliopoulou2025playfavorites,chen2025surface}. In fact-centric RAG, \citet{chen2025factrag} find no significant self-preference effect, suggesting that factual grounding may reduce the style-driven effects seen in open-ended preference tasks. Our work follows this identification-oriented line but moves it to a stricter source-grounded setting: we induce hidden contradictions in retrieved passages, generate natural answers from the perturbed grounding, and compare matching versus non-matching judges on the exact same candidate answer. This answer-paired design separates same-deployment judging effects from generator quality, refusal rates, and answer difficulty, while the behavior and human-evaluation analyses expose RAG-specific confounds that do not arise in ordinary preference scoring. REFLECT also uses controlled localized interventions for judge meta-evaluation, but studies evidence-based research-agent traces rather than RAG answer generation \citep{wang2026reflect}.
 
 \section{Task and Data Construction}
 
 \subsection{Base Dataset and Perturbation Design}
 
-The pipeline starts from GaRAGe examples with a valid information-seeking question, a validated human-written answer, and at least two grounding passages labeled as answering the question. For each selected record, an LLM perturber receives the question, the human answer, and answer-bearing plus related grounding passages. The perturber must select exactly one answer-causal target proposition: a claim present in the answer and grounding such that changing it would change the answer to the question.
-
-The closed perturbation menu includes entity substitutions, temporal shifts, numerical shifts, relation inversions, location and affiliation changes, ranking flips, causal changes, negation/modality changes, and multihop bridges. For every passage sent to the perturber, the output includes a full rewritten passage if the passage states or entails the selected claim, or a skip reason otherwise. The rewrite must remove the original value and any anchors that leak it. The selected 300-record pool is intentionally mixed rather than type-balanced; Figure~\ref{fig:data-composition} reports the type distribution, validation split, and perturber-specific type mix.
-
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.88\linewidth]{figures/perturb_validate_detail.pdf}
+  \includegraphics[width=0.82\linewidth]{figures/perturb_validate_detail.pdf}
   \caption{Perturbation and validation mechanics. A perturbation is valid for the primary analysis only if all five gates pass. Failed records are retained only as diagnostics.}
   \label{fig:perturb-validate}
 \end{figure}
+
+\begin{figure}[b]
+  \centering
+  \includegraphics[width=\linewidth]{figures/type_mix_by_validation.pdf}
+  \caption{Composition of the 300 selected perturbation records. Panel (a) shows perturbation-type counts labeled as validated/diagnostic.}
+  \label{fig:data-composition}
+\end{figure}
+
+\begin{figure}[b]
+  \ContinuedFloat
+  \centering
+  \includegraphics[width=\linewidth]{figures/perturber_type_matrix.pdf}
+  \caption[]{Composition of the 300 selected perturbation records, continued. Panel (b) shows the perturber-by-type matrix; row totals give selected records per perturber.}
+  \label{fig:data-composition-perturber}
+\end{figure}
+
+The pipeline starts from GaRAGe examples with a valid information-seeking question, a validated human-written answer, and at least two grounding passages labeled as answering the question. For each selected record, an LLM perturber receives the question, the human answer, and answer-bearing plus related grounding passages. The perturber must select exactly one answer-causal target proposition: a claim present in the answer and grounding such that changing it would change the answer to the question.
+
+The closed perturbation menu includes entity substitutions, temporal shifts, numerical shifts, relation inversions, location and affiliation changes, ranking flips, causal changes, negation/modality changes, and multihop bridges. For every passage sent to the perturber, the output includes a full rewritten passage if the passage states or entails the selected claim, or a skip reason otherwise. The rewrite must remove the original value and any anchors that leak it. The selected 300-record pool is intentionally mixed rather than type-balanced; Figure~\ref{fig:data-composition} reports the type distribution, validation split, and perturber-specific type mix.
 
 \paragraph{Perturbation examples.}
 A numerical-shift record asks: ``How did Caitlin Clark's WNBA debut influence league attendance in 2024?'' The original answer-causal claim is that the debut led to a 48\% increase in overall league attendance. The perturber changes the value to 35\%, producing a passage that says the league saw a 35\% jump while preserving the rest of the passage. A faithful generator reading only the perturbed passage should answer with 35\%, but that answer is false relative to the original passage.
@@ -65,20 +80,47 @@ A relation-inversion record is more semantically disruptive. The original Zantac
 
 Each perturbation is validated by an LLM validation pass plus deterministic leakage checks. The five gates are type validity, answer causality, global context consistency, no original-answer leakage, and original contradicts perturbed. The final evaluation pool has 300 unique core records selected from perturbations proposed by GPT, Grok, and Gemini perturbers: 83, 92, and 125 selected records, respectively. Of these, 275 pass all five gates and 25 are failed-validation diagnostic records. We use the 275 validated records for every main result and report the 25 diagnostics only as a sensitivity analysis. Figure~\ref{fig:data-composition} shows that diagnostics are concentrated by count in entity and numerical records, with larger diagnostic shares in the smaller location and ranking strata.
 
-\begin{figure*}[t]
-  \centering
-  \includegraphics[width=0.98\linewidth]{figures/dataset_composition_by_type.pdf}
-  \caption{Composition of the 300 selected perturbation records. Panel (a) shows perturbation-type counts, with each row labeled as validated/diagnostic. Panel (b) shows the selected perturber-by-type matrix; row totals give the number of selected records proposed by each perturber.}
-  \label{fig:data-composition}
-\end{figure*}
-
 \section{Generation, Labels, and Judging}
 
 \subsection{RAG Generation from Perturbed Grounding}
 
-Each generator receives the original question and the perturbed grounding passages. The prompt instructs the model to answer using only the provided passages, cite passage IDs supporting factual claims, and refuse if the evidence is insufficient or inconsistent. We run three generator deployments over all 300 records, yielding 900 intended generator outputs and 897 outputs with LLM behavior labels.
+Each generator receives the original question and the perturbed grounding passages. The prompt instructs the model to answer using only the provided passages, cite passage IDs supporting factual claims, and refuse if the evidence is insufficient or inconsistent. We run three generator deployments over all 300 records, yielding 900 intended generator outputs and 897 usable outputs for downstream labeling.
 
-We use six generator-behavior labels:
+The box illustrates the central case: the generator follows the modified grounding and becomes false against the original passages.
+
+\begin{center}
+\setlength{\fboxsep}{2.5pt}
+\fcolorbox{black!45}{black!3}{%
+\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+\scriptsize
+\newcommand{\genmark}[1]{\begingroup\setlength{\fboxsep}{0.5pt}\colorbox{yellow!25}{#1}\endgroup}
+\newcommand{\genboxlabel}[2]{\begin{tabular}[t]{@{}l@{}}\textbf{#1}\\\textbf{#2}\end{tabular}}
+\noindent\textbf{Context-Follow Generation Example}\par\vspace{3pt}
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\linewidth}{@{}L{1.35cm}Y@{}}
+\textbf{Question} & How did Caitlin Clark's WNBA debut influence league attendance in 2024? \\\noalign{\vskip 5pt}
+\genboxlabel{Value}{swap} & 48\% $\rightarrow$ 35\% \\\noalign{\vskip 5pt}
+\genboxlabel{Original}{passage} & In her rookie WNBA season, the league saw a \genmark{48\% jump} in attendance from 2023. The league's total attendance of 2,353,735 was the highest in 22 seasons. \\\noalign{\vskip 5pt}
+\genboxlabel{Modified}{passage} & In her rookie WNBA season, the league saw a \genmark{35\% jump} in attendance from 2023. The league's total attendance of 2,353,735 was the highest in 22 seasons. \\\noalign{\vskip 5pt}
+\textbf{GPT answer} & Leaguewide attendance rose 35\% from 2023, reaching 2,353,735 total fans, the highest in 22 seasons. \\\noalign{\vskip 5pt}
+\genboxlabel{Behavior}{label} & Context follow: the answer adopts the perturbed 35\% value, so it is false relative to the original grounding. \\
+\end{tabularx}
+\end{minipage}}
+\end{center}
+
+\subsection{Answer Labels and Blind Judging}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.98\linewidth]{figures/two_layer_gold.pdf}
+  \caption{Two-layer setup. The induced-error adoption label comes from a GPT-5.4 label-evaluator with perturbation access; the matrix judges are blind and are asked for any source-relative factual error. This task/label mismatch is central to interpreting apparent false positives.}
+  \label{fig:two-layer}
+\end{figure}
+
+Figure~\ref{fig:two-layer} shows the key separation: labels use perturbation metadata, while the matrix judges are blind to it.
+
+After generation, we assign two answer-level labels before judging. The behavior label describes how an answer responds to the perturbed evidence. We use six generator-behavior labels:
 \begin{itemize}[label={},leftmargin=0pt,itemsep=0pt,topsep=2pt,parsep=0pt]
   \item \textbf{Context follow:} asserts the perturbed value.
   \item \textbf{Memory override:} asserts the original value.
@@ -89,7 +131,9 @@ We use six generator-behavior labels:
 \end{itemize}
 A separate LLM label-evaluation step assigns these labels using paraphrase-aware criteria; deterministic string matching is retained only as a diagnostic signal.
 
-\begin{table}[t]
+As Table~\ref{tab:gen-behaviors} shows, the share of non-context-following outputs differs by model: Grok refuses or declares insufficiency far more often than GPT, while GPT more often produces an answer that avoids the specific perturbed span. These behavior differences later explain much of the judge matrix.
+
+\begin{table}[H]
 \centering
 \scriptsize
 \begin{tabular}{lrrr}
@@ -108,18 +152,8 @@ Unrelated/failed & 97 (32.4\%) & 49 (16.4\%) & 76 (25.4\%) \\
 \label{tab:gen-behaviors}
 \end{table}
 
-The share of non-context-following outputs differs by model. Grok refuses or declares insufficiency far more often than GPT, while GPT more often produces an answer that avoids the specific perturbed span. These behavior differences later explain much of the judge matrix.
-
-\subsection{Two-Layer Labeling and Blind Judging}
-
+\paragraph{Induced-error adoption labels and blind judging.}
 The experiment has two LLM-evaluation layers. Layer 1 is a single GPT-5.4 label-evaluator that sees the answer and perturbation metadata and returns a behavior label plus \texttt{entails\_perturbed\_claim}. The induced-error adoption label is derived from that entailment flag: did the answer adopt the false value introduced by the perturbation? Layer 2 consists of the three crossed matrix judges. They see only the question, candidate answer, and original passages. They are blind to the perturbed grounding, original value, replacement value, generator behavior label, and induced-error adoption label.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.98\linewidth]{figures/two_layer_gold.pdf}
-  \caption{Two-layer setup. The induced-error adoption label comes from a GPT-5.4 label-evaluator with perturbation access; the matrix judges are blind and are asked for any source-relative factual error. This task/label mismatch is central to interpreting apparent false positives.}
-  \label{fig:two-layer}
-\end{figure}
 
 For judging, each judge outputs a verdict, a boolean factual-error flag, the wrong claim if any, the most directly contradicting source passage ID, an explanation, and confidence. The main run uses one exact deployment per provider family: GPT-5.4, Grok 4.3, and Gemini 3.5 Flash. Because there is no same-provider/different-deployment condition, we use \emph{same-deployment pairing effect} rather than same-model-family bias.
 
@@ -269,21 +303,21 @@ For downstream debugging, a judge is more useful when it points to the contradic
 
 \section{Discussion}
 
-\paragraph{Raw matrices are valuable but not sufficient.}
-The full judge-by-generator matrix reveals heterogeneous generator difficulty and judge behavior. However, raw diagonal-vs-off-diagonal contrasts compare different answers. The paired estimand changes the scientific claim: after controlling for the answer by comparing judges on the same candidate response, the global recall effect is near zero.
+\paragraph{Same-deployment effects are identification claims.}
+The full judge-by-generator matrix is valuable because it reveals heterogeneous generator difficulty and judge behavior. But a raw diagonal-vs-off-diagonal contrast compares different answers, so it cannot by itself distinguish self-leniency from answer quality, style, refusal rates, or cell difficulty. This mirrors the identification problem emphasized in prior self-preference work. The paired estimand changes the claim being tested: after holding the candidate answer fixed and comparing matching versus non-matching judges on that same answer, the global recall effect is near zero.
 
-\paragraph{The apparent FPR effect is a label/task mismatch.}
-The robust avoided-claim flagging gap is not evidence that judges over- or under-flag errors on same-deployment outputs. It is primarily a mismatch between an induced-error adoption label and an any-error judge task. The human evaluation found no genuine false alarms among 25 reviewed apparent FPs. This matters for future controlled benchmarks: if the labels record only whether an answer adopted the induced false claim, then unrestricted judge flags should be adjudicated into induced-error detection, alternate valid error detection, and genuine false alarm.
+\paragraph{Fact-centric RAG changes the failure mode.}
+The near-zero paired recall result is consistent with recent evidence that factual grounding can reduce broad style-driven self-preference in RAG. In this setting, the judge is not choosing which response it likes better; it is checking whether the response contradicts the source passages. That does not make the measurement problem disappear. Instead, the main ambiguity moves from generic preference bias to RAG-specific behavior and label/task alignment.
 
-\paragraph{Behavior is a central axis of RAG judge evaluation.}
-Generator behavior explains much of the matrix. Context-following answers create ordinary induced-error recall cases. Refusals and conflict-aware answers create apparent false positives because they avoid the induced claim while discussing source insufficiency or inconsistency in ways that may contradict the original grounding. Benchmarks that pool committed answers with refusals and hedges can obscure the actual failure mode.
+\paragraph{Behavior and labels determine the apparent flagging gap.}
+The robust avoided-claim flagging gap is not evidence that judges simply over- or under-flag same-deployment outputs. The automatic adoption label records whether the answer used the induced false claim, while the judge task asks for any factual error against the original grounding. Context-following answers therefore create ordinary induced-error recall cases. Refusals, hedges, and conflict-aware answers can avoid the induced claim while still making another source-relative error. The human evaluation found no genuine false alarms among 25 reviewed apparent FPs, which supports interpreting the gap as a label/task mismatch rather than as evidence of same-deployment self-leniency.
 
 \paragraph{Implications for practice.}
-LLM judges can be useful source-grounding evaluators: the matrix shows strong precision/recall and high passage localization. But evaluations that reuse a model family as both generator and judge should report the full matrix, behavior strata, and answer-paired same-vs-cross contrasts. Aggregated same-model metrics are not enough, especially when refusal behavior differs by generator.
+LLM judges can be useful source-grounding evaluators: the matrix shows strong precision/recall and high passage localization. But evaluations that reuse a model family as both generator and judge should report the full matrix, answer-paired same-vs-cross contrasts, and behavior strata. Apparent false positives should also be adjudicated into induced-error detection, alternate valid error detection, label error, and genuine false alarm. Aggregated same-model metrics are not enough, especially when refusal behavior differs by generator.
 
 \section{Conclusion}
 
-We introduced \method, a controlled RAG meta-evaluation protocol that induces hidden source contradictions and evaluates a full $3\times3$ judge-by-generator matrix. Together, the matrix, paired analysis, behavior stratification, and human evaluation support a narrower conclusion. On 275 validated records, there is no robust same-deployment recall effect after answer-level pairing. The only robust difference is lower flagging by matching judges on answers that avoided the induced false claim, but a targeted human evaluation finds no genuine false alarms among reviewed apparent false positives. The broader lesson is methodological: in RAG judge studies, full matrices are useful, but claims about self-leniency require answer-level pairing, behavior stratification, and careful alignment between induced-error adoption labels and the judge task.
+We introduced \method, a controlled RAG meta-evaluation protocol that induces hidden source contradictions and evaluates a full $3\times3$ judge-by-generator matrix. Together, the matrix, paired analysis, behavior stratification, and human evaluation support a narrower conclusion. On 275 validated records, there is no robust same-deployment recall effect after answer-level pairing. The only robust difference is lower flagging by matching judges on answers that avoided the induced false claim, but a targeted human evaluation finds no genuine false alarms among reviewed apparent false positives. The broader lesson is methodological: same-deployment judging is not inherently unusable, but self-leniency claims in RAG require answer-level pairing, behavior stratification, and careful alignment between what the label records and what the judge is asked to detect.
 
 \section*{Limitations}
 
