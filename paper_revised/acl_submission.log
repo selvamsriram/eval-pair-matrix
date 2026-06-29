@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 00:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 12:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -761,13 +761,12 @@ Underfull \hbox (badness 4144) in paragraph at lines 150--151
 \T1/ptm/m/n/10.95 (+20) Table [][]2[][] shows the validated-only judge-by-
  []
 
-<figures/cell_audit_findings.pdf, id=306, 337.52724pt x 233.34491pt>
-File: figures/cell_audit_findings.pdf Graphic file (type pdf)
-<use figures/cell_audit_findings.pdf>
-Package pdftex.def Info: figures/cell_audit_findings.pdf  used on input line 21
-5.
-(pdftex.def)             Requested size: 214.70348pt x 148.43584pt.
 [6]
+Underfull \hbox (badness 4543) in paragraph at lines 249--249
+[]\T1/ptm/b/n/7 (+20) Worked apparent-FP ex-am-ple: Grok judge on GPT an-swer.
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -776,21 +775,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <figures/localization_large.pdf, id=322, 459.82983pt x 180.91985pt>
 File: figures/localization_large.pdf Graphic file (type pdf)
 <use figures/localization_large.pdf>
-Package pdftex.def Info: figures/localization_large.pdf  used on input line 245
+Package pdftex.def Info: figures/localization_large.pdf  used on input line 260
 .
 (pdftex.def)             Requested size: 219.08614pt x 86.1973pt.
- [7 <./figures/cell_audit_findings.pdf> <./figures/localization_large.pdf>]
-Underfull \hbox (badness 1292) in paragraph at lines 270--271
+ [7 <./figures/localization_large.pdf>]
+Underfull \hbox (badness 1292) in paragraph at lines 285--286
 \T1/ptm/m/n/10.95 (+20) familiarity ef-fects. The be-hav-ior la-bels and
  []
 
-) (./references.tex
+) (./references.tex [8]
 Underfull \hbox (badness 1048) in paragraph at lines 14--17
 \T1/ptm/m/n/10 (+20) Re-trieval Aug-mented Gen-er-a-tion.  In \T1/ptm/m/it/10 (
 +20) Find-ings
  []
 
-[8]
+
 Underfull \hbox (badness 2781) in paragraph at lines 34--37
 \T1/ptm/m/n/10 (+20) Shayne Long-pre, Hwaran Lee, Sang-doo Yun,
  []
@@ -812,6 +811,7 @@ Overfull \hbox (10.01433pt too wide) in paragraph at lines 37--37
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[9]
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
 (Font)              scaled to size 7.0pt on input line 46.
 
@@ -827,7 +827,7 @@ Overfull \hbox (1.80995pt too wide) in paragraph at lines 69--69
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/same_model_deltas_large.pdf, id=373, 346.81192pt x 201.22113pt>
+<figures/same_model_deltas_large.pdf, id=361, 346.81192pt x 201.22113pt>
 File: figures/same_model_deltas_large.pdf Graphic file (type pdf)
 <use figures/same_model_deltas_large.pdf>
 Package pdftex.def Info: figures/same_model_deltas_large.pdf  used on input lin
@@ -836,11 +836,10 @@ e 79.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/confusion_counts.pdf, id=387, 379.90408pt x 346.8137pt>
+<figures/confusion_counts.pdf, id=362, 379.90408pt x 346.8137pt>
 File: figures/confusion_counts.pdf Graphic file (type pdf)
 <use figures/confusion_counts.pdf>
 Package pdftex.def Info: figures/confusion_counts.pdf  used on input line 113.
@@ -854,7 +853,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/generator_self_affinity.pdf, id=388, 384.53914pt x 204.07741pt>
+<figures/generator_self_affinity.pdf, id=363, 384.53914pt x 204.07741pt>
 File: figures/generator_self_affinity.pdf Graphic file (type pdf)
 <use figures/generator_self_affinity.pdf>
 Package pdftex.def Info: figures/generator_self_affinity.pdf  used on input lin
@@ -863,12 +862,12 @@ e 163.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/validated_vs_gap.pdf, id=391, 337.52724pt x 178.96198pt>
+<figures/validated_vs_gap.pdf, id=366, 337.52724pt x 178.96198pt>
 File: figures/validated_vs_gap.pdf Graphic file (type pdf)
 <use figures/validated_vs_gap.pdf>
 Package pdftex.def Info: figures/validated_vs_gap.pdf  used on input line 172.
 (pdftex.def)             Requested size: 218.51521pt x 115.8624pt.
-<figures/relation_pushback.pdf, id=392, 337.52724pt x 178.96198pt>
+<figures/relation_pushback.pdf, id=367, 337.52724pt x 178.96198pt>
 File: figures/relation_pushback.pdf Graphic file (type pdf)
 <use figures/relation_pushback.pdf>
 Package pdftex.def Info: figures/relation_pushback.pdf  used on input line 177.
@@ -877,28 +876,21 @@ Package pdftex.def Info: figures/relation_pushback.pdf  used on input line 177.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[10]
+Underfull \vbox (badness 5878) has occurred while \output is active []
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+Underfull \vbox (badness 5878) has occurred while \output is active []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<figures/audit_flow.pdf, id=400, 834.11626pt x 291.0875pt>
+<figures/audit_flow.pdf, id=384, 834.11626pt x 291.0875pt>
 File: figures/audit_flow.pdf Graphic file (type pdf)
 <use figures/audit_flow.pdf>
 Package pdftex.def Info: figures/audit_flow.pdf  used on input line 216.
 (pdftex.def)             Requested size: 423.37369pt x 147.75087pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -930,11 +922,9 @@ Underfull \hbox (badness 2027) in paragraph at lines 223--38
 nine judge
  []
 
-[11 <./figures/same_model_deltas_large.pdf>] [12
-
- <./figures/confusion_counts.pdf> <./figures/generator_self_affinity.pdf>] [13 
-<./figures/validated_vs_gap.pdf> <./figures/relation_pushback.pdf> <./figures/a
-udit_flow.pdf>]
+[11 <./figures/same_model_deltas_large.pdf>] [12 <./figures/confusion_counts.pd
+f> <./figures/generator_self_affinity.pdf>] [13 <./figures/validated_vs_gap.pdf
+> <./figures/relation_pushback.pdf> <./figures/audit_flow.pdf>]
 (./acl_submission.aux)
  ***********
 LaTeX2e <2025-11-01>
@@ -944,13 +934,13 @@ Package rerunfilecheck Info: File `acl_submission.out' has not changed.
 (rerunfilecheck)             Checksum: 321FCD6076DEA5DEA9575CF93A8A0D61;5110.
  ) 
 Here is how much of TeX's memory you used:
- 18633 strings out of 467525
- 292477 string characters out of 5418982
- 829870 words of memory out of 5000000
- 46791 multiletter control sequences out of 15000+600000
- 691627 words of font info for 348 fonts, out of 8000000 for 9000
+ 18639 strings out of 467525
+ 292338 string characters out of 5418982
+ 823740 words of memory out of 5000000
+ 46789 multiletter control sequences out of 15000+600000
+ 692109 words of font info for 354 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,17n,93p,2102b,1169s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,17n,93p,2102b,1171s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -966,10 +956,10 @@ al/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
 /texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on acl_submission.pdf (13 pages, 539255 bytes).
+Output written on acl_submission.pdf (13 pages, 524360 bytes).
 PDF statistics:
- 586 PDF objects out of 1000 (max. 8388607)
- 464 compressed objects within 5 object streams
- 104 named destinations out of 1000 (max. 500000)
- 60685 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 570 PDF objects out of 1000 (max. 8388607)
+ 455 compressed objects within 5 object streams
+ 103 named destinations out of 1000 (max. 500000)
+ 60680 words of extra memory for PDF output out of 61914 (max. 10000000)
 

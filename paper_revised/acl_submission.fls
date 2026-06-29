@@ -317,11 +317,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
-INPUT ./figures/cell_audit_findings.pdf
-INPUT ./figures/cell_audit_findings.pdf
-INPUT ./figures/cell_audit_findings.pdf
-INPUT ./figures/cell_audit_findings.pdf
-INPUT ./figures/cell_audit_findings.pdf
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
@@ -337,13 +332,13 @@ INPUT ./references.tex
 INPUT ./references.tex
 INPUT references.tex
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmri8t.tfm
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
-INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT ./appendix_content.tex
 INPUT ./appendix_content.tex
 INPUT ./appendix_content.tex
 INPUT ./appendix_content.tex
 INPUT appendix_content.tex
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/inconsolata/t1-zi4r-0.tfm
 INPUT ./figures/same_model_deltas_large.pdf
 INPUT ./figures/same_model_deltas_large.pdf

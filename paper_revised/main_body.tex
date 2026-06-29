@@ -183,7 +183,7 @@ Gemini & +6.0 [+2.9,+9.6] & -1.6 [-4.7,+1.6] & +2.6 [+0.2,+5.0] \\
 
 \subsection{Generator Behavior Explains the Matrix}
 
-Table~\ref{tab:behavior-stratified} stratifies judge outcomes by generator behavior. Recall is concentrated in context-following answers: 1,025 of 1,139 true positives come from context-follow outputs. Apparent false positives are concentrated in conflict-aware and refusal/insufficient answers: 176 of 209 come from those two behavior classes. Memory override provides a useful control: when the generator uses the original value, judges almost never flag an error.
+Table~\ref{tab:behavior-stratified} stratifies judge outcomes by generator behavior. Here TP/FP/FN/TN are computed against the induced-error adoption label: TP = adopted and flagged, FP = avoided but flagged, FN = adopted but not flagged, and TN = avoided and not flagged. Recall is concentrated in context-following answers: 1,025 of 1,139 true positives come from context-follow outputs. Apparent false positives are concentrated in conflict-aware and refusal/insufficient answers: 176 of 209 come from those two behavior classes. Memory override provides a useful control: when the generator uses the original value, judges almost never flag an error.
 
 \begin{table*}[t]
 \centering
@@ -208,33 +208,48 @@ unlabeled & 9 & 3 & 0 & 8 & 0 & 1 & FPR 88.9 [66.7,100.0] \\
 \subsection{Human Evaluation of Apparent False Positives}
 \label{sec:human-evaluation}
 
-The paired avoided-claim flagging gap is robust statistically, but the automatic FP label is based only on induced-error adoption. The judge's task asks whether the answer contains \emph{any} source-relative factual error. An answer that avoids the induced false claim may still contain another real error, and a judge that catches it is counted as a false positive by the adoption label. We therefore built a behavior-by-cell human-evaluation queue with up to 12 cases per populated stratum and adjudicated 88 of 153 sampled cases.
+The avoided-claim flagging gap in Table~\ref{tab:paired-effects} creates an interpretive question: when the induced-error adoption label calls a judge flag a false positive, is the judge actually wrong? In our setup, an apparent false positive is an answer that avoids the induced false claim but is still flagged by the judge. That label is narrower than the judge task, because judges are asked to flag \emph{any} factual error against the original passages. An answer can avoid the induced false claim and still contain another source-relative error.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.98\linewidth]{figures/cell_audit_findings.pdf}
-  \caption{Targeted human evaluation summary. Reviewed apparent false positives included no genuine false alarms: 22/25 were alternate source errors, 2/25 were adoption-label mistakes, and 1/25 was unclear.}
-  \label{fig:cell-audit}
-\end{figure}
+We therefore reviewed a targeted behavior-by-cell queue, capped at 12 cases per populated stratum, and adjudicated 88 of 153 sampled cases. The key result is that none of the 25 reviewed apparent false positives were genuine false alarms: 22 were valid detections of alternate source errors, 2 were mistakes in the induced-error adoption label, and 1 was unclear.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \scriptsize
-\begin{tabular}{lrrl}
+\begin{tabularx}{\linewidth}{@{}L{1.35cm}rL{1.75cm}Y@{}}
 \toprule
-Cell & reviewed & main outcome & implication \\
+\makecell[l]{Automatic\\case} & Reviewed & Human finding & Interpretation \\
 \midrule
-FP & 25 & 0 false alarms & adoption-label mismatch \\
-TN & 31 & 31 genuine TN & no missed errors found \\
-TP & 23 & 21 genuine TP & recall largely valid \\
-FN & 9 & 6 genuine miss & some adoption labels too broad \\
+\makecell[l]{Apparent\\FP} & 25 & 0 genuine false alarms & mostly alternate source errors or adoption-label mistakes \\
+TN & 31 & 31 genuine TN & no missed errors found in this control set \\
+TP & 23 & 21 genuine TP & recall labels mostly valid \\
+FN & 9 & 6 genuine misses & some adoption labels too broad \\
 \bottomrule
-\end{tabular}
-\caption{Human evaluation summary. Rule-of-three upper bounds: false-alarm rate among reviewed FPs $\leq\sim12\%$; missed-error rate among reviewed TNs $\leq\sim10\%$.}
+\end{tabularx}
+\caption{Human evaluation summary. Rule-of-three upper bounds are about 12\% for genuine false alarms among reviewed apparent FPs and about 10\% for missed errors among reviewed TNs.}
 \label{tab:audit-summary}
 \end{table}
 
-The human evaluation supports a different interpretation from self-leniency. The apparent FPs in the reviewed set are not spurious judge flags. In many cases, the answer faithfully reports the perturbed source in a metalinguistic or conflict-aware form that still contradicts the original passages; in others, the answer contains a different genuine source error. The paper's SEC/FASB case is representative: the answer avoids the induced false claim, but the judge correctly flags that ASC 842 is attributed to FASB rather than the SEC. This is a valid any-error detection that the induced-error adoption label scores as an FP.
+This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The SEC/FASB case below shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes.
+
+\begin{center}
+\setlength{\fboxsep}{4pt}
+\fcolorbox{black!45}{black!3}{%
+\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+\scriptsize
+\textbf{Worked apparent-FP example: Grok judge on GPT answer.}
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{@{}L{1.15cm}Y@{}}
+\textbf{Question} & How have recent SEC changes affected operating lease reporting practices? \\
+\textbf{Induced claim} & The perturbed SEC passage replaced ``proactive initiatives targeting compliance failures'' with ``detailed audits of financial reporting accuracy.'' \\
+\textbf{GPT answer} & It did not adopt that induced SEC claim. Instead, it said recent changes made operating lease reporting more balance-sheet focused and cited ASC 842 lease-accounting requirements. \\
+\textbf{Grok flag} & Valid under the judge task: the source attributes ASC 842 to FASB, and no source links recent SEC changes to those balance-sheet lease requirements. \\
+\textbf{Why FP?} & The adoption label says ``avoided induced claim,'' while the judge says ``contains another source-relative error.'' The automatic matrix counts this as an apparent FP, but human evaluation treats it as an alternate valid error detection. \\
+\end{tabularx}
+\end{minipage}}
+\end{center}
+
+Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP.
 
 \subsection{Localization Remains Strong}
 

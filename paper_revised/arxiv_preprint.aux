@@ -54,22 +54,20 @@
 \newlabel{sec:human-evaluation}{{5.4}{6}{Human Evaluation of Apparent False Positives}{subsection.5.4}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Judge outcomes pooled over all nine cells, stratified by LLM behavior labels. The reported rate is recall for answers that adopted the induced false claim and apparent false-positive rate otherwise.}}{7}{table.caption.13}\protected@file@percent }
 \newlabel{tab:behavior-stratified}{{4}{7}{Judge outcomes pooled over all nine cells, stratified by LLM behavior labels. The reported rate is recall for answers that adopted the induced false claim and apparent false-positive rate otherwise}{table.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Targeted human evaluation summary. Reviewed apparent false positives included no genuine false alarms: 22/25 were alternate source errors, 2/25 were adoption-label mistakes, and 1/25 was unclear.}}{7}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:cell-audit}{{5}{7}{Targeted human evaluation summary. Reviewed apparent false positives included no genuine false alarms: 22/25 were alternate source errors, 2/25 were adoption-label mistakes, and 1/25 was unclear}{figure.caption.14}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Human evaluation summary. Rule-of-three upper bounds: false-alarm rate among reviewed FPs $\leq \sim 12\%$; missed-error rate among reviewed TNs $\leq \sim 10\%$.}}{7}{table.caption.15}\protected@file@percent }
-\newlabel{tab:audit-summary}{{5}{7}{Human evaluation summary. Rule-of-three upper bounds: false-alarm rate among reviewed FPs $\leq \sim 12\%$; missed-error rate among reviewed TNs $\leq \sim 10\%$}{table.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Localization metrics from the raw judge verdicts. Passage-level localization is consistently high; exact replacement containment in the wrong-claim text is lower because judges often paraphrase the erroneous claim.}}{7}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:localization}{{6}{7}{Localization metrics from the raw judge verdicts. Passage-level localization is consistently high; exact replacement containment in the wrong-claim text is lower because judges often paraphrase the erroneous claim}{figure.caption.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Human evaluation summary. Rule-of-three upper bounds are about 12\% for genuine false alarms among reviewed apparent FPs and about 10\% for missed errors among reviewed TNs.}}{7}{table.caption.14}\protected@file@percent }
+\newlabel{tab:audit-summary}{{5}{7}{Human evaluation summary. Rule-of-three upper bounds are about 12\% for genuine false alarms among reviewed apparent FPs and about 10\% for missed errors among reviewed TNs}{table.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Localization metrics from the raw judge verdicts. Passage-level localization is consistently high; exact replacement containment in the wrong-claim text is lower because judges often paraphrase the erroneous claim.}}{7}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:localization}{{5}{7}{Localization metrics from the raw judge verdicts. Passage-level localization is consistently high; exact replacement containment in the wrong-claim text is lower because judges often paraphrase the erroneous claim}{figure.caption.15}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Localization Remains Strong}{7}{subsection.5.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {6}Discussion}{7}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Raw matrices are valuable but not sufficient.}{7}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{The apparent FPR effect is a label/task mismatch.}{7}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Raw matrices are valuable but not sufficient.}{7}{section*.16}\protected@file@percent }
 \bibcite{bao2024faithbench}{{1}{2024}{{Bao et~al.}}{{}}}
+\@writefile{toc}{\contentsline {paragraph}{The apparent FPR effect is a label/task mismatch.}{8}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Behavior is a central axis of RAG judge evaluation.}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implications for practice.}{8}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}\protected@file@percent }
 \bibcite{chen2025surface}{{2}{2025a}{{Chen et~al.}}{{}}}
 \bibcite{chen2025factrag}{{3}{2025b}{{Chen et~al.}}{{}}}
-\@writefile{toc}{\contentsline {paragraph}{Behavior is a central axis of RAG judge evaluation.}{8}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Implications for practice.}{8}{section*.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}\protected@file@percent }
 \bibcite{coman2025ragferee}{{4}{2025}{{Coman et~al.}}{{}}}
 \bibcite{dubois2024length}{{5}{2024}{{Dubois et~al.}}{{}}}
 \bibcite{es2023ragas}{{6}{2023}{{Es et~al.}}{{}}}
@@ -87,16 +85,16 @@
 \bibcite{xu2025contextualjudgebench}{{18}{2025}{{Xu et~al.}}{{}}}
 \bibcite{ye2024justice}{{19}{2024}{{Ye et~al.}}{{}}}
 \bibcite{zheng2023judging}{{20}{2023}{{Zheng et~al.}}{{}}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Perturbation and Validation Examples}{9}{appendix.A}\protected@file@percent }
-\newlabel{app:perturb-examples}{{A}{9}{Perturbation and Validation Examples}{appendix.A}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Generation Examples}{9}{appendix.B}\protected@file@percent }
-\newlabel{app:generation-examples}{{B}{9}{Generation Examples}{appendix.B}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Judge Schema and Examples}{9}{appendix.C}\protected@file@percent }
-\newlabel{app:judge-examples}{{C}{9}{Judge Schema and Examples}{appendix.C}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Representative perturbation and validation cases. The diagnostic example shows why the 25 failed-validation records are not used for the main conclusions.}}{10}{table.caption.24}\protected@file@percent }
-\newlabel{tab:perturb-examples}{{6}{10}{Representative perturbation and validation cases. The diagnostic example shows why the 25 failed-validation records are not used for the main conclusions}{table.caption.24}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Representative generation outputs and behavior-label rationales. These examples show why paraphrase-aware LLM labels were used instead of strict string matching.}}{10}{table.caption.25}\protected@file@percent }
-\newlabel{tab:generation-examples}{{7}{10}{Representative generation outputs and behavior-label rationales. These examples show why paraphrase-aware LLM labels were used instead of strict string matching}{table.caption.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Representative perturbation and validation cases. The diagnostic example shows why the 25 failed-validation records are not used for the main conclusions.}}{10}{table.caption.23}\protected@file@percent }
+\newlabel{tab:perturb-examples}{{6}{10}{Representative perturbation and validation cases. The diagnostic example shows why the 25 failed-validation records are not used for the main conclusions}{table.caption.23}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Representative generation outputs and behavior-label rationales. These examples show why paraphrase-aware LLM labels were used instead of strict string matching.}}{10}{table.caption.24}\protected@file@percent }
+\newlabel{tab:generation-examples}{{7}{10}{Representative generation outputs and behavior-label rationales. These examples show why paraphrase-aware LLM labels were used instead of strict string matching}{table.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Perturbation and Validation Examples}{10}{appendix.A}\protected@file@percent }
+\newlabel{app:perturb-examples}{{A}{10}{Perturbation and Validation Examples}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Generation Examples}{10}{appendix.B}\protected@file@percent }
+\newlabel{app:generation-examples}{{B}{10}{Generation Examples}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Judge Schema and Examples}{10}{appendix.C}\protected@file@percent }
+\newlabel{app:judge-examples}{{C}{10}{Judge Schema and Examples}{appendix.C}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {D}Raw Diagonal Signatures Versus Paired Contrasts}{10}{appendix.D}\protected@file@percent }
 \newlabel{app:old-vs-paired}{{D}{10}{Raw Diagonal Signatures Versus Paired Contrasts}{appendix.D}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {E}Full-Set Judge Metrics}{10}{appendix.E}\protected@file@percent }
@@ -109,26 +107,26 @@
 \newlabel{app:extra-figs}{{H}{10}{Additional Data Visualizations}{appendix.H}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Human Evaluation Codebook}{10}{appendix.I}\protected@file@percent }
 \newlabel{app:audit-codebook}{{I}{10}{Human Evaluation Codebook}{appendix.I}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Representative judge outcomes. The apparent FP is a key example: the answer avoids the induced false claim but appears to be a valid alternate source-error detection.}}{11}{table.caption.26}\protected@file@percent }
-\newlabel{tab:judge-examples}{{8}{11}{Representative judge outcomes. The apparent FP is a key example: the answer avoids the induced false claim but appears to be a valid alternate source-error detection}{table.caption.26}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Full 300-record confusion counts and metrics from the raw judge run. Metrics are percentages. The main paper uses the 275 validated-record matrix.}}{11}{table.caption.28}\protected@file@percent }
-\newlabel{tab:full-metrics}{{9}{11}{Full 300-record confusion counts and metrics from the raw judge run. Metrics are percentages. The main paper uses the 275 validated-record matrix}{table.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Raw diagonal recall deltas versus answer-paired recall deltas on the validated set. The paired analysis preserves some exploratory provider-level patterns but removes the basis for a broad self-leniency claim.}}{11}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:old-vs-paired}{{7}{11}{Raw diagonal recall deltas versus answer-paired recall deltas on the validated set. The paired analysis preserves some exploratory provider-level patterns but removes the basis for a broad self-leniency claim}{figure.caption.27}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Representative judge outcomes. The apparent FP is a key example: the answer avoids the induced false claim but appears to be a valid alternate source-error detection.}}{11}{table.caption.25}\protected@file@percent }
+\newlabel{tab:judge-examples}{{8}{11}{Representative judge outcomes. The apparent FP is a key example: the answer avoids the induced false claim but appears to be a valid alternate source-error detection}{table.caption.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Full 300-record confusion counts and metrics from the raw judge run. Metrics are percentages. The main paper uses the 275 validated-record matrix.}}{11}{table.caption.27}\protected@file@percent }
+\newlabel{tab:full-metrics}{{9}{11}{Full 300-record confusion counts and metrics from the raw judge run. Metrics are percentages. The main paper uses the 275 validated-record matrix}{table.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Raw diagonal recall deltas versus answer-paired recall deltas on the validated set. The paired analysis preserves some exploratory provider-level patterns but removes the basis for a broad self-leniency claim.}}{11}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:old-vs-paired}{{6}{11}{Raw diagonal recall deltas versus answer-paired recall deltas on the validated set. The paired analysis preserves some exploratory provider-level patterns but removes the basis for a broad self-leniency claim}{figure.caption.26}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {J}Evaluation Implementation and Reproducibility}{11}{appendix.J}\protected@file@percent }
 \newlabel{app:repro}{{J}{11}{Evaluation Implementation and Reproducibility}{appendix.J}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Full-set confusion counts per judge-generator cell. Diagonal cells are outlined in red.}}{12}{figure.caption.29}\protected@file@percent }
-\newlabel{fig:confusion-counts}{{8}{12}{Full-set confusion counts per judge-generator cell. Diagonal cells are outlined in red}{figure.caption.29}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Localization quality across matrix cells in the full-set analysis. Citation locality is consistently higher than exact replacement containment.}}{12}{table.caption.30}\protected@file@percent }
-\newlabel{tab:localization}{{10}{12}{Localization quality across matrix cells in the full-set analysis. Citation locality is consistently higher than exact replacement containment}{table.caption.30}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Generator-side self-affinity, retained as descriptive only. Same-perturber context-follow rates are confounded by provider-specific perturbation type preferences, summarized in Figure~\ref {fig:data-composition}.}}{12}{figure.caption.32}\protected@file@percent }
-\newlabel{fig:self-affinity}{{9}{12}{Generator-side self-affinity, retained as descriptive only. Same-perturber context-follow rates are confounded by provider-specific perturbation type preferences, summarized in Figure~\ref {fig:data-composition}}{figure.caption.32}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Global paired effects by dataset slice. The validated and full results agree; diagnostic records are small and uncertain.}}{13}{table.caption.31}\protected@file@percent }
-\newlabel{tab:sensitivity}{{11}{13}{Global paired effects by dataset slice. The validated and full results agree; diagnostic records are small and uncertain}{table.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Additional generator behavior diagnostics. Diagnostic records still affect generation, while relation inversions reveal more memory override and conflict awareness than simpler substitutions.}}{13}{figure.caption.33}\protected@file@percent }
-\newlabel{fig:generator-diagnostics}{{10}{13}{Additional generator behavior diagnostics. Diagnostic records still affect generation, while relation inversions reveal more memory override and conflict awareness than simpler substitutions}{figure.caption.33}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Human evaluation derivation rules. Apparent FPs in the automatic matrix can be false alarms, alternate valid source-error detections, or induced-error adoption-label mistakes.}}{13}{table.caption.34}\protected@file@percent }
-\newlabel{tab:audit-codebook}{{12}{13}{Human evaluation derivation rules. Apparent FPs in the automatic matrix can be false alarms, alternate valid source-error detections, or induced-error adoption-label mistakes}{table.caption.34}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Evaluation implementation flow. Scripts are read-only over raw JSONL data and write only analysis artifacts, tables, and human-evaluation summaries.}}{13}{figure.caption.35}\protected@file@percent }
-\newlabel{fig:audit-flow}{{11}{13}{Evaluation implementation flow. Scripts are read-only over raw JSONL data and write only analysis artifacts, tables, and human-evaluation summaries}{figure.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Full-set confusion counts per judge-generator cell. Diagonal cells are outlined in red.}}{12}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:confusion-counts}{{7}{12}{Full-set confusion counts per judge-generator cell. Diagonal cells are outlined in red}{figure.caption.28}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Localization quality across matrix cells in the full-set analysis. Citation locality is consistently higher than exact replacement containment.}}{12}{table.caption.29}\protected@file@percent }
+\newlabel{tab:localization}{{10}{12}{Localization quality across matrix cells in the full-set analysis. Citation locality is consistently higher than exact replacement containment}{table.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Generator-side self-affinity, retained as descriptive only. Same-perturber context-follow rates are confounded by provider-specific perturbation type preferences, summarized in Figure~\ref {fig:data-composition}.}}{12}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:self-affinity}{{8}{12}{Generator-side self-affinity, retained as descriptive only. Same-perturber context-follow rates are confounded by provider-specific perturbation type preferences, summarized in Figure~\ref {fig:data-composition}}{figure.caption.31}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Global paired effects by dataset slice. The validated and full results agree; diagnostic records are small and uncertain.}}{13}{table.caption.30}\protected@file@percent }
+\newlabel{tab:sensitivity}{{11}{13}{Global paired effects by dataset slice. The validated and full results agree; diagnostic records are small and uncertain}{table.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Additional generator behavior diagnostics. Diagnostic records still affect generation, while relation inversions reveal more memory override and conflict awareness than simpler substitutions.}}{13}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:generator-diagnostics}{{9}{13}{Additional generator behavior diagnostics. Diagnostic records still affect generation, while relation inversions reveal more memory override and conflict awareness than simpler substitutions}{figure.caption.32}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Human evaluation derivation rules. Apparent FPs in the automatic matrix can be false alarms, alternate valid source-error detections, or induced-error adoption-label mistakes.}}{13}{table.caption.33}\protected@file@percent }
+\newlabel{tab:audit-codebook}{{12}{13}{Human evaluation derivation rules. Apparent FPs in the automatic matrix can be false alarms, alternate valid source-error detections, or induced-error adoption-label mistakes}{table.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Evaluation implementation flow. Scripts are read-only over raw JSONL data and write only analysis artifacts, tables, and human-evaluation summaries.}}{13}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:audit-flow}{{10}{13}{Evaluation implementation flow. Scripts are read-only over raw JSONL data and write only analysis artifacts, tables, and human-evaluation summaries}{figure.caption.34}{}}
 \gdef \@abspage@last{13}
