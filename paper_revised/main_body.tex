@@ -212,6 +212,30 @@ The avoided-claim flagging gap in Table~\ref{tab:paired-effects} creates an inte
 
 We therefore reviewed a targeted behavior-by-cell queue, capped at 12 cases per populated stratum, and adjudicated 88 of 153 sampled cases. The key result is that none of the 25 reviewed apparent false positives were genuine false alarms: 22 were valid detections of alternate source errors, 2 were mistakes in the induced-error adoption label, and 1 was unclear.
 
+\begin{center}
+\setlength{\fboxsep}{2.5pt}
+\fcolorbox{black!45}{black!3}{%
+\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+\scriptsize
+\newcommand{\swapmark}[1]{\begingroup\setlength{\fboxsep}{0.5pt}\colorbox{yellow!25}{#1}\endgroup}
+\newcommand{\boxlabel}[2]{\begin{tabular}[t]{@{}l@{}}\textbf{#1}\\\textbf{#2}\end{tabular}}
+\noindent\textbf{Apparent False Positive Example}\par\vspace{3pt}
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\linewidth}{@{}L{1.35cm}Y@{}}
+\textbf{Question} & How have recent SEC changes affected operating lease reporting practices? \\\noalign{\vskip 5pt}
+\boxlabel{Induced}{claim} & proactive initiatives targeting compliance failures $\rightarrow$ detailed audits of financial reporting accuracy \\\noalign{\vskip 5pt}
+\boxlabel{Original}{passage} & SEC's fiscal year 2024 report saw unprecedented financial penalties, \swapmark{proactive initiatives} \swapmark{targeting compliance failures}, and heightened scrutiny of executives and gatekeepers. \\\noalign{\vskip 5pt}
+\boxlabel{Modified}{passage} & SEC's fiscal year 2024 report saw unprecedented financial penalties, \swapmark{detailed audits} \swapmark{of financial} \swapmark{reporting accuracy}, and heightened scrutiny of executives and gatekeepers. \\\noalign{\vskip 5pt}
+\textbf{GPT answer} & Avoids the induced SEC claim, but says recent changes made operating leases more balance-sheet focused and cites ASC 842. \\\noalign{\vskip 5pt}
+\textbf{Grok flag} & Valid: the source attributes ASC 842 to FASB, not the SEC, and no source links SEC changes to those lease rules. \\\noalign{\vskip 5pt}
+\textbf{Why FP?} & The adoption label says ``avoided induced claim''; the judge task says ``contains another source-relative error.'' Human evaluation treats it as a valid alternate-error detection. \\
+\end{tabularx}
+\end{minipage}}
+\end{center}
+
+This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The boxed SEC/FASB case shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes.
+
 \begin{table}[H]
 \centering
 \scriptsize
@@ -229,38 +253,19 @@ FN & 9 & 6 genuine misses & some adoption labels too broad \\
 \label{tab:audit-summary}
 \end{table}
 
-This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The SEC/FASB case below shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes.
-
-\begin{center}
-\setlength{\fboxsep}{4pt}
-\fcolorbox{black!45}{black!3}{%
-\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
-\scriptsize
-\textbf{Worked apparent-FP example: Grok judge on GPT answer.}
-\setlength{\tabcolsep}{2.5pt}
-\renewcommand{\arraystretch}{1.08}
-\begin{tabularx}{\linewidth}{@{}L{1.15cm}Y@{}}
-\textbf{Question} & How have recent SEC changes affected operating lease reporting practices? \\
-\textbf{Induced claim} & The perturbed SEC passage replaced ``proactive initiatives targeting compliance failures'' with ``detailed audits of financial reporting accuracy.'' \\
-\textbf{GPT answer} & It did not adopt that induced SEC claim. Instead, it said recent changes made operating lease reporting more balance-sheet focused and cited ASC 842 lease-accounting requirements. \\
-\textbf{Grok flag} & Valid under the judge task: the source attributes ASC 842 to FASB, and no source links recent SEC changes to those balance-sheet lease requirements. \\
-\textbf{Why FP?} & The adoption label says ``avoided induced claim,'' while the judge says ``contains another source-relative error.'' The automatic matrix counts this as an apparent FP, but human evaluation treats it as an alternate valid error detection. \\
-\end{tabularx}
-\end{minipage}}
-\end{center}
-
 Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP.
 
 \subsection{Localization Remains Strong}
 
 For downstream debugging, a judge is more useful when it points to the contradicted source. Figure~\ref{fig:localization} summarizes full-set localization metrics computed from the full judge output set. When judges flag an error, their supporting passage lies in the known modified passage set 94.0--98.5\% of the time. Wrong-claim strings contain the replacement value 71.0--83.6\% of the time, reflecting paraphrase rather than passage-localization failure.
 
-\begin{figure}[t]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figures/localization_large.pdf}
   \caption{Localization metrics from the raw judge verdicts. Passage-level localization is consistently high; exact replacement containment in the wrong-claim text is lower because judges often paraphrase the erroneous claim.}
   \label{fig:localization}
 \end{figure}
+\FloatBarrier
 
 \section{Discussion}
 

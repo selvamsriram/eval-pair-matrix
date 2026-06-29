@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782759860.91381 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782759861.6314 0
+["pdflatex"] 1782765342.51535 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782765343.19991 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -154,8 +154,8 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1774209607 3636776 dc5fa9b6b1453b9d196cd42edf876004 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1782687377.12089 5314 a1978b126561b0baf473838ba949b463 ""
-  "acl_submission.aux" 1782759861.56764 29192 81645e61f0bf7c6d887b3fd2f9673d73 "pdflatex"
-  "acl_submission.out" 1782759861.56879 5110 321fcd6076dea5dea9575cf93a8a0d61 "pdflatex"
+  "acl_submission.aux" 1782765343.13582 29170 32dda3dcaa72efbc7f8664a8b6a10184 "pdflatex"
+  "acl_submission.out" 1782765343.13709 5110 321fcd6076dea5dea9575cf93a8a0d61 "pdflatex"
   "acl_submission.tex" 1782675825 1135 5ca34177c383ee86c803f1672c7b2ba3 ""
   "appendix_content.tex" 1782716606.1723 13450 ed93782aabdb596f36c658cf8025ff11 ""
   "figures/audit_flow.pdf" 1782716328.97358 20108 c484abd9dba9301e6cbbe2b58b9ff0e4 ""
@@ -169,7 +169,7 @@
   "figures/same_model_deltas_large.pdf" 1782716328.75028 11750 00152d50f8e1f1992b49ed47f1cd1a3d ""
   "figures/two_layer_gold.pdf" 1782717224.62997 60927 ab5a957ebd80b7124bfc669acc012e37 ""
   "figures/validated_vs_gap.pdf" 1782716329.11944 12659 405c830f93a64ed358f780760939cacd ""
-  "main_body.tex" 1782759852.46931 32640 e59c6e53ac9d6629f6e44c8a94f98aef ""
+  "main_body.tex" 1782765328.9696 33258 7113dd11f74f7bcec60ed8aa1a50e948 ""
   "references.tex" 1782694859.63233 6684 e4653a7455faa45a1158275b14586002 ""
   (generated)
   "acl_submission.aux"
