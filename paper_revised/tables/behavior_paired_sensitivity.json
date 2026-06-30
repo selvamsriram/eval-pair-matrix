@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "avoided_claim_display_rule": "shown only when slice has at least 10 avoided-claim answers",
+    "bootstrap": {
+      "clusters": 275,
+      "method": "cluster bootstrap by validated core_id",
+      "replicates": 10000,
+      "seed": 20260627
+    },
+    "estimand": "same-deployment matching judge minus mean of non-matching judges on the same answer",
+    "set": "validated records only"
+  },
+  "slices": {
+    "All validated": {
+      "all_answer_flag_delta": {
+        "ci_high": -0.6,
+        "ci_low": -3.8,
+        "cross_mean": 55.6,
+        "delta": -2.2,
+        "n": 819,
+        "n_clusters": 275,
+        "same_mean": 53.4
+      },
+      "avoided_claim_flag_delta": {
+        "ci_high": -2.0,
+        "ci_low": -6.6,
+        "cross_mean": 20.8,
+        "delta": -4.3,
+        "n": 363,
+        "n_clusters": 275,
+        "same_mean": 16.5
+      },
+      "n_adopted": 456,
+      "n_answers": 819,
+      "n_avoided": 363,
+      "recall_delta": {
+        "ci_high": 1.7,
+        "ci_low": -2.7,
+        "cross_mean": 83.2,
+        "delta": -0.5,
+        "n": 456,
+        "n_clusters": 275,
+        "same_mean": 82.7
+      }
+    },
+    "Context-follow + both-claims": {
+      "all_answer_flag_delta": {
+        "ci_high": 1.6,
+        "ci_low": -2.9,
+        "cross_mean": 82.8,
+        "delta": -0.7,
+        "n": 448,
+        "n_clusters": 275,
+        "same_mean": 82.1
+      },
+      "avoided_claim_flag_delta": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "cross_mean": 0.0,
+        "delta": 0.0,
+        "n": 1,
+        "n_clusters": 275,
+        "same_mean": 0.0
+      },
+      "n_adopted": 447,
+      "n_answers": 448,
+      "n_avoided": 1,
+      "recall_delta": {
+        "ci_high": 1.6,
+        "ci_low": -2.9,
+        "cross_mean": 83.0,
+        "delta": -0.7,
+        "n": 447,
+        "n_clusters": 275,
+        "same_mean": 82.3
+      }
+    },
+    "Context-follow only": {
+      "all_answer_flag_delta": {
+        "ci_high": 2.3,
+        "ci_low": -2.0,
+        "cross_mean": 84.5,
+        "delta": 0.1,
+        "n": 403,
+        "n_clusters": 275,
+        "same_mean": 84.6
+      },
+      "avoided_claim_flag_delta": {
+        "ci_high": null,
+        "ci_low": null,
+        "cross_mean": null,
+        "delta": null,
+        "n": 0,
+        "same_mean": null
+      },
+      "n_adopted": 403,
+      "n_answers": 403,
+      "n_avoided": 0,
+      "recall_delta": {
+        "ci_high": 2.3,
+        "ci_low": -2.0,
+        "cross_mean": 84.5,
+        "delta": 0.1,
+        "n": 403,
+        "n_clusters": 275,
+        "same_mean": 84.6
+      }
+    },
+    "Excluding refusal/conflict/unrelated": {
+      "all_answer_flag_delta": {
+        "ci_high": 1.6,
+        "ci_low": -2.8,
+        "cross_mean": 80.3,
+        "delta": -0.6,
+        "n": 462,
+        "n_clusters": 275,
+        "same_mean": 79.7
+      },
+      "avoided_claim_flag_delta": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "cross_mean": 0.0,
+        "delta": 0.0,
+        "n": 15,
+        "n_clusters": 275,
+        "same_mean": 0.0
+      },
+      "n_adopted": 447,
+      "n_answers": 462,
+      "n_avoided": 15,
+      "recall_delta": {
+        "ci_high": 1.6,
+        "ci_low": -2.9,
+        "cross_mean": 83.0,
+        "delta": -0.7,
+        "n": 447,
+        "n_clusters": 275,
+        "same_mean": 82.3
+      }
+    }
+  }
+}
