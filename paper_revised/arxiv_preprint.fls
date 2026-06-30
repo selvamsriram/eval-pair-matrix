@@ -2,7 +2,7 @@ PWD /Users/sriramselvam/Code/eval-pair-matrix/paper_revised
 INPUT /usr/local/texlive/2026/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT arxiv_preprint.tex
+INPUT /Users/sriramselvam/Code/eval-pair-matrix/paper_revised/arxiv_preprint.tex
 OUTPUT arxiv_preprint.log
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls

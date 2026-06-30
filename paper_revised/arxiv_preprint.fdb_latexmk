@@ -1,5 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1782791817.34507 "arxiv_preprint.tex" "arxiv_preprint.pdf" "arxiv_preprint" 1782791818.03343 0
+["pdflatex"] 1782791926.2392 "/Users/sriramselvam/Code/eval-pair-matrix/paper_revised/arxiv_preprint.tex" "arxiv_preprint.pdf" "arxiv_preprint" 1782791926.90103 0
+  "/Users/sriramselvam/Code/eval-pair-matrix/paper_revised/arxiv_preprint.tex" 1782780774.42713 1254 98b02f36e180a94d525811fab116a7eb ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -156,8 +157,8 @@
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1782687377.12089 5314 a1978b126561b0baf473838ba949b463 ""
   "appendix_content.tex" 1782790813.01835 25919 e67f7241d2e32f2abedc65337f6ce677 ""
-  "arxiv_preprint.aux" 1782791817.96683 24094 65a2ca4f6197e7d43c8d76f5d6b938f5 "pdflatex"
-  "arxiv_preprint.out" 1782791817.96803 4690 0927b0e2edec5f1c1ad7cd18e271a571 "pdflatex"
+  "arxiv_preprint.aux" 1782791926.84766 24094 65a2ca4f6197e7d43c8d76f5d6b938f5 "pdflatex"
+  "arxiv_preprint.out" 1782791926.84879 4690 0927b0e2edec5f1c1ad7cd18e271a571 "pdflatex"
   "arxiv_preprint.tex" 1782780774.42713 1254 98b02f36e180a94d525811fab116a7eb ""
   "figures/generator_self_affinity.pdf" 1782716328.60217 13612 0199a7bbdf137ec2612f2a6d7b86ed6a ""
   "figures/localization_large.pdf" 1782777043.70966 15248 90f2f58d59f9bae66b13347530b36c30 ""
@@ -169,7 +170,7 @@
   "figures/two_layer_gold.pdf" 1782717224.62997 60927 ab5a957ebd80b7124bfc669acc012e37 ""
   "figures/type_mix_by_validation.pdf" 1782774541.82035 13184 f8972e0be6ba2b3eb2fe852feedc5e28 ""
   "figures/validated_vs_gap.pdf" 1782716329.11944 12659 405c830f93a64ed358f780760939cacd ""
-  "main_body.tex" 1782791811.80148 36844 be09c35a3369e0fee936df87e3a72c5c ""
+  "main_body.tex" 1782791926.0371 36836 da58d88f70ada1fc48358c1682ccd9f8 ""
   "references.tex" 1782694859.63233 6684 e4653a7455faa45a1158275b14586002 ""
   "tables/behavior_paired_sensitivity.tex" 1782790533.72447 1053 9da736489cccbc5080918ea96c6f3e5d ""
   (generated)
