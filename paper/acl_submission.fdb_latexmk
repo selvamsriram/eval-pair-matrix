@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782797962.02183 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782797962.76642 0
+["pdflatex"] 1782801713.00015 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782801713.76077 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -156,10 +156,10 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1774209607 3636776 dc5fa9b6b1453b9d196cd42edf876004 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1782687377.12089 5314 a1978b126561b0baf473838ba949b463 ""
-  "acl_submission.aux" 1782797962.70095 36595 ba1f67810f2e39c98321fb106dac1a22 "pdflatex"
-  "acl_submission.out" 1782797962.70258 4665 892dbcf4800996d346d70b3c6157b90a "pdflatex"
+  "acl_submission.aux" 1782801713.68862 36595 03a4ece5ea4feee4a17daf84e3510c2d "pdflatex"
+  "acl_submission.out" 1782801713.6901 4665 892dbcf4800996d346d70b3c6157b90a "pdflatex"
   "acl_submission.tex" 1782792347.93794 1157 39f2e743cd1d21c6b8d78c0bc83b1bfb ""
-  "appendix_content.tex" 1782790813.01835 25919 e67f7241d2e32f2abedc65337f6ce677 ""
+  "appendix_content.tex" 1782801577.87936 26001 e86c52de65213197fe7e4b70fd7466a0 ""
   "figures/generator_self_affinity.pdf" 1782716328.60217 13612 0199a7bbdf137ec2612f2a6d7b86ed6a ""
   "figures/localization_large.pdf" 1782777043.70966 15248 90f2f58d59f9bae66b13347530b36c30 ""
   "figures/perturb_validate_detail.pdf" 1782717224.61484 96916 049f9ded5454f4ab7517be31fa5984cd ""

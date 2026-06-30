@@ -1,7 +1,7 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-OUT=Path('/mnt/data/eval_pair_matrix_full_revision/figures')
+OUT = Path(__file__).resolve().parent / "figures"
 plt.rcParams.update({'font.size':9,'axes.titlesize':10,'axes.labelsize':9,'xtick.labelsize':8,'ytick.labelsize':8,'legend.fontsize':8,'figure.titlesize':11,'pdf.fonttype':42,'ps.fonttype':42})
 COL={'blue':'#4C78A8','orange':'#F58518','green':'#54A24B','red':'#E45756','purple':'#B279A2','gray':'#8C8C8C','dark':'#2E3440'}
 # dataset composition (remove overlapping suptitle/axes title)

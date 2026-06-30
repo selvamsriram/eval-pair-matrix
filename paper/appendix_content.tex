@@ -251,19 +251,17 @@ Gemini & 54 & 57 & 143/143 \\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\linewidth]{figures/validated_vs_gap.pdf}
+  \includegraphics[width=0.80\linewidth]{figures/validated_vs_gap.pdf}
   \caption{Context-following on validated versus diagnostic records. Diagnostic records are excluded from the primary analysis but still show meaningful generation behavior.}
   \label{fig:validated-vs-gap}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.92\linewidth]{figures/relation_pushback.pdf}
+  \includegraphics[width=0.80\linewidth]{figures/relation_pushback.pdf}
   \caption{Relation-inversion pushback. Relation inversions elicit more memory override and conflict awareness than simpler substitutions.}
   \label{fig:relation-pushback}
 \end{figure}
-
-\FloatBarrier
 
 \section{Evaluation}
 \label{app:evaluation}
@@ -325,7 +323,7 @@ TN, judge not ok & \textbf{Missed error:} judge stayed silent despite a source e
 \label{tab:audit-codebook}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \scriptsize
 \begin{tabularx}{\linewidth}{@{}Y cccc@{}}
@@ -492,4 +490,14 @@ Gemini & Gen=GPT 95.3; Gen=Grok 95.5; Gen=Gemini 97.3 & Gen=GPT 76.8; Gen=Grok 7
 \label{tab:localization}
 \end{table}
 
-Scripts are \path{paired_audit.py}, \path{behavior_stratified.py}, \path{behavior_paired_sensitivity.py}, and \path{build_cell_review_queue.py}; paired tables use seed 20260627 and 10,000 cluster-bootstrap replicates by core ID. Checks verify 300 records, 275 validated records, 897 labeled outputs, and 2,683 judge verdicts.
+\begin{sloppypar}
+\raggedright
+\footnotesize
+\textbf{Reproducibility scripts.}
+\path{audit/paired_audit.py};
+\path{audit/behavior_stratified.py};
+\path{behavior_paired_sensitivity.py};
+\path{audit/build_cell_review_queue.py}.
+Paired tables use seed 20260627 and 10,000 cluster-bootstrap replicates by core ID.
+Checks verify 300 records, 275 validated records, 897 labeled outputs, and 2,683 judge verdicts.
+\end{sloppypar}

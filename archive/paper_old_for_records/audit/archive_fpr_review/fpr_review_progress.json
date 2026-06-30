@@ -1,0 +1,309 @@
+{
+  "GPT-on-GPT__27ff4e2b94e2": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612371
+  },
+  "GPT-on-GPT__2f060b56b332": {
+    "human_alternate_valid_error": "no",
+    "human_artifact": "",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "both",
+    "updated_at": 1782616264
+  },
+  "GPT-on-GPT__384da9b6c954": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612470
+  },
+  "GPT-on-GPT__3d8b240669f6": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609373
+  },
+  "GPT-on-GPT__4aabdf7af1e2": {
+    "human_alternate_valid_error": "yes",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782612864
+  },
+  "GPT-on-GPT__6641552b1c67": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612885
+  },
+  "GPT-on-GPT__690eb8af315e": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612916
+  },
+  "GPT-on-GPT__a1127a650869": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609530
+  },
+  "GPT-on-GPT__e0e62a97b0fb": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612948
+  },
+  "GPT-on-GPT__e5a3b3cca5fa": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782612980
+  },
+  "GPT-on-GPT__f9e0a610a7a0": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611581
+  },
+  "GPT-on-Grok__54791c5c03bb": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609940
+  },
+  "GPT-on-Grok__b646970bc3f0": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782612103
+  },
+  "GPT-on-Grok__d0ee30d8bdf4": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782612139
+  },
+  "GPT-on-Grok__f905ef71a405": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609975
+  },
+  "Gemini-on-GPT__733a5f8fa752": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611828
+  },
+  "Gemini-on-GPT__a76f5898073e": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609863
+  },
+  "Gemini-on-GPT__b2043e7759ef": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609906
+  },
+  "Gemini-on-GPT__ec35c04e4239": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782612080
+  },
+  "Gemini-on-Gemini__384e99a95d5d": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611707
+  },
+  "Gemini-on-Gemini__54791c5c03bb": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609739
+  },
+  "Gemini-on-Gemini__fd1db4d0c4c6": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611748
+  },
+  "Gemini-on-Grok__3f4681ebcb03": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782610002
+  },
+  "Gemini-on-Grok__c12aed27433f": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782610030
+  },
+  "Grok-on-GPT__319998cee142": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609771
+  },
+  "Grok-on-GPT__4f4a5fe32b8e": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609803
+  },
+  "Grok-on-GPT__80a05eae0619": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611793
+  },
+  "Grok-on-Grok__0870283d18c7": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782613021
+  },
+  "Grok-on-Grok__0d773b0f74cc": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611618
+  },
+  "Grok-on-Grok__2f060b56b332": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782613060
+  },
+  "Grok-on-Grok__319998cee142": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782613474
+  },
+  "Grok-on-Grok__3231c76ccf16": {
+    "human_alternate_valid_error": "",
+    "human_false_alarm": "",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782613514
+  },
+  "Grok-on-Grok__3ac749684675": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "yes",
+    "human_localization_correct": "yes",
+    "human_notes": "",
+    "human_target_present": "yes",
+    "updated_at": 1782609687
+  },
+  "Grok-on-Grok__f5112318599f": {
+    "human_alternate_valid_error": "no",
+    "human_false_alarm": "no",
+    "human_judge_detected_target": "n/a",
+    "human_localization_correct": "n/a",
+    "human_notes": "",
+    "human_target_present": "no",
+    "updated_at": 1782611656
+  }
+}

@@ -1,12 +1,13 @@
-# Eval-Pair Matrix paper bundle - full visual revision
+# Eval-Pair Matrix paper bundle
 
-This bundle restores the visual/appendix material from the original paper while keeping the corrected paired statistical framing.
+This is the primary manuscript bundle. The older paper draft is archived under `archive/paper_old_for_records/`.
 
 Key deliverables:
 - `acl_submission.tex` / `acl_submission.pdf`: anonymous ACL-style submission build.
 - `arxiv_preprint.tex` / `arxiv_preprint.pdf`: preprint build with authors.
 - `main_body.tex`: main manuscript.
 - `appendix_content.tex`: restored examples, diagnostics, full metrics, visual appendices, and reproducibility notes.
+- `audit/`: provenance scripts, review queues, and human-evaluation audit outputs.
 - `figures/`: regenerated vector figures for pipeline, validation, dataset composition, generator behavior, matrix, paired effects, behavior strata, audit, localization, and diagnostics.
 - `references.tex`: bibliography.
 
