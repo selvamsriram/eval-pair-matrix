@@ -221,7 +221,7 @@ slices = {
 report = {
     "meta": {
         "set": "validated records only",
-        "estimand": "same-deployment matching judge minus mean of non-matching judges on the same answer",
+        "estimand": "same-model matching judge minus mean of non-matching judges on the same answer",
         "bootstrap": {
             "method": "cluster bootstrap by validated core_id",
             "clusters": len(validated_core_idx),

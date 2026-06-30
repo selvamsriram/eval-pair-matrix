@@ -7,7 +7,7 @@
       "replicates": 10000,
       "seed": 20260627
     },
-    "estimand": "same-deployment matching judge minus mean of non-matching judges on the same answer",
+    "estimand": "same-model matching judge minus mean of non-matching judges on the same answer",
     "set": "validated records only"
   },
   "slices": {
