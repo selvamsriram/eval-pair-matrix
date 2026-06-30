@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Rectangle, ArrowStyle
 from matplotlib.lines import Line2D
 
-OUT = Path('/mnt/data/eval_pair_matrix_full_revision/figures')
+OUT = Path(__file__).resolve().parent / 'figures'
 OUT.mkdir(parents=True, exist_ok=True)
 plt.rcParams.update({
     'font.size': 9,
@@ -227,15 +227,16 @@ ax.set_yticks(y, ['']*len(beh_keys)); ax.invert_yaxis(); ax.set_xlim(0,105); ax.
 ax.spines[['top','right']].set_visible(False)
 savefig('behavior_stratified.pdf', fig)
 # 12 localization
-fig, axes=plt.subplots(1,2,figsize=(7.2,2.8), sharey=True)
-for ax,mat,title,vmin in [(axes[0],loc_cit,'Citation locality: modified passage cited',92),(axes[1],loc_val,'Wrong-claim contains replacement value',68)]:
+fig, axes=plt.subplots(1,2,figsize=(7.6,2.75), sharey=True)
+for ax,mat,title,vmin in [(axes[0],loc_cit,'Citation locality',92),(axes[1],loc_val,'Replacement in wrong claim',68)]:
     im=ax.imshow(mat, vmin=vmin, vmax=100, cmap='BuGn')
     ax.set_xticks(np.arange(3), gens); ax.set_yticks(np.arange(3), judges)
-    ax.set_title(title)
+    ax.set_title(title, pad=8)
     for i in range(3):
         for j in range(3): ax.text(j,i,f"{mat[i,j]:.1f}",ha='center',va='center',fontsize=8)
-    fig.colorbar(im, ax=ax, shrink=0.75)
+    fig.colorbar(im, ax=ax, shrink=0.68)
 axes[0].set_ylabel('Judge')
+fig.tight_layout(w_pad=2.0)
 savefig('localization_large.pdf', fig)
 # 13 evaluation flow graphviz
 audit_dot = r'''

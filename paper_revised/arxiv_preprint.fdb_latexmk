@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782775391.04193 "arxiv_preprint.tex" "arxiv_preprint.pdf" "arxiv_preprint" 1782775391.64433 0
+["pdflatex"] 1782777062.22175 "arxiv_preprint.tex" "arxiv_preprint.pdf" "arxiv_preprint" 1782777062.85498 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -141,6 +141,7 @@
   "/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ts1ptm.fd" 1137110629 619 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty" 1576624809 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1750533675 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
+  "/usr/local/texlive/2026/texmf-dist/tex/latex/sttools/stfloats.sty" 1750880090 19135 2044f4970d2ece01df5d5dfacaaaec0f ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty" 1761946296 15651 9d7c62df82cb29a555c00550babfe364 ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty" 1748806692 7243 a2c17f18e2c9b702b84fad03d5f9c78b ""
   "/usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty" 1748806692 4545 d7bb86d489a8ad5263e4c34304c03aee ""
@@ -154,13 +155,13 @@
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1782687377.12089 5314 a1978b126561b0baf473838ba949b463 ""
   "appendix_content.tex" 1782716606.1723 13450 ed93782aabdb596f36c658cf8025ff11 ""
-  "arxiv_preprint.aux" 1782775391.58229 19739 dd45aa7e92057df06d5349752aa203c5 "pdflatex"
-  "arxiv_preprint.out" 1782775391.58376 5085 c42625111a28fdfaf6a27bbc6cf7621e "pdflatex"
-  "arxiv_preprint.tex" 1782774509.34705 1210 22e96edf6b265c151671db73032e0e7e ""
+  "arxiv_preprint.aux" 1782777062.79 19739 c12901a932ad7496b161f83565d5a9cc "pdflatex"
+  "arxiv_preprint.out" 1782777062.79113 5085 c42625111a28fdfaf6a27bbc6cf7621e "pdflatex"
+  "arxiv_preprint.tex" 1782776207.94051 1232 8d98760e313379ffed15c882e6be2dd0 ""
   "figures/audit_flow.pdf" 1782716328.97358 20108 c484abd9dba9301e6cbbe2b58b9ff0e4 ""
   "figures/confusion_counts.pdf" 1782716329.28552 15094 4163fc89c57ac072600caabf11565e2f ""
   "figures/generator_self_affinity.pdf" 1782716328.60217 13612 0199a7bbdf137ec2612f2a6d7b86ed6a ""
-  "figures/localization_large.pdf" 1782716328.93176 16618 1d24df36f9e677f37f3ac86d77cfaf72 ""
+  "figures/localization_large.pdf" 1782777043.70966 15248 90f2f58d59f9bae66b13347530b36c30 ""
   "figures/perturb_validate_detail.pdf" 1782717224.61484 96916 049f9ded5454f4ab7517be31fa5984cd ""
   "figures/perturber_type_matrix.pdf" 1782774541.92825 14765 8444b1796e9d18d22fc6fce1b0c25867 ""
   "figures/pipeline_big.pdf" 1782693528.43862 36386 904a65e3417376dfd0bc0a0d261598a0 ""
@@ -169,7 +170,7 @@
   "figures/two_layer_gold.pdf" 1782717224.62997 60927 ab5a957ebd80b7124bfc669acc012e37 ""
   "figures/type_mix_by_validation.pdf" 1782774541.82035 13184 f8972e0be6ba2b3eb2fe852feedc5e28 ""
   "figures/validated_vs_gap.pdf" 1782716329.11944 12659 405c830f93a64ed358f780760939cacd ""
-  "main_body.tex" 1782775384.03249 36243 2e8b21f8b94e382d0f20b181b2cc326b ""
+  "main_body.tex" 1782776514.23436 36243 147db30db437465f1842c290d81ae801 ""
   "references.tex" 1782694859.63233 6684 e4653a7455faa45a1158275b14586002 ""
   (generated)
   "arxiv_preprint.aux"

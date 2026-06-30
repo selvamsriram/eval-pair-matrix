@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 16:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -325,6 +325,12 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks27
 \@floatcapt=\box55
 )
+(/usr/local/texlive/2026/texmf-dist/tex/latex/sttools/stfloats.sty
+Package: stfloats 2025/06/18 v3.4 Improve float mechanism and baselineskip sett
+ings
+\@dblbotnum=\count306
+\c@dblbotnumber=\count307
+)
 (/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen172
@@ -337,12 +343,12 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen179
 \cmidrulekern=\dimen180
 \defaultaddspace=\dimen181
-\@cmidla=\count306
-\@cmidlb=\count307
+\@cmidla=\count308
+\@cmidlb=\count309
 \@aboverulesep=\dimen182
 \@belowrulesep=\dimen183
-\@thisruleclass=\count308
-\@lastruleclass=\count309
+\@thisruleclass=\count310
+\@lastruleclass=\count311
 \@thisrulewidth=\dimen184
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
@@ -362,13 +368,13 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@old@col=\dimen189
 \TX@target=\dimen190
 \TX@delta=\dimen191
-\TX@cols=\count310
+\TX@cols=\count312
 \TX@ftn=\toks29
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen192
-\c@nlinenum=\count311
+\c@nlinenum=\count313
 \TeXr@lab=\toks30
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
@@ -391,14 +397,14 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count312
+\inf@bad=\count314
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count313
-\leftroot@=\count314
+\uproot@=\count315
+\leftroot@=\count316
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count315
-\DOTSCASE@=\count316
+\classnum@=\count317
+\DOTSCASE@=\count318
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -411,20 +417,20 @@ LaTeX Info: Redefining \Bigg on input line 724.
 \big@size=\dimen195
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count317
+\macc@depth=\count319
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count318
+\c@MaxMatrixCols=\count320
 \dotsspace@=\muskip18
-\c@parentequation=\count319
-\dspbrk@lvl=\count320
+\c@parentequation=\count321
+\dspbrk@lvl=\count322
 \tag@help=\toks32
-\row@=\count321
-\column@=\count322
-\maxfields@=\count323
+\row@=\count323
+\column@=\count324
+\maxfields@=\count325
 \andhelp@=\toks33
 \eqnshift@=\dimen196
 \alignsep@=\dimen197
@@ -454,17 +460,17 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count324
+\lst@mode=\count326
 \lst@gtempboxa=\box60
 \lst@token=\toks36
-\lst@length=\count325
+\lst@length=\count327
 \lst@currlwidth=\dimen258
-\lst@column=\count326
-\lst@pos=\count327
+\lst@column=\count328
+\lst@pos=\count329
 \lst@lostspace=\dimen259
 \lst@width=\dimen260
-\lst@newlines=\count328
-\lst@lineno=\count329
+\lst@newlines=\count330
+\lst@lineno=\count331
 \lst@maxwidth=\dimen261
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstpatch.sty
@@ -472,8 +478,8 @@ File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count330
-\lst@skipnumbers=\count331
+\c@lstnumber=\count332
+\lst@skipnumbers=\count333
 \lst@framebox=\box61
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/listings.cfg
@@ -493,57 +499,57 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@outerparindent=\dimen262
 \enit@toks=\toks37
 \enit@inbox=\box62
-\enit@count@id=\count332
-\enitdp@description=\count333
+\enit@count@id=\count334
+\enitdp@description=\count335
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count334
+\c@subfigure=\count336
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count335
+\c@subtable=\count337
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/placeins/placeins.sty
 Package: placeins 2005/04/18  v 2.2
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count336
+\l__color_backend_stack_int=\count338
 )
 (./arxiv_preprint.aux)
 \openout1 = `arxiv_preprint.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count337
+\scratchcounter=\count339
 \scratchdimen=\dimen263
 \scratchbox=\box63
-\nofMPsegments=\count338
-\nofMParguments=\count339
+\nofMPsegments=\count340
+\nofMParguments=\count341
 \everyMPshowfont=\toks38
-\MPscratchCnt=\count340
+\MPscratchCnt=\count342
 \MPscratchDim=\dimen264
-\MPnumerator=\count341
-\makeMPintoPDFobject=\count342
+\MPnumerator=\count343
+\makeMPintoPDFobject=\count344
 \everyMPtoPDFconversion=\toks39
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -593,18 +599,18 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 33.
+Package hyperref Info: Link coloring ON on input line 34.
 (./arxiv_preprint.out) (./arxiv_preprint.out)
 \@outlinefile=\write3
 \openout3 = `arxiv_preprint.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 33.
-Package microtype Info: Applying patch `item' on input line 33.
-Package microtype Info: Applying patch `toc' on input line 33.
-Package microtype Info: Applying patch `eqnum' on input line 33.
-Package microtype Info: Applying patch `footnote' on input line 33.
-Package microtype Info: Applying patch `verbatim' on input line 33.
-LaTeX Info: Redefining \microtypesetup on input line 33.
+LaTeX Info: Redefining \microtypecontext on input line 34.
+Package microtype Info: Applying patch `item' on input line 34.
+Package microtype Info: Applying patch `toc' on input line 34.
+Package microtype Info: Applying patch `eqnum' on input line 34.
+Package microtype Info: Applying patch `footnote' on input line 34.
+Package microtype Info: Applying patch `verbatim' on input line 34.
+LaTeX Info: Redefining \microtypesetup on input line 34.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -623,19 +629,19 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
-\c@lstlisting=\count343
+\c@lstlisting=\count345
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 34
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 35
 .
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 35.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -644,7 +650,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 34.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 35.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -653,14 +659,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 34
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 35
 .
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 12.0pt on input line 34.
+(Font)              scaled to size 12.0pt on input line 35.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -750,37 +756,31 @@ Underfull \hbox (badness 1783) in paragraph at lines 156--157
  []
 
 [5 <./figures/two_layer_gold.pdf>]
-Underfull \hbox (badness 4144) in paragraph at lines 184--185
+Underfull \hbox (badness 4144) in paragraph at lines 164--165
 \T1/ptm/m/n/10.95 (+20) Table [][]2[][] shows the validated-only judge-by-
  []
 
 [6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \vbox (badness 2478) has occurred while \output is active []
-
- [7]
-<figures/localization_large.pdf, id=339, 459.82983pt x 180.91985pt>
+<figures/localization_large.pdf, id=333, 491.87999pt x 184.92023pt>
 File: figures/localization_large.pdf Graphic file (type pdf)
 <use figures/localization_large.pdf>
 Package pdftex.def Info: figures/localization_large.pdf  used on input line 298
 .
-(pdftex.def)             Requested size: 219.08614pt x 86.1973pt.
+(pdftex.def)             Requested size: 219.08614pt x 82.36401pt.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
 Underfull \hbox (badness 4013) in paragraph at lines 307--308
  []\T1/ptm/b/n/10.95 (+20) Same-deployment ef-fects are iden-ti-fi-ca-tion
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8 <./figures/localization_large.pdf>]
 Underfull \hbox (badness 1292) in paragraph at lines 324--325
 \T1/ptm/m/n/10.95 (+20) familiarity ef-fects. The be-hav-ior la-bels and
  []
 
-) (./references.tex
+[8 <./figures/localization_large.pdf>]) (./references.tex
 Underfull \hbox (badness 1048) in paragraph at lines 14--17
 \T1/ptm/m/n/10 (+20) Re-trieval Aug-mented Gen-er-a-tion.  In \T1/ptm/m/it/10 (
 +20) Find-ings
@@ -832,6 +832,9 @@ e 79.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <figures/confusion_counts.pdf, id=373, 379.90408pt x 346.8137pt>
 File: figures/confusion_counts.pdf Graphic file (type pdf)
 <use figures/confusion_counts.pdf>
@@ -870,13 +873,9 @@ Package pdftex.def Info: figures/relation_pushback.pdf  used on input line 177.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10 <./figures/same_model_deltas_large.pdf>]
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/audit_flow.pdf, id=400, 834.11626pt x 291.0875pt>
+<figures/audit_flow.pdf, id=379, 834.11626pt x 291.0875pt>
 File: figures/audit_flow.pdf Graphic file (type pdf)
 <use figures/audit_flow.pdf>
 Package pdftex.def Info: figures/audit_flow.pdf  used on input line 216.
@@ -890,35 +889,36 @@ Underfull \hbox (badness 1337) in paragraph at lines 221--222
 0627 and
  []
 
-[11])
-Underfull \hbox (badness 10000) in paragraph at lines 223--38
+[10 <./figures/same_model_deltas_large.pdf>])
+Underfull \hbox (badness 10000) in paragraph at lines 223--39
 []\T1/ptm/m/n/10.95 (+20) The pri-mary run ar-ti-facts are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--38
+Underfull \hbox (badness 10000) in paragraph at lines 223--39
 \T1/zi4/m/n/10.95 data / exp / 3provider _ 300 . jsonl$\T1/ptm/m/n/10.95 (+20) 
 ; three
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--38
+Underfull \hbox (badness 10000) in paragraph at lines 223--39
 \T1/ptm/m/n/10.95 (+20) generation/label-evaluation runs un-der
  []
 
 
-Underfull \hbox (badness 2027) in paragraph at lines 223--38
+Underfull \hbox (badness 2027) in paragraph at lines 223--39
 \T1/zi4/m/n/10.95 data / runs / 20260531-[]0051*$\T1/ptm/m/n/10.95 (+20) ; and 
 nine judge
  []
 
-[12
+[11
 
-] [13
+] [12] [13 <./figures/confusion_counts.pdf>] [14
 
- <./figures/confusion_counts.pdf> <./figures/generator_self_affinity.pdf>] [14 
-<./figures/validated_vs_gap.pdf> <./figures/relation_pushback.pdf> <./figures/a
-udit_flow.pdf>] (./arxiv_preprint.aux)
+
+ <./figures/generator_self_affinity.pdf>] [15 <./figures/validated_vs_gap.pdf> 
+<./figures/relation_pushback.pdf> <./figures/audit_flow.pdf>] (./arxiv_preprint
+.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -927,10 +927,10 @@ Package rerunfilecheck Info: File `arxiv_preprint.out' has not changed.
 (rerunfilecheck)             Checksum: C42625111A28FDFAF6A27BBC6CF7621E;5085.
  ) 
 Here is how much of TeX's memory you used:
- 18354 strings out of 467525
- 288012 string characters out of 5418982
- 818387 words of memory out of 5000000
- 46513 multiletter control sequences out of 15000+600000
+ 18393 strings out of 467525
+ 288888 string characters out of 5418982
+ 822573 words of memory out of 5000000
+ 46547 multiletter control sequences out of 15000+600000
  689498 words of font info for 350 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,17n,93p,2102b,1079s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -949,10 +949,10 @@ al/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
 /texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2
 026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-
 dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on arxiv_preprint.pdf (14 pages, 531084 bytes).
+Output written on arxiv_preprint.pdf (15 pages, 529524 bytes).
 PDF statistics:
- 584 PDF objects out of 1000 (max. 8388607)
- 464 compressed objects within 5 object streams
- 106 named destinations out of 1000 (max. 500000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 467 compressed objects within 5 object streams
+ 107 named destinations out of 1000 (max. 500000)
  57101 words of extra memory for PDF output out of 61914 (max. 10000000)
 

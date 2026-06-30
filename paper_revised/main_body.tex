@@ -157,7 +157,13 @@ The experiment has two LLM-evaluation layers. Layer 1 is a single GPT-5.4 label-
 
 For judging, each judge outputs a verdict, a boolean factual-error flag, the wrong claim if any, the most directly contradicting source passage ID, an explanation, and confidence. The main run uses one exact deployment per provider family: GPT-5.4, Grok 4.3, and Gemini 3.5 Flash. Because there is no same-provider/different-deployment condition, we use \emph{same-deployment pairing effect} rather than same-model-family bias.
 
-\begin{table*}[t]
+\section{Results}
+
+\subsection{Validated Judge Matrix}
+
+Table~\ref{tab:validated-matrix-main} shows the validated-only judge-by-generator matrix. Across cells, F1 ranges from 79.7\% to 87.9\%. The diagonal is not obviously inflated: mean diagonal F1 is 84.4 and mean off-diagonal F1 is 83.4. Grok-generated answers are the hardest column for every judge, showing that raw diagonal-vs-off-diagonal comparisons mix possible same-deployment effects with generator-column difficulty.
+
+\begin{table*}[b]
 \centering
 \scriptsize
 \begin{tabular*}{0.95\linewidth}{@{\extracolsep{\fill}}l ccc ccc ccc c@{}}
@@ -176,12 +182,6 @@ Col F1 &  &  & 85.5 &  &  & 80.3 &  &  & 85.4 &  \\
 \caption{Validated-only matrix (275 validated records; diagonal = same-deployment cells, bold). Per cell: precision/recall/F1 (\%). Mean diagonal F1 $=84.4$, mean off-diagonal F1 $=83.4$.}
 \label{tab:validated-matrix-main}
 \end{table*}
-
-\section{Results}
-
-\subsection{Validated Judge Matrix}
-
-Table~\ref{tab:validated-matrix-main} shows the validated-only judge-by-generator matrix. Across cells, F1 ranges from 79.7\% to 87.9\%. The diagonal is not obviously inflated: mean diagonal F1 is 84.4 and mean off-diagonal F1 is 83.4. Grok-generated answers are the hardest column for every judge, showing that raw diagonal-vs-off-diagonal comparisons mix possible same-deployment effects with generator-column difficulty.
 
 \subsection{Answer-Paired Same-Deployment Effects}
 
