@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 21:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 22:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -744,66 +744,67 @@ Package pdftex.def Info: figures/type_mix_by_validation.pdf  used on input line
 File: figures/perturber_type_matrix.pdf Graphic file (type pdf)
 <use figures/perturber_type_matrix.pdf>
 Package pdftex.def Info: figures/perturber_type_matrix.pdf  used on input line 
-65.
+64.
 (pdftex.def)             Requested size: 219.08614pt x 134.58247pt.
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
  []\T1/ptm/b/n/10.95 (+20) Perturbation ex-am-ples.[] \T1/ptm/m/n/10.95 (+20) A
  numerical-shift
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 75--76
+Underfull \hbox (badness 1173) in paragraph at lines 74--75
 \T1/ptm/m/n/10.95 (+20) gen-er-a-tor read-ing only the per-turbed pas-sage
  []
 
 [4 <./figures/perturb_validate_detail.pdf> <./figures/type_mix_by_validation.pd
 f> <./figures/perturber_type_matrix.pdf>]
-<figures/two_layer_gold.pdf, id=273, 509.905pt x 377.41pt>
+<figures/two_layer_gold.pdf, id=275, 509.905pt x 377.41pt>
 File: figures/two_layer_gold.pdf Graphic file (type pdf)
 <use figures/two_layer_gold.pdf>
-Package pdftex.def Info: figures/two_layer_gold.pdf  used on input line 116.
+Package pdftex.def Info: figures/two_layer_gold.pdf  used on input line 115.
 (pdftex.def)             Requested size: 214.70348pt x 158.91423pt.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 156.
+(Font)              scaled to size 10.95pt on input line 155.
 
-Underfull \hbox (badness 1655) in paragraph at lines 156--157
+Underfull \hbox (badness 1655) in paragraph at lines 155--156
 \T1/ptm/m/n/10.95 (+20) lay-ers. Layer 1 is a sin-gle GPT-5.4 label-
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 156--157
+Underfull \hbox (badness 1783) in paragraph at lines 155--156
 \T1/ptm/m/n/10.95 (+20) evaluator that sees the an-swer and per-tur-ba-
  []
 
 [5 <./figures/two_layer_gold.pdf>]
-Underfull \hbox (badness 4144) in paragraph at lines 164--165
+Underfull \hbox (badness 4144) in paragraph at lines 163--164
 \T1/ptm/m/n/10.95 (+20) Table [][]2[][] shows the validated-only judge-by-
  []
 
 [6]
-<figures/localization_large.pdf, id=313, 491.87999pt x 184.92023pt>
+<figures/localization_large.pdf, id=316, 491.87999pt x 184.92023pt>
 File: figures/localization_large.pdf Graphic file (type pdf)
 <use figures/localization_large.pdf>
-Package pdftex.def Info: figures/localization_large.pdf  used on input line 299
+Package pdftex.def Info: figures/localization_large.pdf  used on input line 297
 .
 (pdftex.def)             Requested size: 219.08614pt x 82.36401pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-Underfull \hbox (badness 2277) in paragraph at lines 329--330
+ [7 <./figures/localization_large.pdf>]
+Underfull \hbox (badness 2277) in paragraph at lines 327--328
 \T1/ptm/m/n/10.95 (+20) scripts: [][]$\T1/zi4/m/n/10.95 https : / / anonymous .
  4open . science /
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 329--330
+Underfull \hbox (badness 4013) in paragraph at lines 327--328
 \T1/zi4/m/n/10.95 r / eval-[]pair-[]matrix-[]emnlp-[]2026/$[][]\T1/ptm/m/n/10.9
 5 (+20) . Where
  []
 
-[8 <./figures/localization_large.pdf>]) (./references.tex
+
+Underfull \vbox (badness 1303) has occurred while \output is active []
+
+ [8])
+(./references.tex
 Underfull \hbox (badness 1048) in paragraph at lines 14--17
 \T1/ptm/m/n/10 (+20) Re-trieval Aug-mented Gen-er-a-tion.  In \T1/ptm/m/it/10 (
 +20) Find-ings
@@ -833,13 +834,13 @@ Underfull \hbox (badness 1622) in paragraph at lines 223--223
 
 Underfull \vbox (badness 1558) has occurred while \output is active []
 
-<figures/generator_self_affinity.pdf, id=387, 384.53914pt x 204.07741pt>
+<figures/generator_self_affinity.pdf, id=390, 384.53914pt x 204.07741pt>
 File: figures/generator_self_affinity.pdf Graphic file (type pdf)
 <use figures/generator_self_affinity.pdf>
 Package pdftex.def Info: figures/generator_self_affinity.pdf  used on input lin
 e 247.
 (pdftex.def)             Requested size: 208.13115pt x 110.45549pt.
-<figures/validated_vs_gap.pdf, id=388, 337.52724pt x 178.96198pt>
+<figures/validated_vs_gap.pdf, id=391, 337.52724pt x 178.96198pt>
 File: figures/validated_vs_gap.pdf Graphic file (type pdf)
 <use figures/validated_vs_gap.pdf>
 Package pdftex.def Info: figures/validated_vs_gap.pdf  used on input line 254.
@@ -848,7 +849,7 @@ Package pdftex.def Info: figures/validated_vs_gap.pdf  used on input line 254.
 Underfull \vbox (badness 4303) has occurred while \output is active []
 
  [12 <./figures/generator_self_affinity.pdf>]
-<figures/relation_pushback.pdf, id=414, 337.52724pt x 178.96198pt>
+<figures/relation_pushback.pdf, id=417, 337.52724pt x 178.96198pt>
 File: figures/relation_pushback.pdf Graphic file (type pdf)
 <use figures/relation_pushback.pdf>
 Package pdftex.def Info: figures/relation_pushback.pdf  used on input line 261.
@@ -858,7 +859,7 @@ Package pdftex.def Info: figures/relation_pushback.pdf  used on input line 261.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13 <./figures/validated_vs_gap.pdf> <./figures/relation_pushback.pdf>]
-<figures/same_model_deltas_large.pdf, id=451, 346.81192pt x 201.22113pt>
+<figures/same_model_deltas_large.pdf, id=454, 346.81192pt x 201.22113pt>
 File: figures/same_model_deltas_large.pdf Graphic file (type pdf)
 <use figures/same_model_deltas_large.pdf>
 Package pdftex.def Info: figures/same_model_deltas_large.pdf  used on input lin
@@ -910,12 +911,12 @@ Package rerunfilecheck Info: File `arxiv_preprint.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  18585 strings out of 467525
- 292144 string characters out of 5418982
- 860549 words of memory out of 5000000
- 46660 multiletter control sequences out of 15000+600000
- 691431 words of font info for 375 fonts, out of 8000000 for 9000
+ 292083 string characters out of 5418982
+ 860611 words of memory out of 5000000
+ 46657 multiletter control sequences out of 15000+600000
+ 691561 words of font info for 377 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,17n,93p,1816b,1130s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,17n,93p,1816b,1129s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -931,10 +932,10 @@ cal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loca
 l/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/
 2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf
 -dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on arxiv_preprint.pdf (15 pages, 957308 bytes).
+Output written on arxiv_preprint.pdf (15 pages, 957279 bytes).
 PDF statistics:
- 575 PDF objects out of 1000 (max. 8388607)
- 481 compressed objects within 5 object streams
+ 578 PDF objects out of 1000 (max. 8388607)
+ 484 compressed objects within 5 object streams
  140 named destinations out of 1000 (max. 500000)
  57091 words of extra memory for PDF output out of 61914 (max. 10000000)
 

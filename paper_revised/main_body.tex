@@ -55,21 +55,20 @@ Prior work documents model-judge biases, including length, position, style, fami
 \begin{figure}[b]
   \centering
   \includegraphics[width=\linewidth]{figures/type_mix_by_validation.pdf}
-  \caption{Composition of the 300 selected perturbation records. Panel (a) shows perturbation-type counts labeled as validated/diagnostic.}
+  \caption{Perturbation-type composition of the 300 selected records, split by validated/diagnostic status.}
   \label{fig:data-composition}
 \end{figure}
 
 \begin{figure}[b]
-  \ContinuedFloat
   \centering
   \includegraphics[width=\linewidth]{figures/perturber_type_matrix.pdf}
-  \caption[]{Composition of the 300 selected perturbation records, continued. Panel (b) shows the perturber-by-type matrix; row totals give selected records per perturber.}
+  \caption{Perturber-by-type matrix for the 300 selected records; row totals give selected records per perturber.}
   \label{fig:data-composition-perturber}
 \end{figure}
 
 The pipeline starts from GaRAGe examples with a valid information-seeking question, a validated human-written answer, and at least two grounding passages labeled as answering the question. For each selected record, an LLM perturber receives the question, the human answer, and answer-bearing plus related grounding passages. The perturber must select exactly one answer-causal target proposition: a claim present in the answer and grounding such that changing it would change the answer to the question.
 
-The closed perturbation menu includes entity substitutions, temporal shifts, numerical shifts, relation inversions, location and affiliation changes, ranking flips, causal changes, negation/modality changes, and multihop bridges. For every passage sent to the perturber, the output includes a full rewritten passage if the passage states or entails the selected claim, or a skip reason otherwise. The rewrite must remove the original value and any anchors that leak it. The selected 300-record pool is intentionally mixed rather than type-balanced; Figure~\ref{fig:data-composition} reports the type mix; Appendices~\ref{app:dataset-selection}--\ref{app:perturbation} give details.
+The closed perturbation menu includes entity substitutions, temporal shifts, numerical shifts, relation inversions, location and affiliation changes, ranking flips, causal changes, negation/modality changes, and multihop bridges. For every passage sent to the perturber, the output includes a full rewritten passage if the passage states or entails the selected claim, or a skip reason otherwise. The rewrite must remove the original value and any anchors that leak it. The selected 300-record pool is intentionally mixed rather than type-balanced; Figures~\ref{fig:data-composition} and~\ref{fig:data-composition-perturber} report the type mix and perturber mix; Appendices~\ref{app:dataset-selection}--\ref{app:perturbation} give details.
 
 \paragraph{Perturbation examples.}
 A numerical-shift record asks: ``How did Caitlin Clark's WNBA debut influence league attendance in 2024?'' The original answer-causal claim is that the debut led to a 48\% increase in overall league attendance. The perturber changes the value to 35\%, producing a passage that says the league saw a 35\% jump while preserving the rest of the passage. A faithful generator reading only the perturbed passage should answer with 35\%, but that answer is false relative to the original passage.
@@ -78,7 +77,7 @@ A relation-inversion record is more semantically disruptive. The original Zantac
 
 \subsection{Validation and Diagnostic Records}
 
-Each perturbation is validated by an LLM validation pass plus deterministic leakage checks. The five gates are type validity, answer causality, global context consistency, no original-answer leakage, and original contradicts perturbed. The final evaluation pool has 300 unique core records selected from perturbations proposed by GPT, Grok, and Gemini perturbers: 83, 92, and 125 selected records, respectively. Of these, 275 pass all five gates and 25 are failed-validation diagnostic records. We use the 275 validated records for every main result and report the 25 diagnostics only as a sensitivity analysis. Figure~\ref{fig:data-composition} shows that diagnostics are concentrated by count in entity and numerical records, with larger diagnostic shares in the smaller location and ranking strata.
+Each perturbation is validated by an LLM validation pass plus deterministic leakage checks; Figure~\ref{fig:perturb-validate} shows the five-gate flow. The five gates are type validity, answer causality, global context consistency, no original-answer leakage, and original contradicts perturbed. The final evaluation pool has 300 unique core records selected from perturbations proposed by GPT, Grok, and Gemini perturbers: 83, 92, and 125 selected records, respectively. Of these, 275 pass all five gates and 25 are failed-validation diagnostic records. We use the 275 validated records for every main result and report the 25 diagnostics only as a sensitivity analysis. Figure~\ref{fig:data-composition} shows that diagnostics are concentrated by count in entity and numerical records, with larger diagnostic shares in the smaller location and ranking strata.
 
 \section{Generation, Labels, and Judging}
 
@@ -217,7 +216,7 @@ Gemini & +6.0 [+2.9,+9.6] & -1.6 [-4.7,+1.6] & +2.6 [+0.2,+5.0] \\
 
 \subsection{Generator Behavior Explains the Matrix}
 
-Table~\ref{tab:behavior-stratified} stratifies judge outcomes by generator behavior. Here TP/FP/FN/TN are computed against the induced-error adoption label: TP = adopted and flagged, FP = avoided but flagged, FN = adopted but not flagged, and TN = avoided and not flagged. Recall is concentrated in context-following answers: 1,025 of 1,139 true positives come from context-follow outputs. Apparent false positives are concentrated in conflict-aware and refusal/insufficient answers: 176 of 209 come from those two behavior classes. Memory override provides a useful control: when the generator uses the original value, judges almost never flag an error.
+Table~\ref{tab:behavior-stratified} stratifies judge outcomes by generator behavior. Here TP/FP/FN/TN are computed against the induced-error adoption label: TP = adopted and flagged, FP = avoided but flagged, FN = adopted but unflagged, and TN = avoided and unflagged. Recall is concentrated in context-following answers: 1,025 of 1,139 true positives. Apparent false positives concentrate in conflict-aware and refusal/insufficient answers: 176 of 209. Memory override is a useful control: when the generator uses the original value, judges almost never flag an error.
 
 \begin{table*}[t]
 \centering
@@ -268,9 +267,9 @@ We reviewed a targeted behavior-by-cell queue, capped at 12 cases per populated 
 \end{minipage}}
 \end{center}
 
-This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The boxed SEC/FASB case shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes.
+This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The boxed SEC/FASB case shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes. Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP. Table~\ref{tab:audit-summary} summarizes the reviewed cases.
 
-\begin{table}[H]
+\noindent\begin{minipage}{\linewidth}
 \centering
 \scriptsize
 \begin{tabularx}{\linewidth}{@{}L{1.35cm}rL{1.75cm}Y@{}}
@@ -283,13 +282,12 @@ TP & 23 & 21 genuine TP & recall labels mostly valid \\
 FN & 9 & 6 genuine misses & some adoption labels too broad \\
 \bottomrule
 \end{tabularx}
-\caption{Human evaluation summary. Rule-of-three upper bounds are about 12\% for genuine false alarms among reviewed apparent FPs and about 10\% for missed errors among reviewed TNs.}
+\captionsetup{hypcap=false,skip=2pt}
+\captionof{table}{Human evaluation summary. Rule-of-three upper bounds are about 12\% for genuine false alarms among reviewed apparent FPs and about 10\% for missed errors among reviewed TNs.}
 \label{tab:audit-summary}
-\end{table}
+\end{minipage}
+\vspace{-1.2\baselineskip}
 
-Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP.
-
-\vspace{-0.9\baselineskip}
 \subsection{Localization Remains Strong}
 
 For downstream debugging, a judge is more useful when it points to the contradicted source. Figure~\ref{fig:localization} summarizes full-set localization metrics; Appendix~\ref{app:localization-table} gives cell-level values. When judges flag an error, their supporting passage lies in the known modified passage set 94.0--98.5\% of the time. Wrong-claim strings contain the replacement value 71.0--83.6\% of the time, reflecting paraphrase rather than passage-localization failure.
