@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782791486.52682 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782791487.29098 0
+["pdflatex"] 1782791818.10202 "acl_submission.tex" "acl_submission.pdf" "acl_submission" 1782791818.79713 0
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-0.enc" 1558214095 7631 5169ff1acd97ff1c4ab83563c99f96f4 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -156,8 +156,8 @@
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1774209607 3636776 dc5fa9b6b1453b9d196cd42edf876004 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
   "acl.sty" 1782687377.12089 5314 a1978b126561b0baf473838ba949b463 ""
-  "acl_submission.aux" 1782791487.2277 35556 e4f72b707ba9f4d6b07a087ef4d11d63 "pdflatex"
-  "acl_submission.out" 1782791487.22902 4690 0927b0e2edec5f1c1ad7cd18e271a571 "pdflatex"
+  "acl_submission.aux" 1782791818.73354 35491 8ad7e213604ddf4468fd9a7fd36e982e "pdflatex"
+  "acl_submission.out" 1782791818.73489 4690 0927b0e2edec5f1c1ad7cd18e271a571 "pdflatex"
   "acl_submission.tex" 1782780774.42739 1179 11e0d66524671efb506c113421664041 ""
   "appendix_content.tex" 1782790813.01835 25919 e67f7241d2e32f2abedc65337f6ce677 ""
   "figures/generator_self_affinity.pdf" 1782716328.60217 13612 0199a7bbdf137ec2612f2a6d7b86ed6a ""
@@ -170,7 +170,7 @@
   "figures/two_layer_gold.pdf" 1782717224.62997 60927 ab5a957ebd80b7124bfc669acc012e37 ""
   "figures/type_mix_by_validation.pdf" 1782774541.82035 13184 f8972e0be6ba2b3eb2fe852feedc5e28 ""
   "figures/validated_vs_gap.pdf" 1782716329.11944 12659 405c830f93a64ed358f780760939cacd ""
-  "main_body.tex" 1782791481.25248 37102 e41dd9ff4f311037a7664bf48fafa6b4 ""
+  "main_body.tex" 1782791811.80148 36844 be09c35a3369e0fee936df87e3a72c5c ""
   "references.tex" 1782694859.63233 6684 e4653a7455faa45a1158275b14586002 ""
   "tables/behavior_paired_sensitivity.tex" 1782790533.72447 1053 9da736489cccbc5080918ea96c6f3e5d ""
   (generated)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 20:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  29 JUN 2026 20:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -922,13 +922,13 @@ Package rerunfilecheck Info: File `arxiv_preprint.out' has not changed.
 (rerunfilecheck)             Checksum: 0927B0E2EDEC5F1C1AD7CD18E271A571;4690.
  ) 
 Here is how much of TeX's memory you used:
- 18548 strings out of 467525
- 291573 string characters out of 5418982
+ 18545 strings out of 467525
+ 291546 string characters out of 5418982
  860451 words of memory out of 5000000
  46648 multiletter control sequences out of 15000+600000
- 690049 words of font info for 361 fonts, out of 8000000 for 9000
+ 689919 words of font info for 359 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,17n,93p,2102b,1130s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,17n,93p,1844b,1130s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/inconsolata/Inconsolat
 a-zi4r.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mex10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cm
@@ -944,7 +944,7 @@ cal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loca
 l/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/
 2026/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf
 -dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on arxiv_preprint.pdf (15 pages, 511695 bytes).
+Output written on arxiv_preprint.pdf (15 pages, 511460 bytes).
 PDF statistics:
  601 PDF objects out of 1000 (max. 8388607)
  496 compressed objects within 5 object streams
