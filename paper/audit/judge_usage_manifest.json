@@ -1,0 +1,16 @@
+{
+  "description": "Usage-only projection of all nine production judge traces, including failures. Prompts, responses and exception bodies are omitted; error is a boolean. No token values are imputed.",
+  "events": 2688,
+  "ledger_sha256": "a4e9abaa10933d1a9ebc69dc9b13dd80656b6b1c987a4a23dfc108ec44af38ae",
+  "trace_sha256": {
+    "20260531-175601-judge-gpt-on-gpt": "e6e868c788832599466dd9f00605cca6bfc23ff886ac6c61b61972e3bef19e2f",
+    "20260531-175608-judge-grok-on-gpt": "dd4e2ffc44cfc1facb8b28772a4eabf4a94ce5b70480eb3317027e240d9ba385",
+    "20260531-175617-judge-gemini-on-gpt": "62c316cdfd51031f958d72ca374a71431c2ca119fe2d64c62d3711c5101f9630",
+    "20260531-212107-judge-gpt-on-grok": "d2110d47cd15a3c1406fb70cab56522c6a97a39af286b983b71bba9e33bce979",
+    "20260531-212120-judge-gemini-on-grok": "403cce34d372958cd1e3254bcc36917dea7acb0f7d8c6429730f23b7c0836080",
+    "20260531-212359-judge-grok-on-grok": "3296d0928d0c0026fb3df4c92c3a55f576ccf15a810664fb58128175da2aa859",
+    "20260531-230842-judge-gpt-on-gemini": "50266066b4f3ce5e2fb4c0d448c691b98ac1c701872f2569b1e78220bc726772",
+    "20260531-230848-judge-grok-on-gemini": "56d5dd2bf7274edbc100eec978af3937ff55615c0e08454f53de37e0815f0621",
+    "20260531-230857-judge-gemini-on-gemini": "c2c398c2c6dc85bc4ab34515394609cf6d10a26c30d8696554b1dc612d4df710"
+  }
+}

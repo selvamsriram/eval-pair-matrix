@@ -1,0 +1,84 @@
+{
+  "eval-pair-matrix-camera-ready.pdf": {
+    "pages": 16,
+    "sha256": "b5fa264c2c93f786dd540b00dd86e967a1da2a556290dce0fc875100e7858067",
+    "a4": true,
+    "fonts_embedded": true,
+    "type3_fonts": false,
+    "metadata": {
+      "/Producer": "pdfTeX-1.40.29",
+      "/Author": "Sriram Selvam; Anneswa Ghosh",
+      "/Title": "Eval-Pair Matrix: Answer-Paired Meta-Evaluation of LLM Judges for Grounded RAG",
+      "/Subject": "",
+      "/Creator": "LaTeX with hyperref",
+      "/Keywords": "",
+      "/CreationDate": "D:20260912161525-07'00'",
+      "/ModDate": "D:20260912161525-07'00'",
+      "/Trapped": "/False",
+      "/PTEX.Fullbanner": "This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) kpathsea version 6.4.2"
+    },
+    "external_links": 59,
+    "main_text_pages": 8
+  },
+  "eval-pair-matrix-all-changes.pdf": {
+    "pages": 16,
+    "sha256": "cef7f6a33c65efe40ea46d50dcf38b17c7a07968570c2b87e5fa2b6b890e1cbd",
+    "a4": true,
+    "fonts_embedded": true,
+    "type3_fonts": false,
+    "metadata": {
+      "/Producer": "pdfTeX-1.40.29",
+      "/Author": "Sriram Selvam; Anneswa Ghosh",
+      "/Title": "Eval-Pair Matrix: Answer-Paired Meta-Evaluation of LLM Judges for Grounded RAG",
+      "/Subject": "",
+      "/Creator": "LaTeX with hyperref",
+      "/Keywords": "",
+      "/CreationDate": "D:20260912161525-07'00'",
+      "/ModDate": "D:20260912161525-07'00'",
+      "/Trapped": "/False",
+      "/PTEX.Fullbanner": "This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) kpathsea version 6.4.2"
+    },
+    "presentation": "Final camera-ready pages with yellow highlights only",
+    "glyph_positions_identical_to_clean": true,
+    "text_identical_to_clean": true
+  },
+  "checks": {
+    "original_submission_preserved": true,
+    "paired_report_reproduced": true,
+    "behavior_report_reproduced": true,
+    "sensitivity_json_equal": true,
+    "human_queue_reproduced": true,
+    "portable_cost_matches_raw": true,
+    "source_package_build_matches_clean_text": true,
+    "reproducibility_package_paired_result_matches": true,
+    "reproducibility_package_cost_matches": true,
+    "zip_member_hashes_verified": true,
+    "clean_and_comparison_visual_inspection": true,
+    "acl_pubcheck": "All Clear!",
+    "targeted_corrections_applied": 8,
+    "abstract_endpoint_qualifier_explicitly_authorized": true,
+    "raw_label_counts_verified": {
+      "slots": 900,
+      "nonempty_answers": 896,
+      "labeled_slots": 897,
+      "empty_generation_labels": 4,
+      "unlabeled_nonempty_answers": 3
+    },
+    "primary_table_label_export_verified": true,
+    "paired_estimates_unchanged": true
+  },
+  "packages": [
+    {
+      "file": "eval-pair-matrix-camera-ready-source.zip",
+      "files": 22,
+      "bytes": 545700,
+      "sha256": "b06f7580f9802df5bee8d200c0fdedeff15bacb728f0f4c8d26f871f9c817dc6"
+    },
+    {
+      "file": "eval-pair-matrix-reproducibility.zip",
+      "files": 93,
+      "bytes": 19466697,
+      "sha256": "6dbfbc65657aa99c1717caa7e6086d9209c3de227237f8053a8c1fd0ae5db2c9"
+    }
+  ]
+}

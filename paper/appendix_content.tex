@@ -299,7 +299,7 @@ TN & no & no & Answer avoided the induced claim and judge did not flag an error.
 \subsection{Human Evaluation Codebook}
 \label{app:audit-codebook}
 
-The targeted human evaluation records two judgments per case. The first checks whether the automatic induced-error adoption label is correct. The second asks whether the judge's flag/no-flag decision is correct against the original passages under a strict source-grounding stance. We adjudicated the first 88 completed cases in a shuffled, seed-fixed review queue before submission; all sampling strata and unreviewed cases are retained in the released queue. Because the audit is targeted rather than prevalence-estimating, it diagnoses the apparent-FP mechanism rather than estimating a population false-alarm rate.
+The targeted human evaluation records two judgments per case. The first checks whether the automatic induced-error adoption label is correct. The second asks whether the judge's flag/no-flag decision is correct against the original passages under a strict source-grounding stance. We completed 88 of 153 judge-verdict cases from a seed-fixed, stratified queue, covering 79 distinct answers from 70 records; all sampling strata and unreviewed cases are retained in the released queue. The 25 apparent-FP cases cover 25 answers from 22 records. This targeted audit characterizes source errors and label issues in the reviewed cases rather than estimating a population false-alarm rate.
 
 \begin{table}[H]
 \centering
@@ -501,3 +501,29 @@ Gemini & Gen=GPT 95.3; Gen=Grok 95.5; Gen=Gemini 97.3 & Gen=GPT 76.8; Gen=Grok 7
 Paired tables use seed 20260627 and 10,000 cluster-bootstrap replicates by core ID.
 Checks verify 300 records, 275 validated records, 897 labeled outputs, and 2,683 judge verdicts.
 \end{sloppypar}
+
+\subsection{Computational Cost}
+\label{app:computational-cost}
+
+Table~\ref{tab:judge-cost} summarizes the nine production judge runs on the full 300-record pool. The 2,688 logged calls produced 2,683 verdicts and five failures. Input/output columns report recorded token counts; call time sums all event latencies (including failures), rather than elapsed wall-clock time.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr@{}}
+\toprule
+Judge & Calls & Verdicts & Input & Output & Hours \\
+\midrule
+GPT & 896 & 892 & 1,854,434 & 106,135 & 0.628 \\
+Grok & 896 & 895 & 1,842,371 & 105,026 & 2.833 \\
+Gemini & 896 & 896 & 1,930,153 & 97,020 & 1.422 \\
+\midrule
+Total & 2,688 & 2,683 & 5,626,958 & 308,181 & 4.883 \\
+\bottomrule
+\end{tabular*}
+\caption{Recorded usage for the full judge matrix.}
+\label{tab:judge-cost}
+\end{table}
+
+These totals cover judging only. Generation and one adoption-labeling pass each scale as $NK$; benchmark construction is additional. Calls are application-level events, so provider-internal retries are not separately counted. Token totals exclude unrecorded failed-call and retry usage and Gemini thinking tokens. The totals are reproduced by \texttt{audit/judge\_cost.py}.
+

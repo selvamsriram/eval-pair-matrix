@@ -566,7 +566,7 @@ def paired_effects_tex():
     lines.append(r"\toprule")
     lines.append(r"Contrast & Recall $\Delta$ & FPR $\Delta$ & Flag-rate $\Delta$ \\")
     lines.append(r"\midrule")
-    lines.append(r"\multicolumn{4}{l}{\emph{Confirmatory}} \\")
+    lines.append(r"\multicolumn{4}{l}{\emph{Primary}} \\")
     lines.append(
         " & ".join(["Global (same vs cross)", ci_str(v["recall_delta"]), ci_str(v["fpr_delta"]), ci_str(v["flag_rate_delta"])]) + r" \\"
     )

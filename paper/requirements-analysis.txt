@@ -1,0 +1,2 @@
+# Version used for the final saved-data reproduction checks.
+numpy==2.3.5

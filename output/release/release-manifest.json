@@ -1,0 +1,14 @@
+[
+  {
+    "file": "eval-pair-matrix-camera-ready-source.zip",
+    "files": 22,
+    "bytes": 545700,
+    "sha256": "b06f7580f9802df5bee8d200c0fdedeff15bacb728f0f4c8d26f871f9c817dc6"
+  },
+  {
+    "file": "eval-pair-matrix-reproducibility.zip",
+    "files": 93,
+    "bytes": 19466697,
+    "sha256": "6dbfbc65657aa99c1717caa7e6086d9209c3de227237f8053a8c1fd0ae5db2c9"
+  }
+]

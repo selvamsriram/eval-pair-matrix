@@ -1,20 +1,44 @@
-# perturb
+# Eval-Pair Matrix
 
-CLI + viewer for building **memory-conflict RAG** evaluation data on top of the
-[GaRAGe](https://huggingface.co/datasets/AmazonScience/GaRAGe) dataset. Given a
-question, its human-written answer, and the grounding passages it cites, the
-pipeline picks one answer-causal fact and produces a globally consistent
-perturbation across every passage that mentions it — yielding paired
-`(original_grounding, perturbed_grounding)` records for downstream generator /
-judge experiments.
+Artifact for **Eval-Pair Matrix: Answer-Paired Meta-Evaluation of LLM Judges for
+Grounded RAG**, by Sriram Selvam and Anneswa Ghosh (Independent Researchers).
 
-Three-step pipeline: **`filter → perturb → validate`**, each writing its own
-JSONL to a per-run directory under `data/runs/`. Every LLM call is traced
-(prompt + raw response + parsed JSON + tokens + latency) into
-`data/traces/<run_id>/`. A web trace viewer (`perturb viewer`) tails these
-files live via SSE.
+The experiment uses the frozen **`data/exp/3provider_300.jsonl`** pool: 300 records,
+275 validated and 25 diagnostics, with 83 GPT / 92 Grok / 125 Gemini selected
+perturbations. Three generators and three judges produce a crossed matrix of
+2,683 verdicts. The primary comparison pairs matching and nonmatching judges on
+the same answer. The aggregate recall contrast is −0.5 percentage points; the
+exploratory generator-specific estimates differ in direction. The −4.3-point
+avoided-claim flagging contrast is not a false-alarm-rate estimate. The targeted
+human audit characterizes errors and labels in the reviewed cases.
 
-Research motivation is in [PROPOSAL.md](PROPOSAL.md).
+## Paper and reproducibility
+
+- [Paper sources and build](paper/README.md)
+- [Reproduce the published analyses](paper/REPRODUCIBILITY.md)
+- [Final production checks](paper/CAMERA_READY_STATUS.md)
+- [Human audit inputs and interpretation](paper/audit/README.md)
+
+```bash
+# Build the official ACL camera-ready PDF (requires pdfLaTeX and Python 3).
+bash paper/build_camera_ready.sh
+
+# Reproduce saved-data analyses; these commands make no model calls.
+python3 -m pip install -r paper/requirements-analysis.txt
+python3 paper/audit/paired_audit.py
+python3 paper/audit/behavior_stratified.py
+python3 paper/behavior_paired_sensitivity.py
+python3 paper/audit/judge_cost.py
+```
+
+The implementation contains filtering, perturbation, validation, generation,
+answer-label evaluation, and crossed judging. The CLI remains named `perturb`.
+Prompts and schemas are in `src/perturb/`; raw run paths for the reported
+experiment are recorded in `paper/audit/paired_audit_report.json`.
+
+The remaining sections document CLI usage and earlier data-building examples.
+The older `exp-300-perturbed` 100/100/100 pool is historical; it is not the pool
+used in the final paper. `PROPOSAL.md` records the original research plan.
 
 ---
 
@@ -238,7 +262,7 @@ perturb models
 
 ---
 
-## End-to-end recipe (the canonical flow)
+## Example recipe for a new perturbation run
 
 ```bash
 # 1. one-time: pull data + freeze the experimental set
@@ -262,7 +286,7 @@ perturb pipeline --run "$RUN" --source data/exp/exp-300.jsonl \
   --take 100 --offset 200 --model gemini --resume
 ```
 
-**Non-colliding cross-model slicing** (what we did to produce the committed 300):
+**Historical disjoint-slice example** (not the final paper pool):
 
 ```bash
 # slice [0:100]   with GPT-5.4
@@ -337,10 +361,10 @@ runs are `git add -f`'d when worth preserving (see Production datasets below).
 
 ---
 
-## Production datasets (committed)
+## Historical first production datasets
 
-Three perturber models over disjoint slices of `exp-300`, producing the full
-300-record paired benchmark. Records carry `generators[step]` so they merge
+These earlier runs used three perturbers over disjoint slices of `exp-300`.
+The final paper instead uses `3provider_300`, described above. Records carry `generators[step]` so they merge
 cleanly into one analysis.
 
 | Slice | Perturber | Run id | Validation pass | Notes |
@@ -460,12 +484,10 @@ entry, expandable rewritten text) · **Validation** (5 gates + reasons) ·
 - **Validator sees only modified passages.** It can't catch a passage the
   perturber *missed* sending. The deterministic backstop covers literal
   leakage, not paraphrased mentions.
-- **No generator / judge tracks yet.** Phase 2 work is planned: two new steps
-  (`generate` and `judge`) extending `STEP_ORDER`, with provider matrix
-  dispatch driven by `--generators` / `--judges` flag lists. See the
-  schemas planned in [PROPOSAL.md](PROPOSAL.md) §9–13. Same trace + viewer
-  infrastructure carries over without changes (`TraceWriter` is step-name
-  agnostic; new step traces auto-appear under per-record "Traces" tab).
+- **Generator, label-evaluator, and judge steps are implemented.** See
+  `src/perturb/steps/generate.py`, `label_eval.py`, and `judge.py`.
+  The saved production matrix and its run inventory are documented in
+  [paper/REPRODUCIBILITY.md](paper/REPRODUCIBILITY.md).
 
 ---
 

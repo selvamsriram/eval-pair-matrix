@@ -1,0 +1,532 @@
+{
+  "checked_on": "2026-09-12",
+  "purpose": "GroundLM regular-track camera-ready reference existence/title/author check",
+  "entries": [
+    {
+      "key": "bao2024faithbench",
+      "title": "FaithBench: A diverse hallucination benchmark for summarization by modern LLMs",
+      "authors": "Forrest Sheng Bao, Miaoran Li, Renyi Qu, Ge Luo, Erana Wan, Yujia Tang, Weisi Fan, Manveer Singh Tamber, Suleman Kazi, Vivek Sourabh, Mike Qi, Ruixuan Tu, Chenyu Xu, Matthew Gonzales, Ofer Mendelevitch, and Amin Ahmad. 2024.",
+      "url": "https://arxiv.org/abs/2410.13210",
+      "primary_title": [
+        "FaithBench: A Diverse Hallucination Benchmark for Summarization by Modern LLMs"
+      ],
+      "primary_authors": [
+        "Bao, Forrest Sheng",
+        "Li, Miaoran",
+        "Qu, Renyi",
+        "Luo, Ge",
+        "Wan, Erana",
+        "Tang, Yujia",
+        "Fan, Weisi",
+        "Tamber, Manveer Singh",
+        "Kazi, Suleman",
+        "Sourabh, Vivek",
+        "Qi, Mike",
+        "Tu, Ruixuan",
+        "Xu, Chenyu",
+        "Gonzales, Matthew",
+        "Mendelevitch, Ofer",
+        "Ahmad, Amin"
+      ],
+      "primary_date": [
+        "2024/10/17"
+      ],
+      "error": null
+    },
+    {
+      "key": "chen2025surface",
+      "title": "Beyond the Surface: Measuring Self-Preference in LLM Judgments",
+      "authors": "Zhi-Yuan Chen, Hao Wang, Xinyu Zhang, Enrui Hu, and Yankai Lin. 2025.",
+      "url": "https://aclanthology.org/2025.emnlp-main.86/",
+      "primary_title": [
+        "Beyond the Surface: Measuring Self-Preference in LLM Judgments"
+      ],
+      "primary_authors": [
+        "Zhi-Yuan Chen",
+        "Hao Wang",
+        "Xinyu Zhang",
+        "Enrui Hu",
+        "Yankai Lin (林衍凯)"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "chen2025factrag",
+      "title": "LLMs are Biased Evaluators But Not Biased for Fact-Centric Retrieval Augmented Generation",
+      "authors": "Yen-Shan Chen, Jing Jin, Peng-Ting Kuo, Chao-Wei Huang, and Yun-Nung Chen. 2025.",
+      "url": "https://aclanthology.org/2025.findings-acl.1369/",
+      "primary_title": [
+        "LLMs are Biased Evaluators But Not Biased for Fact-Centric Retrieval Augmented Generation"
+      ],
+      "primary_authors": [
+        "Yen-Shan Chen",
+        "Jing Jin",
+        "Peng-Ting Kuo",
+        "Chao-Wei Huang",
+        "Yun-Nung Chen"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "coman2025ragferee",
+      "title": "RAGferee: Building Contextual Reward Models for Retrieval-Augmented Generation",
+      "authors": "Andrei C. Coman, Ionut-Teodor Sorodoc, Leonardo F. R. Ribeiro, Bill Byrne, James Henderson, and Adrià de Gispert. 2025.",
+      "url": "https://arxiv.org/abs/2509.26011",
+      "primary_title": [
+        "RAGferee: Building Contextual Reward Models for Retrieval-Augmented Generation"
+      ],
+      "primary_authors": [
+        "Coman, Andrei C.",
+        "Sorodoc, Ionut-Teodor",
+        "Ribeiro, Leonardo F. R.",
+        "Byrne, Bill",
+        "Henderson, James",
+        "de Gispert, Adrià"
+      ],
+      "primary_date": [
+        "2025/09/30"
+      ],
+      "error": null
+    },
+    {
+      "key": "dubois2024length",
+      "title": "Length-controlled AlpacaEval: A simple way to debias automatic evaluators",
+      "authors": "Yann Dubois, Balázs Galambosi, Percy Liang, and Tatsunori B. Hashimoto. 2024.",
+      "url": "https://arxiv.org/abs/2404.04475",
+      "primary_title": [
+        "Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators"
+      ],
+      "primary_authors": [
+        "Dubois, Yann",
+        "Galambosi, Balázs",
+        "Liang, Percy",
+        "Hashimoto, Tatsunori B."
+      ],
+      "primary_date": [
+        "2024/04/06"
+      ],
+      "error": null
+    },
+    {
+      "key": "es2023ragas",
+      "title": "RAGAS: Automated evaluation of retrieval augmented generation",
+      "authors": "Shahul Es, Jithin James, Luis Espinosa-Anke, and Steven Schockaert. 2023.",
+      "url": "https://arxiv.org/abs/2309.15217",
+      "primary_title": [
+        "Ragas: Automated Evaluation of Retrieval Augmented Generation"
+      ],
+      "primary_authors": [
+        "Es, Shahul",
+        "James, Jithin",
+        "Espinosa-Anke, Luis",
+        "Schockaert, Steven"
+      ],
+      "primary_date": [
+        "2023/09/26"
+      ],
+      "error": null
+    },
+    {
+      "key": "gao2023alce",
+      "title": "Enabling Large Language Models to Generate Text with Citations",
+      "authors": "Tianyu Gao, Howard Yen, Jiatong Yu, and Danqi Chen. 2023.",
+      "url": "https://aclanthology.org/2023.emnlp-main.398/",
+      "primary_title": [
+        "Enabling Large Language Models to Generate Text with Citations"
+      ],
+      "primary_authors": [
+        "Tianyu Gao",
+        "Howard Yen",
+        "Jiatong Yu",
+        "Danqi Chen"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "honovich2022true",
+      "title": "TRUE: Re-evaluating Factual Consistency Evaluation",
+      "authors": "Or Honovich, Roee Aharoni, Jonathan Herzig, Hagai Taitelbaum, Doron Kukliansy, Vered Cohen, Thomas Scialom, Idan Szpektor, Avinatan Hassidim, and Yossi Matias. 2022.",
+      "url": "https://aclanthology.org/2022.naacl-main.287/",
+      "primary_title": [
+        "TRUE: Re-evaluating Factual Consistency Evaluation"
+      ],
+      "primary_authors": [
+        "Or Honovich",
+        "Roee Aharoni",
+        "Jonathan Herzig",
+        "Hagai Taitelbaum",
+        "Doron Kukliansy",
+        "Vered Cohen",
+        "Thomas Scialom",
+        "Idan Szpektor",
+        "Avinatan Hassidim",
+        "Yossi Matias"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "kim2023prometheus",
+      "title": "Prometheus: Inducing fine-grained evaluation capability in language models",
+      "authors": "Seungone Kim, Jamin Shin, Yejin Cho, Joel Jang, Shayne Longpre, Hwaran Lee, Sangdoo Yun, Seongjin Shin, Sungdong Kim, James Thorne, and Minjoon Seo. 2023.",
+      "url": "https://arxiv.org/abs/2310.08491",
+      "primary_title": [
+        "Prometheus: Inducing Fine-grained Evaluation Capability in Language Models"
+      ],
+      "primary_authors": [
+        "Kim, Seungone",
+        "Shin, Jamin",
+        "Cho, Yejin",
+        "Jang, Joel",
+        "Longpre, Shayne",
+        "Lee, Hwaran",
+        "Yun, Sangdoo",
+        "Shin, Seongjin",
+        "Kim, Sungdong",
+        "Thorne, James",
+        "Seo, Minjoon"
+      ],
+      "primary_date": [
+        "2023/10/12"
+      ],
+      "error": null
+    },
+    {
+      "key": "lewis2020rag",
+      "title": "Retrieval-augmented generation for knowledge-intensive NLP tasks",
+      "authors": "Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Küttler, Mike Lewis, Wen-tau Yih, Tim Rocktäschel, Sebastian Riedel, and Douwe Kiela. 2020.",
+      "url": "https://proceedings.neurips.cc/paper/2020/hash/6b493230-Abstract.html",
+      "primary_title": [
+        "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+      ],
+      "primary_authors": [
+        "Lewis, Patrick",
+        "Perez, Ethan",
+        "Piktus, Aleksandra",
+        "Petroni, Fabio",
+        "Karpukhin, Vladimir",
+        "Goyal, Naman",
+        "Küttler, Heinrich",
+        "Lewis, Mike",
+        "Yih, Wen-tau",
+        "Rocktäschel, Tim",
+        "Riedel, Sebastian",
+        "Kiela, Douwe"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "liu2023geval",
+      "title": "G-Eval: NLG evaluation using GPT-4 with better human alignment",
+      "authors": "Yang Liu, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu. 2023.",
+      "url": "https://arxiv.org/abs/2303.16634",
+      "primary_title": [
+        "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment"
+      ],
+      "primary_authors": [
+        "Liu, Yang",
+        "Iter, Dan",
+        "Xu, Yichong",
+        "Wang, Shuohang",
+        "Xu, Ruochen",
+        "Zhu, Chenguang"
+      ],
+      "primary_date": [
+        "2023/03/29"
+      ],
+      "error": null
+    },
+    {
+      "key": "liu2024narcissistic",
+      "title": "LLMs as narcissistic evaluators: When ego inflates evaluation scores",
+      "authors": "Yiqi Liu, Nafise Sadat Moosavi, and Chenghua Lin. 2024.",
+      "url": "https://aclanthology.org/2024.findings-acl.753/",
+      "primary_title": [
+        "LLMs as Narcissistic Evaluators: When Ego Inflates Evaluation Scores"
+      ],
+      "primary_authors": [
+        "Yiqi Liu",
+        "Nafise Sadat Moosavi",
+        "Chenghua Lin"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "min2023factscore",
+      "title": "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",
+      "authors": "Sewon Min, Kalpesh Krishna, Xinxi Lyu, Mike Lewis, Wen-tau Yih, Pang Koh, Mohit Iyyer, Luke Zettlemoyer, and Hannaneh Hajishirzi. 2023.",
+      "url": "https://aclanthology.org/2023.emnlp-main.741/",
+      "primary_title": [
+        "FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation"
+      ],
+      "primary_authors": [
+        "Sewon Min",
+        "Kalpesh Krishna",
+        "Xinxi Lyu",
+        "Mike Lewis",
+        "Wen-tau Yih",
+        "Pang Koh",
+        "Mohit Iyyer",
+        "Luke Zettlemoyer",
+        "Hannaneh Hajishirzi"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "niu2023ragtruth",
+      "title": "RAGTruth: A hallucination corpus for developing trustworthy retrieval-augmented language models",
+      "authors": "Cheng Niu, Yuanhao Wu, Juno Zhu, Siliang Xu, Kashun Shum, Randy Zhong, Juntong Song, and Tong Zhang. 2024.",
+      "url": "https://arxiv.org/abs/2401.00396",
+      "primary_title": [
+        "RAGTruth: A Hallucination Corpus for Developing Trustworthy Retrieval-Augmented Language Models"
+      ],
+      "primary_authors": [
+        "Niu, Cheng",
+        "Wu, Yuanhao",
+        "Zhu, Juno",
+        "Xu, Siliang",
+        "Shum, Kashun",
+        "Zhong, Randy",
+        "Song, Juntong",
+        "Zhang, Tong"
+      ],
+      "primary_date": [
+        "2023/12/31"
+      ],
+      "error": null
+    },
+    {
+      "key": "rashkin2023attribution",
+      "title": "Measuring Attribution in Natural Language Generation Models",
+      "authors": "Hannah Rashkin, Vitaly Nikolaev, Matthew Lamm, Lora Aroyo, Michael Collins, Dipanjan Das, Slav Petrov, Gaurav Singh Tomar, Iulia Turc, and David Reitter. 2023.",
+      "url": "https://aclanthology.org/2023.cl-4.2/",
+      "primary_title": [
+        "Measuring Attribution in Natural Language Generation Models"
+      ],
+      "primary_authors": [
+        "Hannah Rashkin",
+        "Vitaly Nikolaev",
+        "Matthew Lamm",
+        "Lora Aroyo",
+        "Michael Collins",
+        "Dipanjan Das",
+        "Slav Petrov",
+        "Gaurav Singh Tomar",
+        "Iulia Turc",
+        "David Reitter"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "saadfalcon2023ares",
+      "title": "ARES: An automated evaluation framework for retrieval-augmented generation systems",
+      "authors": "Jon Saad-Falcon, Omar Khattab, Christopher Potts, and Matei Zaharia. 2023.",
+      "url": "https://arxiv.org/abs/2311.09476",
+      "primary_title": [
+        "ARES: An Automated Evaluation Framework for Retrieval-Augmented Generation Systems"
+      ],
+      "primary_authors": [
+        "Saad-Falcon, Jon",
+        "Khattab, Omar",
+        "Potts, Christopher",
+        "Zaharia, Matei"
+      ],
+      "primary_date": [
+        "2023/11/16"
+      ],
+      "error": null
+    },
+    {
+      "key": "shi2024position",
+      "title": "Judging the judges: A systematic study of position bias in LLM-as-a-judge",
+      "authors": "Lin Shi, Chiyu Ma, Wenhua Liang, Weicheng Ma, and Soroush Vosoughi. 2024.",
+      "url": "https://arxiv.org/abs/2406.07791",
+      "primary_title": [
+        "Judging the Judges: A Systematic Study of Position Bias in LLM-as-a-Judge"
+      ],
+      "primary_authors": [
+        "Shi, Lin",
+        "Ma, Chiyu",
+        "Liang, Wenhua",
+        "Diao, Xingjian",
+        "Ma, Weicheng",
+        "Vosoughi, Soroush"
+      ],
+      "primary_date": [
+        "2024/06/12"
+      ],
+      "error": null
+    },
+    {
+      "key": "sorodoc2025garage",
+      "title": "GaRAGe: A Benchmark with Grounding Annotations for RAG Evaluation",
+      "authors": "Ionut Teodor Sorodoc, Leonardo F. R. Ribeiro, Rexhina Blloshmi, Christopher Davis, and Adrià de Gispert. 2025.",
+      "url": "https://aclanthology.org/2025.findings-acl.875/",
+      "primary_title": [
+        "GaRAGe: A Benchmark with Grounding Annotations for RAG Evaluation"
+      ],
+      "primary_authors": [
+        "Ionut Sorodoc",
+        "Leonardo F. R. Ribeiro",
+        "Rexhina Blloshmi",
+        "Christopher Davis",
+        "Adrià de Gispert"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "spiliopoulou2025playfavorites",
+      "title": "Play favorites: A statistical method to measure self-bias in LLM-as-a-judge",
+      "authors": "Evangelia Spiliopoulou, Riccardo Fogliato, Hanna Burnsky, Tamer Soliman, Jie Ma, Graham Horwood, and Miguel Ballesteros. 2025.",
+      "url": "https://arxiv.org/abs/2508.06709",
+      "primary_title": [
+        "Play Favorites: A Statistical Method to Measure Self-Bias in LLM-as-a-Judge"
+      ],
+      "primary_authors": [
+        "Spiliopoulou, Evangelia",
+        "Fogliato, Riccardo",
+        "Burnsky, Hanna",
+        "Soliman, Tamer",
+        "Ma, Jie",
+        "Horwood, Graham",
+        "Ballesteros, Miguel"
+      ],
+      "primary_date": [
+        "2025/08/08"
+      ],
+      "error": null
+    },
+    {
+      "key": "wang2026reflect",
+      "title": "Time to REFLECT: Can We Trust LLM Judges for Evidence-based Research Agents?",
+      "authors": "Leyao Wang, Yanan He, Peng Chen, Asaf Yehudai, Yixin Liu, Rex Ying, Michal Shmueli-Scheuer, and Arman Cohan. 2026.",
+      "url": "https://arxiv.org/abs/2605.19196",
+      "primary_title": [
+        "Time to REFLECT: Can We Trust LLM Judges for Evidence-based Research Agents?"
+      ],
+      "primary_authors": [
+        "Wang, Leyao",
+        "He, Yanan",
+        "Chen, Peng",
+        "Yehudai, Asaf",
+        "Liu, Yixin",
+        "Ying, Rex",
+        "Shmueli-Scheuer, Michal",
+        "Cohan, Arman"
+      ],
+      "primary_date": [
+        "2026/05/18"
+      ],
+      "error": null
+    },
+    {
+      "key": "wataoka2024selfpreference",
+      "title": "Self-preference bias in LLM-as-a-judge",
+      "authors": "Koki Wataoka, Tsubasa Takahashi, and Ryokan Ri. 2024.",
+      "url": "https://arxiv.org/abs/2410.21819",
+      "primary_title": [
+        "Self-Preference Bias in LLM-as-a-Judge"
+      ],
+      "primary_authors": [
+        "Wataoka, Koki",
+        "Takahashi, Tsubasa",
+        "Ri, Ryokan"
+      ],
+      "primary_date": [
+        "2024/10/29"
+      ],
+      "error": null
+    },
+    {
+      "key": "xu2025contextualjudgebench",
+      "title": "Does Context Matter? ContextualJudgeBench for Evaluating LLM-based Judges in Contextual Settings",
+      "authors": "Austin Xu, Srijan Bansal, Yifei Ming, Semih Yavuz, and Shafiq Joty. 2025.",
+      "url": "https://aclanthology.org/2025.acl-long.470/",
+      "primary_title": [
+        "Does Context Matter? ContextualJudgeBench for Evaluating LLM-based Judges in Contextual Settings"
+      ],
+      "primary_authors": [
+        "Austin Xu",
+        "Srijan Bansal",
+        "Yifei Ming",
+        "Semih Yavuz",
+        "Shafiq Joty"
+      ],
+      "primary_date": [],
+      "error": null
+    },
+    {
+      "key": "ye2024justice",
+      "title": "Justice or prejudice? Quantifying biases in LLM-as-a-judge",
+      "authors": "Jiayi Ye, Yanbo Wang, Yue Huang, Dongping Chen, Qihui Zhang, Nuno Moniz, Tian Gao, Werner Geyer, Chao Huang, Pin-Yu Chen, Nitesh V. Chawla, and Xiangliang Zhang. 2024.",
+      "url": "https://arxiv.org/abs/2410.02736",
+      "primary_title": [
+        "Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge"
+      ],
+      "primary_authors": [
+        "Ye, Jiayi",
+        "Wang, Yanbo",
+        "Huang, Yue",
+        "Chen, Dongping",
+        "Zhang, Qihui",
+        "Moniz, Nuno",
+        "Gao, Tian",
+        "Geyer, Werner",
+        "Huang, Chao",
+        "Chen, Pin-Yu",
+        "Chawla, Nitesh V",
+        "Zhang, Xiangliang"
+      ],
+      "primary_date": [
+        "2024/10/03"
+      ],
+      "error": null
+    },
+    {
+      "key": "zheng2023judging",
+      "title": "Judging LLM-as-a-judge with MT-Bench and Chatbot Arena",
+      "authors": "Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi Lin, Zhuohan Li, Dacheng Li, Eric P. Xing, Hao Zhang, Joseph E. Gonzalez, and Ion Stoica. 2023.",
+      "url": "https://arxiv.org/abs/2306.05685",
+      "primary_title": [
+        "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"
+      ],
+      "primary_authors": [
+        "Zheng, Lianmin",
+        "Chiang, Wei-Lin",
+        "Sheng, Ying",
+        "Zhuang, Siyuan",
+        "Wu, Zhanghao",
+        "Zhuang, Yonghao",
+        "Lin, Zi",
+        "Li, Zhuohan",
+        "Li, Dacheng",
+        "Xing, Eric P.",
+        "Zhang, Hao",
+        "Gonzalez, Joseph E.",
+        "Stoica, Ion"
+      ],
+      "primary_date": [
+        "2023/06/09"
+      ],
+      "error": null
+    }
+  ],
+  "corrections": [
+    {
+      "key": "shi2024position",
+      "change": "Added missing coauthor Xingjian Diao to match the primary arXiv record."
+    }
+  ],
+  "notes": [
+    "Capitalization, punctuation, middle-name variants, and supplementary non-Latin name forms do not change work identity.",
+    "Existing cited publication/preprint choices and citation keys are retained."
+  ]
+}

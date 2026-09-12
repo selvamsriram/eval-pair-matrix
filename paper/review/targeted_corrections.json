@@ -1,0 +1,58 @@
+[
+  {
+    "file": "main_body.tex",
+    "line": 2,
+    "reason": "abstract scope",
+    "old": "paired recall is near zero ($-0.5$",
+    "new": "aggregate paired recall is near zero for the three tested endpoints ($-0.5$"
+  },
+  {
+    "file": "main_body.tex",
+    "line": 86,
+    "reason": "nonempty answer count",
+    "old": "900 intended outputs and 897 usable outputs",
+    "new": "900 intended outputs and 896 nonempty answers"
+  },
+  {
+    "file": "main_body.tex",
+    "line": 150,
+    "reason": "label denominator",
+    "old": "Generator behavior labels over 897/900 LLM-labeled outputs. Percentages use the labeled denominator for each generator (299).",
+    "new": "Generator behavior labels over 897/900 labeled slots, including four deterministic labels for empty generations. Percentages use 299 labeled slots per generator."
+  },
+  {
+    "file": "main_body.tex",
+    "line": 155,
+    "reason": "adoption rule",
+    "old": "The induced-error adoption label is derived from that entailment flag: did the answer adopt the false value introduced by the perturbation?",
+    "new": "The induced-error adoption label combines entailment flags and behavior, with a deterministic fallback for three answers lacking LLM labels."
+  },
+  {
+    "file": "main_body.tex",
+    "line": 193,
+    "reason": "analysis status",
+    "old": "The prespecified global recall effect",
+    "new": "The primary global recall effect"
+  },
+  {
+    "file": "main_body.tex",
+    "line": 203,
+    "reason": "table label",
+    "old": "\\emph{Confirmatory}",
+    "new": "\\emph{Primary}"
+  },
+  {
+    "file": "main_body.tex",
+    "line": 332,
+    "reason": "equivalence limitation",
+    "old": "The dataset is controlled and moderate in scale: 275 validated records and 25 failed-validation diagnostics.",
+    "new": "The dataset is controlled and moderate in scale: 275 validated records and 25 failed-validation diagnostics. The recall confidence interval includes zero but does not establish equivalence."
+  },
+  {
+    "file": "main_body.tex",
+    "line": 334,
+    "reason": "local-model limitation",
+    "old": "The protocol can be extended to smaller, locally hosted models using the same grounding and output schema, while reporting context limits, refusal rates, and format failures.",
+    "new": "Results cover three large proprietary endpoints; generalization to smaller, locally hosted models is untested. The protocol can evaluate these with the same grounding and output schema, reporting context limits, refusal rates, and format failures."
+  }
+]

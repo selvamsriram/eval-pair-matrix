@@ -1,0 +1,76 @@
+[
+  {
+    "change": 1,
+    "file": "main_body.tex",
+    "line": 22,
+    "old": "This paired analysis changes the interpretation of the raw matrix. On the 275 fully validated records, the raw diagonal/off-diagonal F1 difference is small (84.4 diagonal vs. 83.4 off-diagonal). A paired answer-level cluster bootstrap yields a near-zero aggregate same-model recall effect across the three evaluated endpoints ($\\Delta=-0.5$ pp, 95\\% CI $[-2.7,+1.7]$). The only robust paired difference appears on answers that avoided the induced false claim: the judge from the same model as the generator flags these answers less often than the two other judges ($\\Delta=-4.3$ pp, CI $[-6.6,-2.0]$). This should not be read as a lower false-alarm rate. Our automatic induced-error adoption label records only whether the answer adopted the false claim introduced by the perturbation, while the judge is asked to flag any factual error against the original passages. An answer can avoid the induced false claim and still contain another source-relative error, especially when it refuses, hedges, or describes inconsistent evidence. In the targeted 88-case human evaluation, none of the 25 reviewed apparent false positives were genuine false alarms: they were alternate real source errors, mistakes in the induced-error adoption label, or unclear cases. Thus the apparent false-positive-rate effect is best interpreted as a mismatch between the adoption label and the judge's broader source-grounding task, not as evidence of same-model self-leniency.",
+    "new": "This paired analysis changes the interpretation of the raw matrix. On the 275 fully validated records, the raw diagonal/off-diagonal F1 difference is small (84.4 diagonal vs. 83.4 off-diagonal). A paired answer-level cluster bootstrap yields a near-zero aggregate same-model recall effect across the three evaluated endpoints ($\\Delta=-0.5$ pp, 95\\% CI $[-2.7,+1.7]$). The only robust paired difference appears on answers that avoided the induced false claim: the judge from the same model as the generator flags these answers less often than the two other judges ($\\Delta=-4.3$ pp, CI $[-6.6,-2.0]$). This should not be read as a lower false-alarm rate. Our automatic induced-error adoption label records only whether the answer adopted the false claim introduced by the perturbation, while the judge is asked to flag any factual error against the original passages. An answer can avoid the induced false claim and still contain another source-relative error, especially when it refuses, hedges, or describes inconsistent evidence. In the targeted 88-case human evaluation, none of the 25 reviewed apparent false positives were adjudicated as genuine false alarms: they were alternate real source errors, mistakes in the induced-error adoption label, or unclear cases. These cases show why adoption-negative flags should not automatically be treated as false alarms.",
+    "reason": "Keep the audit finding, while drawing the measurement lesson supported by the reviewed cases."
+  },
+  {
+    "change": 2,
+    "file": "main_body.tex",
+    "line": 30,
+    "old": "  \\item \\textbf{Interpretation:} the remaining flagging gap reflects generator behavior and label/task mismatch, supported by targeted human evaluation.",
+    "new": "  \\item \\textbf{Interpretation:} targeted human evaluation identifies alternate source errors and adoption-label mistakes among reviewed apparent false positives.",
+    "reason": "State the audit contribution directly without assigning a cause to the entire flagging gap."
+  },
+  {
+    "change": 3,
+    "file": "main_body.tex",
+    "line": 246,
+    "old": "We reviewed a targeted behavior-by-cell queue, capped at 12 cases per populated stratum, and adjudicated the first 88/153 cases in a shuffled, seed-fixed queue (mechanism audit, not prevalence estimate; codebook/counts: Appendices~\\ref{app:audit-codebook},~\\ref{app:sensitivity}). None of the 25 reviewed apparent false positives were genuine false alarms: 22 were valid alternate-error detections, 2 were adoption-label mistakes, and 1 was unclear.",
+    "new": "We reviewed 88 of 153 judge-verdict cases from a seed-fixed, stratified behavior-by-cell queue, capped at 12 cases per populated stratum (codebook/counts: Appendices~\\ref{app:audit-codebook},~\\ref{app:sensitivity}). Of the 25 reviewed apparent false positives, 22 were valid alternate-error detections, 2 were adoption-label mistakes, and 1 was unclear; none were adjudicated as genuine false alarms.",
+    "reason": "Describe the saved review coverage accurately; preserve every adjudication count, including the unclear case."
+  },
+  {
+    "change": 4,
+    "file": "main_body.tex",
+    "line": 270,
+    "old": "This supports a different interpretation from self-leniency. The robust avoided-claim gap is better read as a label/task mismatch: the adoption label asks whether the answer took up the induced false claim, while the judge is allowed to catch any source-relative error. The boxed SEC/FASB case shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes. Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP. Table~\\ref{tab:audit-summary} summarizes the reviewed cases.",
+    "new": "The audit illustrates the distinction between induced-claim adoption and source-grounding correctness: a judge can correctly flag an answer that avoided the induced claim. The boxed SEC/FASB case shows the distinction. The answer avoids the induced SEC claim, but it makes a separate source-grounding error by attributing an ASC 842 lease-accounting effect to recent SEC changes. Thus, under the any-error judge task, this is a valid detection; under the narrower induced-error adoption label, it is counted as an apparent FP. Table~\\ref{tab:audit-summary} summarizes the reviewed cases.",
+    "reason": "Let the existing SEC/FASB example substantiate the label/task distinction, without treating it as an explanation of the paired gap."
+  },
+  {
+    "change": 5,
+    "file": "main_body.tex",
+    "line": 286,
+    "old": "\\captionof{table}{Human evaluation summary. Rule-of-three upper bounds are about 12\\% for genuine false alarms among reviewed apparent FPs and about 10\\% for missed errors among reviewed TNs.}",
+    "new": "\\captionof{table}{Human evaluation of 88 reviewed judge-verdict cases from the stratified audit queue.}",
+    "reason": "Remove binomial bounds that are not supported by this targeted, partially completed, clustered audit."
+  },
+  {
+    "change": 6,
+    "file": "main_body.tex",
+    "line": 308,
+    "old": "\\paragraph{Behavior and labels determine the apparent flagging gap.}",
+    "new": "\\paragraph{Behavior, labels, and apparent false positives.}",
+    "reason": "Align the heading with the evidence rather than asserting that the gap mechanism is determined."
+  },
+  {
+    "change": 7,
+    "file": "main_body.tex",
+    "line": 309,
+    "old": "The robust avoided-claim flagging gap is not evidence that judges simply over- or under-flag same-model outputs. The automatic adoption label records whether the answer used the induced false claim, while the judge task asks for any factual error against the original grounding. Context-following answers therefore create ordinary induced-error recall cases. Refusals, hedges, and conflict-aware answers can avoid the induced claim while still making another source-relative error. The human evaluation found no genuine false alarms among 25 reviewed apparent FPs, which supports interpreting the gap as a label/task mismatch rather than as evidence of same-model self-leniency.",
+    "new": "Matching judges flag avoided-claim answers 4.3 percentage points less often. The automatic adoption label records whether the answer used the induced false claim, while the judge task asks for any factual error against the original grounding. Context-following answers therefore create ordinary induced-error recall cases. Refusals, hedges, and conflict-aware answers can avoid the induced claim while still making another source-relative error. The audit clarifies which reviewed flags are valid detections; the source of the matching-versus-nonmatching flagging difference remains open.",
+    "reason": "Preserve the observed difference and state the remaining interpretation question once, in the discussion.",
+    "segments": [
+      {
+        "old": "The robust avoided-claim flagging gap is not evidence that judges simply over- or under-flag same-model outputs.",
+        "new": "Matching judges flag avoided-claim answers 4.3 percentage points less often."
+      },
+      {
+        "old": "The human evaluation found no genuine false alarms among 25 reviewed apparent FPs, which supports interpreting the gap as a label/task mismatch rather than as evidence of same-model self-leniency.",
+        "new": "The audit clarifies which reviewed flags are valid detections; the source of the matching-versus-nonmatching flagging difference remains open."
+      }
+    ]
+  },
+  {
+    "change": 8,
+    "file": "appendix_content.tex",
+    "line": 302,
+    "old": "The targeted human evaluation records two judgments per case. The first checks whether the automatic induced-error adoption label is correct. The second asks whether the judge's flag/no-flag decision is correct against the original passages under a strict source-grounding stance. We adjudicated the first 88 completed cases in a shuffled, seed-fixed review queue before submission; all sampling strata and unreviewed cases are retained in the released queue. Because the audit is targeted rather than prevalence-estimating, it diagnoses the apparent-FP mechanism rather than estimating a population false-alarm rate.",
+    "new": "The targeted human evaluation records two judgments per case. The first checks whether the automatic induced-error adoption label is correct. The second asks whether the judge's flag/no-flag decision is correct against the original passages under a strict source-grounding stance. We completed 88 of 153 judge-verdict cases from a seed-fixed, stratified queue, covering 79 distinct answers from 70 records; all sampling strata and unreviewed cases are retained in the released queue. The 25 apparent-FP cases cover 25 answers from 22 records. This targeted audit characterizes source errors and label issues in the reviewed cases rather than estimating a population false-alarm rate.",
+    "reason": "Report the true unit and coverage from the saved queue and annotations without adding another caveat to the main text."
+  }
+]
