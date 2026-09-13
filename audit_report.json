@@ -1,0 +1,627 @@
+{
+  "core": {
+    "gap_fail_gates": {
+      "answer_causal": 4,
+      "global_context_consistent": 9,
+      "no_original_answer_leakage": 20,
+      "type_valid": 9
+    },
+    "gap_fill": 25,
+    "n": 300,
+    "providers": {
+      "azure-gpt": 83,
+      "gemini": 125,
+      "grok": 92
+    },
+    "types": {
+      "affiliation_change": 1,
+      "causal_change": 46,
+      "entity_substitution": 103,
+      "location_change": 12,
+      "negation_modality": 15,
+      "numerical_shift": 64,
+      "ranking_flip": 4,
+      "relation_inversion": 23,
+      "temporal_shift": 32
+    },
+    "unique_core_ids": 300,
+    "validated": 275
+  },
+  "files": {
+    "data/exp/3provider_300.jsonl": 300,
+    "data/runs/20260531-005101-gen-gpt55-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-005112-gen-grok-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-005123-gen-gemini-300/05_label_eval.jsonl": 300,
+    "data/runs/20260531-175601-judge-gpt-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-175608-judge-grok-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-175617-judge-gemini-on-gpt/06_judge.jsonl": 300,
+    "data/runs/20260531-212107-judge-gpt-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-212120-judge-gemini-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-212359-judge-grok-on-grok/06_judge.jsonl": 300,
+    "data/runs/20260531-230842-judge-gpt-on-gemini/06_judge.jsonl": 300,
+    "data/runs/20260531-230848-judge-grok-on-gemini/06_judge.jsonl": 300,
+    "data/runs/20260531-230857-judge-gemini-on-gemini/06_judge.jsonl": 300
+  },
+  "generator": {
+    "self_affinity": {
+      "GPT": {
+        "delta_pp": 7.553,
+        "others": [
+          106,
+          216,
+          49.074
+        ],
+        "own": [
+          47,
+          83,
+          56.627
+        ]
+      },
+      "Gemini": {
+        "delta_pp": -3.175,
+        "others": [
+          86,
+          175,
+          49.143
+        ],
+        "own": [
+          57,
+          124,
+          45.968
+        ]
+      },
+      "Grok": {
+        "delta_pp": 4.106,
+        "others": [
+          95,
+          207,
+          45.894
+        ],
+        "own": [
+          46,
+          92,
+          50.0
+        ]
+      }
+    },
+    "summary": {
+      "GPT": {
+        "cf_cited_modified": [
+          152,
+          153,
+          99.346
+        ],
+        "labels": {
+          "both_claims": 20,
+          "conflict_awareness": 3,
+          "context_follow": 153,
+          "memory_override": 10,
+          "refusal_or_insufficient": 16,
+          "unrelated_or_failed": 97
+        },
+        "llm_eval": 299,
+        "llm_refusals": 16,
+        "outputs": 300,
+        "rates": {
+          "both_claims": 6.689,
+          "conflict_awareness": 1.003,
+          "context_follow": 51.171,
+          "memory_override": 3.344,
+          "refusal_or_insufficient": 5.351,
+          "unrelated_or_failed": 32.441
+        },
+        "self_declared_refusals": 19
+      },
+      "Gemini": {
+        "cf_cited_modified": [
+          143,
+          143,
+          100.0
+        ],
+        "labels": {
+          "both_claims": 18,
+          "conflict_awareness": 4,
+          "context_follow": 143,
+          "memory_override": 4,
+          "refusal_or_insufficient": 54,
+          "unrelated_or_failed": 76
+        },
+        "llm_eval": 299,
+        "llm_refusals": 54,
+        "outputs": 300,
+        "rates": {
+          "both_claims": 6.02,
+          "conflict_awareness": 1.338,
+          "context_follow": 47.826,
+          "memory_override": 1.338,
+          "refusal_or_insufficient": 18.06,
+          "unrelated_or_failed": 25.418
+        },
+        "self_declared_refusals": 57
+      },
+      "Grok": {
+        "cf_cited_modified": [
+          141,
+          141,
+          100.0
+        ],
+        "labels": {
+          "both_claims": 15,
+          "conflict_awareness": 12,
+          "context_follow": 141,
+          "memory_override": 8,
+          "refusal_or_insufficient": 74,
+          "unrelated_or_failed": 49
+        },
+        "llm_eval": 299,
+        "llm_refusals": 74,
+        "outputs": 300,
+        "rates": {
+          "both_claims": 5.017,
+          "conflict_awareness": 4.013,
+          "context_follow": 47.157,
+          "memory_override": 2.676,
+          "refusal_or_insufficient": 24.749,
+          "unrelated_or_failed": 16.388
+        },
+        "self_declared_refusals": 90
+      }
+    },
+    "total_llm_eval": 897,
+    "total_outputs": 900,
+    "type_pushback": {
+      "GPT": {
+        "affiliation_change": {
+          "cf_pct": 0.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 1
+        },
+        "causal_change": {
+          "cf_pct": 58.696,
+          "conf_pct": 0.0,
+          "mem_pct": 4.348,
+          "n": 46
+        },
+        "entity_substitution": {
+          "cf_pct": 54.369,
+          "conf_pct": 0.0,
+          "mem_pct": 0.971,
+          "n": 103
+        },
+        "location_change": {
+          "cf_pct": 54.545,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 11
+        },
+        "negation_modality": {
+          "cf_pct": 46.667,
+          "conf_pct": 0.0,
+          "mem_pct": 6.667,
+          "n": 15
+        },
+        "numerical_shift": {
+          "cf_pct": 48.438,
+          "conf_pct": 3.125,
+          "mem_pct": 1.562,
+          "n": 64
+        },
+        "ranking_flip": {
+          "cf_pct": 25.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 4
+        },
+        "relation_inversion": {
+          "cf_pct": 52.174,
+          "conf_pct": 4.348,
+          "mem_pct": 17.391,
+          "n": 23
+        },
+        "temporal_shift": {
+          "cf_pct": 40.625,
+          "conf_pct": 0.0,
+          "mem_pct": 3.125,
+          "n": 32
+        }
+      },
+      "Gemini": {
+        "affiliation_change": {
+          "cf_pct": 0.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 1
+        },
+        "causal_change": {
+          "cf_pct": 63.043,
+          "conf_pct": 2.174,
+          "mem_pct": 2.174,
+          "n": 46
+        },
+        "entity_substitution": {
+          "cf_pct": 48.544,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 103
+        },
+        "location_change": {
+          "cf_pct": 45.455,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 11
+        },
+        "negation_modality": {
+          "cf_pct": 46.667,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 15
+        },
+        "numerical_shift": {
+          "cf_pct": 48.438,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 64
+        },
+        "ranking_flip": {
+          "cf_pct": 75.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 4
+        },
+        "relation_inversion": {
+          "cf_pct": 34.783,
+          "conf_pct": 13.043,
+          "mem_pct": 13.043,
+          "n": 23
+        },
+        "temporal_shift": {
+          "cf_pct": 31.25,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 32
+        }
+      },
+      "Grok": {
+        "affiliation_change": {
+          "cf_pct": 0.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 1
+        },
+        "causal_change": {
+          "cf_pct": 45.652,
+          "conf_pct": 4.348,
+          "mem_pct": 4.348,
+          "n": 46
+        },
+        "entity_substitution": {
+          "cf_pct": 52.427,
+          "conf_pct": 0.971,
+          "mem_pct": 1.942,
+          "n": 103
+        },
+        "location_change": {
+          "cf_pct": 27.273,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 11
+        },
+        "negation_modality": {
+          "cf_pct": 60.0,
+          "conf_pct": 6.667,
+          "mem_pct": 0.0,
+          "n": 15
+        },
+        "numerical_shift": {
+          "cf_pct": 53.125,
+          "conf_pct": 3.125,
+          "mem_pct": 0.0,
+          "n": 64
+        },
+        "ranking_flip": {
+          "cf_pct": 50.0,
+          "conf_pct": 0.0,
+          "mem_pct": 0.0,
+          "n": 4
+        },
+        "relation_inversion": {
+          "cf_pct": 34.783,
+          "conf_pct": 21.739,
+          "mem_pct": 17.391,
+          "n": 23
+        },
+        "temporal_shift": {
+          "cf_pct": 31.25,
+          "conf_pct": 3.125,
+          "mem_pct": 0.0,
+          "n": 32
+        }
+      }
+    },
+    "validated_vs_gap": {
+      "GPT": {
+        "delta_pp": 7.825,
+        "gap": [
+          11,
+          25,
+          44.0
+        ],
+        "validated": [
+          142,
+          274,
+          51.825
+        ]
+      },
+      "Gemini": {
+        "delta_pp": -0.19,
+        "gap": [
+          12,
+          25,
+          48.0
+        ],
+        "validated": [
+          131,
+          274,
+          47.81
+        ]
+      },
+      "Grok": {
+        "delta_pp": 12.175,
+        "gap": [
+          9,
+          25,
+          36.0
+        ],
+        "validated": [
+          132,
+          274,
+          48.175
+        ]
+      }
+    }
+  },
+  "judge": {
+    "cells": {
+      "GPT_on_GPT": {
+        "citation_locality": [
+          126,
+          134,
+          94.03
+        ],
+        "f1": 84.81,
+        "fn": 39,
+        "fp": 9,
+        "gold_pos": 173,
+        "n": 297,
+        "precision": 93.706,
+        "recall": 77.457,
+        "tn": 115,
+        "tp": 134,
+        "wrong_claim_contains": [
+          101,
+          134,
+          75.373
+        ]
+      },
+      "GPT_on_Gemini": {
+        "citation_locality": [
+          133,
+          140,
+          95.0
+        ],
+        "f1": 83.582,
+        "fn": 25,
+        "fp": 30,
+        "gold_pos": 165,
+        "n": 296,
+        "precision": 82.353,
+        "recall": 84.848,
+        "tn": 101,
+        "tp": 140,
+        "wrong_claim_contains": [
+          117,
+          140,
+          83.571
+        ]
+      },
+      "GPT_on_Grok": {
+        "citation_locality": [
+          124,
+          130,
+          95.385
+        ],
+        "f1": 79.878,
+        "fn": 28,
+        "fp": 38,
+        "gold_pos": 159,
+        "n": 299,
+        "precision": 77.515,
+        "recall": 82.39,
+        "tn": 102,
+        "tp": 131,
+        "wrong_claim_contains": [
+          93,
+          131,
+          70.992
+        ]
+      },
+      "Gemini_on_GPT": {
+        "citation_locality": [
+          141,
+          148,
+          95.27
+        ],
+        "f1": 87.536,
+        "fn": 24,
+        "fp": 19,
+        "gold_pos": 175,
+        "n": 299,
+        "precision": 88.824,
+        "recall": 86.286,
+        "tn": 105,
+        "tp": 151,
+        "wrong_claim_contains": [
+          116,
+          151,
+          76.821
+        ]
+      },
+      "Gemini_on_Gemini": {
+        "citation_locality": [
+          146,
+          150,
+          97.333
+        ],
+        "f1": 88.563,
+        "fn": 14,
+        "fp": 25,
+        "gold_pos": 165,
+        "n": 297,
+        "precision": 85.795,
+        "recall": 91.515,
+        "tn": 107,
+        "tp": 151,
+        "wrong_claim_contains": [
+          123,
+          151,
+          81.457
+        ]
+      },
+      "Gemini_on_Grok": {
+        "citation_locality": [
+          128,
+          134,
+          95.522
+        ],
+        "f1": 81.928,
+        "fn": 23,
+        "fp": 37,
+        "gold_pos": 159,
+        "n": 300,
+        "precision": 78.613,
+        "recall": 85.535,
+        "tn": 104,
+        "tp": 136,
+        "wrong_claim_contains": [
+          99,
+          136,
+          72.794
+        ]
+      },
+      "Grok_on_GPT": {
+        "citation_locality": [
+          125,
+          127,
+          98.425
+        ],
+        "f1": 83.436,
+        "fn": 39,
+        "fp": 15,
+        "gold_pos": 175,
+        "n": 299,
+        "precision": 90.066,
+        "recall": 77.714,
+        "tn": 109,
+        "tp": 136,
+        "wrong_claim_contains": [
+          104,
+          136,
+          76.471
+        ]
+      },
+      "Grok_on_Gemini": {
+        "citation_locality": [
+          135,
+          137,
+          98.54
+        ],
+        "f1": 86.585,
+        "fn": 22,
+        "fp": 22,
+        "gold_pos": 164,
+        "n": 296,
+        "precision": 86.585,
+        "recall": 86.585,
+        "tn": 110,
+        "tp": 142,
+        "wrong_claim_contains": [
+          117,
+          142,
+          82.394
+        ]
+      },
+      "Grok_on_Grok": {
+        "citation_locality": [
+          116,
+          118,
+          98.305
+        ],
+        "f1": 80.503,
+        "fn": 31,
+        "fp": 31,
+        "gold_pos": 159,
+        "n": 300,
+        "precision": 80.503,
+        "recall": 80.503,
+        "tn": 110,
+        "tp": 128,
+        "wrong_claim_contains": [
+          95,
+          128,
+          74.219
+        ]
+      }
+    },
+    "col_avg_f1": {
+      "GPT": 85.261,
+      "Gemini": 86.243,
+      "Grok": 80.77
+    },
+    "diag_avg_f1": 84.625,
+    "diag_minus_offdiag": 0.801,
+    "offdiag_avg_f1": 83.824,
+    "pair_types": {
+      "cross_provider_family": 1789,
+      "same_exact_model": 894
+    },
+    "row_avg_f1": {
+      "GPT": 82.757,
+      "Gemini": 86.009,
+      "Grok": 83.508
+    },
+    "same_effects": {
+      "GPT": {
+        "f1_cross": 81.73,
+        "f1_delta": 3.08,
+        "f1_own": 84.81,
+        "precision_cross": 79.934,
+        "precision_own": 93.706,
+        "recall_cross": 83.619,
+        "recall_delta": -6.162,
+        "recall_own": 77.457
+      },
+      "Gemini": {
+        "f1_cross": 84.732,
+        "f1_delta": 3.831,
+        "f1_own": 88.563,
+        "precision_cross": 83.719,
+        "precision_own": 85.795,
+        "recall_cross": 85.91,
+        "recall_delta": 5.605,
+        "recall_own": 91.515
+      },
+      "Grok": {
+        "f1_cross": 85.011,
+        "f1_delta": -4.508,
+        "f1_own": 80.503,
+        "precision_cross": 88.326,
+        "precision_own": 80.503,
+        "recall_cross": 82.149,
+        "recall_delta": -1.646,
+        "recall_own": 80.503
+      }
+    },
+    "total_verdicts": 2683
+  }
+}

@@ -1,0 +1,29 @@
+name: Temporary Raw Data Audit PR
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: audit-data-paper-revision
+      - name: Run raw-data audit
+        run: python .github/scripts/raw_data_audit.py
+      - name: Extract paper examples
+        run: python .github/scripts/extract_examples.py
+      - name: Commit reports to branch
+        run: |
+          git config user.name audit-bot
+          git config user.email audit-bot@example.com
+          git add audit_report.json examples_report.json
+          git diff --cached --quiet && exit 0
+          git commit -m "write audit and example reports"
+          git push origin HEAD:audit-data-paper-revision
