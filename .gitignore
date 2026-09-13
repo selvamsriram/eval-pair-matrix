@@ -15,4 +15,26 @@ reports/*.csv
 *.egg-info/
 build/
 dist/
-tmp/pdfs/
+# Rebuilt artifacts and verification scratch files (submitted output/ is tracked).
+tmp/
+
+# LaTeX build intermediates.
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+paper/*.out
+archive/**/*.out
+
+# Additional analysis exports; the paper uses its frozen manuscript tables.
+/paper/tables/validated_matrix.tex
+/paper/tables/paired_effects.tex
+/paper/tables/behavior_stratified.tex

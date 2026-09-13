@@ -1,0 +1,27 @@
+{
+  "submission_tag": "camera-ready-submitted-2026-09-12",
+  "checks": {
+    "source_archive_build": true,
+    "source_archive_build_text_matches_submission": true,
+    "archive_member_hashes": true,
+    "paired_report_and_verdicts_match": true,
+    "behavior_report_matches": true,
+    "sensitivity_values_and_table_match": true,
+    "human_queue_and_decisions_match": true,
+    "portable_cost_matches": true,
+    "legacy_summary_uses_scratch_directory": true,
+    "rendered_pages_pixel_identical": 16,
+    "render_dpi": 96,
+    "highlighted_pdf_byte_identical": true,
+    "submitted_files_hashes_preserved": true,
+    "runtime_and_data_hashes_preserved": true,
+    "archived_files_hashes_preserved": true,
+    "maintained_documentation_links_resolve": true
+  },
+  "cleanup": {
+    "moved_files": 152,
+    "removed_latex_intermediates": 16,
+    "consolidated_identical_pdf_copies": 1,
+    "root_readme_lines": 68
+  }
+}

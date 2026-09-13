@@ -7,14 +7,16 @@ import re
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / 'output/release'
+OUT = ROOT / 'tmp/release'
 
 
 def paper_files():
     names = {'paper/' + n for n in (
         'camera_ready.tex', 'main_body.tex', 'appendix_content.tex',
         'references.tex', 'acl.sty', 'acl_natbib.bst', 'build_camera_ready.sh',
-        'ACL_STYLE_PROVENANCE.md', 'README.md', 'CAMERA_READY_STATUS.md')}
+        'ACL_STYLE_PROVENANCE.md', 'README.md', 'REPRODUCIBILITY.md')}
+    names |= {'docs/submission.md', 'docs/submission-manifest.json',
+              'docs/repository.md'}
     for source in ('main_body.tex', 'appendix_content.tex'):
         text = (ROOT / 'paper' / source).read_text()
         for image in re.findall(r'\\includegraphics(?:\[[^]]*\])?\{([^}]+)\}', text):
@@ -49,11 +51,12 @@ def main():
         '# Camera-ready LaTeX sources\n\nFrom this extracted directory run '
         '`bash paper/build_camera_ready.sh`. Requires Python 3 and pdfLaTeX. '
         'The build verifies official ACL style hashes and writes '
-        '`output/pdf/eval-pair-matrix-camera-ready.pdf`. '
+        '`tmp/pdfs/camera-ready/eval-pair-matrix-camera-ready.pdf`. '
         'Only referenced figures/tables and the final manuscript are included.\n')]
     inventory = json.loads((ROOT / 'paper/audit/paired_audit_report.json').read_text())
     names = source | set(inventory['files']) | {
-        'README.md', 'pyproject.toml', 'paper/REPRODUCIBILITY.md',
+        'README.md', 'pyproject.toml', '.env.example', 'docs/cli.md',
+        'paper/REPRODUCIBILITY.md',
         'paper/requirements-analysis.txt', 'paper/package_camera_ready.py',
         'paper/behavior_paired_sensitivity.py',
         'data/exp/3provider_300.manifest.json', 'data/exp/exp-300.manifest.json',
@@ -69,7 +72,8 @@ def main():
         'cell_review_queue.json', 'cell_review_queue.csv',
         'cell_review_progress.json', 'cell_review_summary.md',
         'cell_audit_findings.json', 'cell_audit_findings.md',
-        'judge_cost.py', 'judge_usage.jsonl', 'judge_usage_manifest.json')}
+        'judge_cost.py', 'judge_cost_summary.json', 'judge_usage.jsonl',
+        'judge_usage_manifest.json')}
     packages.append(write_archive('eval-pair-matrix-reproducibility.zip', names,
         '# Reproducibility package\n\nSee `paper/REPRODUCIBILITY.md` for '
         'saved-data analysis commands and expected results. These commands '

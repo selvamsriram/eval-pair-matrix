@@ -4,7 +4,8 @@ set -euo pipefail
 paper_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_dir="$(cd -- "$paper_dir/.." && pwd)"
 build_dir="$repo_dir/tmp/pdfs/camera-ready"
-output_dir="$repo_dir/output/pdf"
+# Submitted artifacts under output/ are frozen; rebuilds stay in scratch space.
+output_dir="$build_dir"
 mkdir -p "$build_dir" "$output_dir"
 cd "$paper_dir"
 

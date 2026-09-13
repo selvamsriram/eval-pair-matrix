@@ -11,7 +11,7 @@ on September 12, 2026 at commit
 | `acl_natbib.bst` | `6fbb306202290f4b68e74ac1460a8b27398500cb6dfeb4492e74c457eae7cd1e` |
 
 The upstream README, formatting guidance, pdfLaTeX and LuaLaTeX templates, and
-sample bibliographies are in `acl-template/`. They are also copied without edits
+sample bibliographies are in `docs/acl-template/` at the repository root. They are also copied without edits
 from that commit. To compile an example template, copy it and its sample
 bibliography into this directory so that it can find the active style files.
 
@@ -23,4 +23,4 @@ the official style; `acl_natbib.bst` is available for a future BibTeX conversion
 
 The previous `acl.sty` was a custom minimal replacement. Its prior contents
 remain recoverable from Git history. The original submitted PDF is preserved
-as `acl_submission.pdf`; it is not a build of the updated style.
+as `archive/submissions/original/paper.pdf`; it is not a build of the updated style.

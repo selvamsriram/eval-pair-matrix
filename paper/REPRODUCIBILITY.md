@@ -13,7 +13,8 @@ python3 paper/audit/judge_cost.py
 ```
 
 The first three commands write derived JSON, CSV, Markdown and LaTeX outputs
-under `paper/audit/` and `paper/tables/`. They do not edit manuscript sources or
+under `paper/audit/` and `paper/tables/`; the paired legacy narrative goes to
+ignored `tmp/analysis/paired_audit_summary.md`. They do not edit manuscript sources or
 raw records. Cost accounting prints JSON to stdout. The frozen human decisions
 in `cell_review_progress.json` must not be overwritten or replaced by generated
 judgments. `build_cell_review_queue.py` reconstructs the queue, not the decisions.
@@ -45,6 +46,8 @@ overwritten by generated tables.
 
 ## Portable cost accounting
 
+The accepted output is preserved in `audit/judge_cost_summary.json`.
+
 `judge_usage.jsonl` is a projection of every event in the nine original judge
 traces: run/event IDs, judge/generator model IDs, latency, recorded input/output
 tokens, and a Boolean error indicator. It omits prompts, responses, and exception
@@ -67,8 +70,10 @@ outside the reported judge totals.
 
 ## Packages
 
-`python3 paper/package_camera_ready.py` produces a paper-source ZIP and a
-reproducibility ZIP under `output/release/`, each with a SHA-256 manifest. The
+`python3 paper/package_camera_ready.py` produces current paper-source and
+reproducibility ZIPs under ignored `tmp/release/`, each with a SHA-256 manifest.
+The original submitted ZIPs under `output/release/` remain frozen at tag
+`camera-ready-submitted-2026-09-12`; see [the submission record](../docs/submission.md). The
 reproducibility archive includes the frozen pool, manifest, three labeled-output
 files, nine judge files, analysis code and outputs, human-review inputs, prompts,
 schemas, and portable cost ledger. It excludes credentials, local traces,

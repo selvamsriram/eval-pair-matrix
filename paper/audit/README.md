@@ -19,7 +19,13 @@ false alarm. It does not establish the cause of the −4.3-point paired flagging
 gap or estimate population false-alarm prevalence. Completed decisions and raw
 measurements are unchanged.
 
-Older narrative reports (`paired_audit_summary.md`, `audit_dossier.md`, and
-`archive_fpr_review/`) record earlier interpretations. They are historical, not
-the camera-ready narrative. Regenerating their scripts may reproduce those old
-wordings. The numerical reports and frozen audit inputs above are canonical.
+Historical narrative reports and superseded review tools are in
+[archive/audits](../../archive/audits/README.md). Their original language is
+preserved for provenance and is not the camera-ready interpretation. The
+paired script writes its legacy narrative to `tmp/analysis/`; its numerical
+reports remain here.
+
+`judge_cost_summary.json` is the accepted cost report, previously stored with
+revision proposals. `cell_audit_findings.md` retains the frozen per-case log;
+its old generator reference points to the archived report script. Read the
+manuscript for the accepted interpretation of the targeted audit.

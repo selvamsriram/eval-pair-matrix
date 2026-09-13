@@ -738,7 +738,9 @@ def summary_md():
     return "\n".join(L) + "\n"
 
 
-(AUDIT_DIR / "paired_audit_summary.md").write_text(summary_md(), encoding="utf-8")
+summary_path = ROOT / "tmp" / "analysis" / "paired_audit_summary.md"
+summary_path.parent.mkdir(parents=True, exist_ok=True)
+summary_path.write_text(summary_md(), encoding="utf-8")
 
 # --------------------------------------------------------------------------- #
 # Sanity asserts (catch data drift) + console output
@@ -753,5 +755,5 @@ print("Global paired deltas (validated, pp, [95% CI]):")
 for k in ("recall_delta", "fpr_delta", "flag_rate_delta"):
     s = paired["validated"][k]
     print(f"  {k:16s}: {s['delta']:+.2f}  [{s['ci_low']:+.2f}, {s['ci_high']:+.2f}]  same={s['same_mean']} cross={s['cross_mean']}")
-print("Wrote: paired_audit_report.json, paired_audit_summary.md, paired_verdicts.csv,")
+print("Wrote: paired_audit_report.json, tmp/analysis/paired_audit_summary.md, paired_verdicts.csv,")
 print("       ../tables/validated_matrix.tex, ../tables/paired_effects.tex")

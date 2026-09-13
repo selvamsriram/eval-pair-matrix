@@ -12,12 +12,12 @@ import pdfplumber
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import ArrayObject, DecodedStreamObject, NameObject
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / 'paper'
 BUILD = ROOT / 'tmp/pdfs/yellow-only'
 COMMIT = '1554258'
 CLEAN = ROOT / 'output/pdf/eval-pair-matrix-camera-ready.pdf'
-OUTPUT = ROOT / 'output/pdf/eval-pair-matrix-all-changes.pdf'
+OUTPUT = BUILD / 'eval-pair-matrix-all-changes.pdf'
 FILES = ('main_body.tex', 'references.tex', 'appendix_content.tex')
 STRUCTURAL = re.compile(r'^\s*\\(?:begin|end|captionsetup|vspace|FloatBarrier|label|centering|scriptsize|small|footnotesize|raggedright|toprule|midrule|bottomrule|renewcommand)\b')
 WRAPPER = re.compile(r'^(\s*\\(?:paragraph|subsection|section\*?|caption|captionof\{[^}]+\})\{)(.*)(\})$')
@@ -117,7 +117,7 @@ def color_sources():
         result=subprocess.run(['pdflatex','-interaction=nonstopmode','-halt-on-error','-file-line-error',f'-output-directory={BUILD}',str(BUILD/'marked.tex')],cwd=PAPER,env=env,capture_output=True,text=True)
         (BUILD/f'build-{n}.log').write_text(result.stdout+result.stderr)
         if result.returncode:raise SystemExit('\n'.join((result.stdout+result.stderr).splitlines()[-50:]))
-    (PAPER/'review/submitted-to-camera-ready.patch').write_text(''.join(patch))
+    (BUILD/'submitted-to-camera-ready.patch').write_text(''.join(patch))
     return changes
 
 
@@ -169,7 +169,7 @@ def main():
         'presentation':'Final camera-ready PDF with yellow underlays behind inserted/replaced text and new reference links. No old text, arrows, cover, headers, page numbers, or reflow. Deletions and layout-only changes have no text to highlight.',
         'pages':len(reader.pages),'highlight_rectangles_by_page':[len(s) for s in rectangles],
         'glyph_positions_verified':True,'extracted_text_identical_to_clean':True,'changes':changes}
-    (PAPER/'review/all_changes.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    (BUILD/'all_changes.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print('Built',OUTPUT,'with',len(reader.pages),'unchanged pages and',sum(map(len,rectangles)),'yellow spans.')
 
 

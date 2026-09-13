@@ -8,7 +8,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT.parent / "data" / "exp" / "3provider_300.jsonl"
-OUT = ROOT / "figures"
+OUT = ROOT.parent / "tmp" / "figures" / "composition"
 
 TYPE_LABELS = {
     "entity_substitution": "entity",
@@ -152,7 +152,7 @@ def main():
     cbar = fig.colorbar(im, ax=ax, fraction=0.045, pad=0.02)
     cbar.set_label("records")
 
-    OUT.mkdir(exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT / "dataset_composition_by_type.pdf", bbox_inches="tight", pad_inches=0.035)
     fig.savefig(OUT / "dataset_composition_by_type.png", dpi=240, bbox_inches="tight", pad_inches=0.035)
     plt.close(fig)
